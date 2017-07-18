@@ -1,0 +1,29 @@
+1. Main
+	- radio button  - bira se da li se kriptuje ili dekriptuje
+	- text area     - za kljuc
+	- text area     - za plain ili cipher text (zavisi od radio buttona)
+	- button        - pokrece se algoritam (za uneta polja u text area-e)
+2. Inital permutation / Final Permutation)
+    - prikaz plain text-a i kako izgleda posle permutacije
+	- button        - next (za sledeci korak)
+	
+3. Round 0 - 30
+	- Cetri taba:
+		- Trenutni CP XOR SubKey = Result
+		- Trenuti CP SBOX = Result					// Prikaz SBox
+		- Trenutni CP LT = Result					// Prikaz slike linearne transformacije, nije vidljivo u poslednjoj iteraciji
+		- Trenutni CP XOR SubKey(32) = Result		// vidljiv samo u poslendjoj iteraciji
+	- dugme za prikaz generisanja subKey(round)
+	- dugme next za prelazak u sledecu iteraciju
+	
+4. Generisanje sub key(round)
+	- Generisanje W[i], W[i+1], W[i+2], W[i+3]
+	- spajanje u sub key (round)
+
+
+5. Final iteration / Inital  isto kao 3 uz prikaz CP
+
+
+
+
+Message box - u slucaju greske!
