@@ -3,6 +3,7 @@ package crypto;
 import exceptions.KeyException;
 import exceptions.RotationShiftException;
 import exceptions.SBoxException;
+import exceptions.TextException;
 
 /**
  * @author Lazar Vasic
@@ -376,14 +377,13 @@ public class Serpent {
 
 	}
 
-	public int[] encrypt(int[] plainText, int[] key) throws KeyException, SBoxException, RotationShiftException {
+	public int[] encrypt(int[] plainText, int[] key) throws KeyException, SBoxException, RotationShiftException, TextException {
 		if (key.length != 8 && key.length != 6 && key.length != 4)
-			throw new KeyException(this.key.length);
+			throw new KeyException(this.key.length * 4);
 
-		if (plainText.length != 4) {
-			System.err.println("Plain text must be 128bits wide");
-			System.exit(-1);
-		}
+		if (plainText.length != 4) 
+			throw new TextException(plainText.length);
+		
 		
 		System.out.println(encryptString);
 		toString("Plain text: ", plainText);
@@ -450,13 +450,11 @@ public class Serpent {
 		return cipherText;
 	}
 
-	public int[] decrypt(int[] plainText, int[] key) throws KeyException, SBoxException, RotationShiftException {
-		if (plainText.length != 4) {
-			System.err.println("Plain text must be 128bits wide");
-			System.exit(-1);
-		}
+	public int[] decrypt(int[] plainText, int[] key) throws KeyException, SBoxException, RotationShiftException, TextException {
+		if (plainText.length != 4) 
+			throw new TextException(plainText.length);
 		if (this.key.length != 8 && this.key.length != 6 && this.key.length != 4)
-			throw new KeyException(this.key.length);
+			throw new KeyException(this.key.length * 4);
 		System.out.println(decryptString);
 	
 		

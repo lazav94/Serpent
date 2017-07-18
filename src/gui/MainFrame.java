@@ -19,6 +19,7 @@ public class MainFrame {
 	
 	private Serpent serpent;
 	private JTextField keyTextField;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -48,7 +49,7 @@ public class MainFrame {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 310, 307);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -57,12 +58,12 @@ public class MainFrame {
 		frame.getContentPane().add(lblKey);
 		
 		keyTextField = new JTextField();
-		keyTextField.setBounds(132, 55, 155, 20);
+		keyTextField.setBounds(118, 55, 155, 20);
 		frame.getContentPane().add(keyTextField);
 		keyTextField.setColumns(10);
 		
-		JButton radnom = new JButton("Random");
-		radnom.setBounds(124, 86, 89, 23);
+		JButton radnom = new JButton("Start");
+		radnom.setBounds(171, 227, 89, 23);
 		frame.getContentPane().add(radnom);
 		
 		JRadioButton rdbtnCrypto = new JRadioButton("crypto");
@@ -72,5 +73,14 @@ public class MainFrame {
 		JRadioButton rdbtnDecrypto = new JRadioButton("decrypto");
 		rdbtnDecrypto.setBounds(39, 168, 109, 23);
 		frame.getContentPane().add(rdbtnDecrypto);
+		
+		JLabel lblPlainText = new JLabel("Plain text:");
+		lblPlainText.setBounds(39, 101, 70, 14);
+		frame.getContentPane().add(lblPlainText);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(118, 98, 155, 20);
+		frame.getContentPane().add(textField);
 	}
 }

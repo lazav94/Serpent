@@ -1,8 +1,13 @@
 package test;
 
+import static org.junit.Assert.*;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
+
+import org.junit.Assert;
+import org.junit.Test;
 
 //import static org.junit.Assert.*;
 //
@@ -12,12 +17,23 @@ import crypto.Serpent;
 import exceptions.KeyException;
 import exceptions.RotationShiftException;
 import exceptions.SBoxException;
+import exceptions.TextException;
 
 public class SerpentTest {
 
 	private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
 
-	public static String bytesToHex(byte[] bytes) {
+	private static boolean areEquals(int[] a, int[] b) {
+		if (a.length != b.length)
+			return false;
+		for (int i = 0; i < a.length; i++)
+			if (a[i] != b[i])
+				return false;
+		return true;
+
+	}
+
+	private static String bytesToHex(byte[] bytes) {
 		char[] hexChars = new char[bytes.length * 2];
 		for (int j = 0; j < bytes.length; j++) {
 			int v = bytes[j] & 0xFF;
@@ -27,8 +43,7 @@ public class SerpentTest {
 		return new String(hexChars);
 	}
 
-
-	public static int[] HexStringToIntArray(String hexString) {
+	private static int[] HexStringToIntArray(String hexString) {
 		if (hexString.length() % 8 != 0) {
 			System.err.println("Must me divisible by 8 ,current size: " + hexString.length());
 			System.exit(-1);
@@ -41,7 +56,7 @@ public class SerpentTest {
 		return result;
 	}
 
-	public static byte[] hexStringToByteArray(String s) {
+	private static byte[] hexStringToByteArray(String s) {
 		int len = s.length();
 		byte[] data = new byte[len];
 
@@ -51,71 +66,64 @@ public class SerpentTest {
 		return data;
 	}
 
-	public static int[] byteToInt(byte[] byteArray) {
+	private static int[] byteToInt(byte[] byteArray) {
 		IntBuffer intBuf = ByteBuffer.wrap(byteArray).order(ByteOrder.BIG_ENDIAN).asIntBuffer();
 		int[] array = new int[intBuf.remaining()];
 		intBuf.get(array);
 		return array;
 	}
 
-	
+	private static void printIntAsString(int[] a) {
+		for (int i = 0; i < a.length; i++) {
+			char c1 = (char) ((a[i] >> 24) & 0xFF);
+			char c2 = (char) ((a[i] >> 16) & 0xFF);
+			char c3 = (char) ((a[i] >> 8) & 0xFF);
+			char c4 = (char) (a[i] & 0xFF);
+			System.out.print("" + c1 + c2 + c3 + c4);
+		}
+		System.out.println();
+	}
+
+	@Test
+	public void testEncrypt() throws KeyException, SBoxException, RotationShiftException, TextException {
+		Serpent s = Serpent.getInstance();
+		int[] key = HexStringToIntArray("80000000000000000000000000000000");
+		int[] plainText = HexStringToIntArray("00000000000000000000000000000000");
+		s.encrypt(plainText, key);
+		assertEquals("Encryption failed!",
+				areEquals(s.cipherText, HexStringToIntArray("264E5481EFF42A4606ABDA06C0BFDA3D")), true);
+
+	}
+
+	@Test
+	public void testDecrypt() throws KeyException, SBoxException, RotationShiftException, TextException {
+		Serpent s = Serpent.getInstance();
+		int[] key = HexStringToIntArray("80000000000000000000000000000000");
+		int[] cipherText = HexStringToIntArray("264E5481EFF42A4606ABDA06C0BFDA3D");
+		s.decrypt(cipherText, key);
+		assertEquals("Encryption failed!",
+				areEquals(s.cipherText, HexStringToIntArray("00000000000000000000000000000000")), true);
+
+	}
+
 	public static void main(String[] argv) {
 
-		
 		try {
 			Serpent s = Serpent.getInstance();
 			int[] key = byteToInt(hexStringToByteArray("Ovo je kljucwifi"));
-
-			int[] plainText = byteToInt(hexStringToByteArray("Mami kako si ti?"));
-
-			for (int i = 0; i < plainText.length; i++) {
-				char c1 = (char) ((plainText[i] >> 24) & 0xFF);
-				char c2 = (char) ((plainText[i] >> 16) & 0xFF);
-				char c3 = (char) ((plainText[i] >> 8) & 0xFF);
-				char c4 = (char) (plainText[i] & 0xFF);
-
-				System.out.print("" +c1 + c2 + c3 + c4);
-
-			}
-			System.out.println();
+			int[] plainText = byteToInt(hexStringToByteArray("Plain Text Test!"));
+			printIntAsString(plainText);
+			printIntAsString(key);
 
 			s.encrypt(plainText, key);
 
-			for (int i = 0; i < s.cipherText.length; i++) {
-				char c1 = (char) ((s.cipherText[i] >> 24) & 0xFF);
-				char c2 = (char) ((s.cipherText[i] >> 16) & 0xFF);
-				char c3 = (char) ((s.cipherText[i] >> 8) & 0xFF);
-				char c4 = (char) (s.cipherText[i] & 0xFF);
+			printIntAsString(s.cipherText);
 
-				System.out.print("" + c1  + c2 +  c3 + c4);
-
-			}
-			System.out.println();
-
-
-			/***/
-//			int pt[] =  byteToInt(hexStringToByteArray("×XÁ7UårhÖ.ûi?=J"));
-//			pt[3] = 0x69843D4A;
-			/***/
-			
 			key = byteToInt(hexStringToByteArray("Ovo je kljucwifi"));
 			s.decrypt(s.cipherText, key);
 
-			for (int i = 0; i < s.cipherText.length; i++) {
-
-				char c1 = (char) ((s.cipherText[i] >> 24) & 0xFF);
-				char c2 = (char) ((s.cipherText[i] >> 16) & 0xFF);
-				char c3 = (char) ((s.cipherText[i] >> 8) & 0xFF);
-				char c4 = (char) (s.cipherText[i] & 0xFF);
-				System.out.print(""+ c1 + c2 + c3 + c4);
-
-			}
-			System.out.println();
-		} catch (KeyException e) {
-			e.printStackTrace();
-		} catch (SBoxException e) {
-			e.printStackTrace();
-		} catch (RotationShiftException e) {
+			printIntAsString(s.cipherText);
+		} catch (KeyException | SBoxException | RotationShiftException | TextException e) {
 			e.printStackTrace();
 		}
 
