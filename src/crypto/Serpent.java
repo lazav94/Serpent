@@ -12,10 +12,16 @@ import exceptions.TextException;
 // TODO Use logger instead System.out
 // TODO Make class to store data for every step 
 public class Serpent {
+	
+	
+	
+	
 
-	private static boolean DEBUG = false;
+	private static boolean DEBUG = true;
 	private static Serpent serpent = null;
 
+	public SerpentData data = SerpentData.getInstance();
+	
 	public static Serpent getInstance() {
 		if (serpent == null)
 			serpent = new Serpent();
@@ -42,13 +48,8 @@ public class Serpent {
 		return array;
 	}
 
-	private int[] key = new int[8]; // 256 bit
-	private int[] W = new int[140];
-	public int[][] subKeys = new int[33][4]; // 33keys x 128b (16B)
+	
 
-	private int[] plainText = new int[4];
-	public int[] cipherText = new int[4];
-	// private byte[] initalPermutation = new byte[16];
 
 	public static final byte SBox[][] = { { 3, 8, 15, 1, 10, 6, 5, 11, 14, 13, 4, 2, 7, 0, 9, 12 },
 			{ 15, 12, 2, 7, 9, 0, 5, 10, 1, 11, 14, 8, 6, 13, 3, 4 },
@@ -117,25 +118,25 @@ public class Serpent {
 
 		int tempKey[] = new int[8];
 
-		for (int i = 0; i < key.length + 1; i++) {
-			if (i == key.length) {
-				if (this.key.length == 8)
+		for (int i = 0; i < data.key.length + 1; i++) {
+			if (i == data.key.length) {
+				if (data.key.length == 8)
 					break;
 				tempKey[i] = 1;
 			} else
-				tempKey[i] = key[i];
-			W[i] = tempKey[i];
+				tempKey[i] = data.key[i];
+			data.W[i] = tempKey[i];
 		}
 
-		if (this.key.length < 8)
-			W[key.length] = 1;
+		if (data.key.length < 8)
+			data.W[data.key.length] = 1;
 
-		key = tempKey;
+		data.key = tempKey;
 
 		if (DEBUG) {
 			System.out.println("W keys:");
 			for (int i = 0; i < 8; i++)
-				System.out.printf("W[%d] = %08X\n", i, W[i]);
+				System.out.printf("W[%d] = %08X\n", i, data.W[i]);
 		}
 
 	}
@@ -262,14 +263,14 @@ public class Serpent {
 		if (DEBUG)
 			System.out.println();
 		for (int i = 8; i < 140; i++) {
-			int temp1 = XOR(XOR(W[i - 8], W[i - 5]), XOR(W[i - 3], W[i - 1]));
+			int temp1 = XOR(XOR(data.W[i - 8], data.W[i - 5]), XOR(data.W[i - 3], data.W[i - 1]));
 			temp1 = XOR(temp1, PHI ^ (i - 8));
 
-			W[i] = LeftRotate(temp1, 11);
+			data.W[i] = LeftRotate(temp1, 11);
 
 			if (DEBUG) {
 				System.out.print("W[" + i + "] = ");
-				System.out.printf("%X\n", W[i]);
+				System.out.printf("%X\n", data.W[i]);
 			}
 		}
 
@@ -279,10 +280,10 @@ public class Serpent {
 			if (box == -1)
 				box = 7;
 
-			a = W[4 * i + 8];
-			b = W[4 * i + 9];
-			c = W[4 * i + 10];
-			d = W[4 * i + 11];
+			a = data.W[4 * i + 8];
+			b = data.W[4 * i + 9];
+			c = data.W[4 * i + 10];
+			d = data.W[4 * i + 11];
 
 			for (int j = 0; j < 32; j++) {
 				in = getBit(a, j) | getBit(b, j) << 1 | getBit(c, j) << 2 | getBit(d, j) << 3;
@@ -303,14 +304,14 @@ public class Serpent {
 
 		for (int i = 0, subKeysIndex = 0; i < 33; i++, subKeysIndex++) {
 
-			subKeys[subKeysIndex][0] = k[i * 4];
-			subKeys[subKeysIndex][1] = k[i * 4 + 1];
-			subKeys[subKeysIndex][2] = k[i * 4 + 2];
-			subKeys[subKeysIndex][3] = k[i * 4 + 3];
+			data.subKeys[subKeysIndex][0] = k[i * 4];
+			data.subKeys[subKeysIndex][1] = k[i * 4 + 1];
+			data.subKeys[subKeysIndex][2] = k[i * 4 + 2];
+			data.subKeys[subKeysIndex][3] = k[i * 4 + 3];
 
-			subKeys[subKeysIndex] = IP(subKeys[subKeysIndex]);
+			data.subKeys[subKeysIndex] = IP(data.subKeys[subKeysIndex]);
 			if (DEBUG)
-				toString(subKeys[subKeysIndex]);
+				toString(data.subKeys[subKeysIndex]);
 
 		}
 		if (DEBUG)
@@ -379,7 +380,7 @@ public class Serpent {
 
 	public int[] encrypt(int[] plainText, int[] key) throws KeyException, SBoxException, RotationShiftException, TextException {
 		if (key.length != 8 && key.length != 6 && key.length != 4)
-			throw new KeyException(this.key.length * 4);
+			throw new KeyException(key.length * 4);
 
 		if (plainText.length != 4) 
 			throw new TextException(plainText.length);
@@ -389,105 +390,115 @@ public class Serpent {
 		toString("Plain text: ", plainText);
 		toString("\nKey:        ", key);
 		
-		serpent.plainText = little2Big(plainText);
-		serpent.key = little2Big(key);
+		data.text = little2Big(plainText);
+		data.key = little2Big(key);
 
-		int[] input = serpent.plainText;
+		
 
 		makePreKeys();
 		keySchedule();
 		
 
 
-		input = IP(plainText);
-
+		data.afterInitalPermutation = IP(plainText);
+		
+	
 		if (DEBUG) {
 			System.out.println("After Intial permutation:");
-			toString(input);
+			toString(data.afterInitalPermutation);
 			System.out.println();
 		}
 		for (int round = 0; round < 32; round++) {
 
-			input = XOR(input, subKeys[round]);
+			if(round == 0)
+				data.afterXOR[round] = XOR(data.afterInitalPermutation, data.subKeys[round]);
+			else
+				data.afterXOR[round] = XOR(data.afterLT[round - 1], data.subKeys[round]);
+			
 			if (DEBUG)
-				toString("\nXOR " + round + ": ", input);
-			input = SBox(input, round % 8);
+				toString("\nXOR " + round + ": ", data.afterXOR[round]);
+			
+			data.afterSBOX[round] = SBox(data.afterXOR[round], round % 8);
 			if (DEBUG)
-				toString("\nSBox  " + round + ": ", input);
+				toString("\nSBox  " + round + ": ", data.afterSBOX[round]);
 			if (round == 31) {
 				break;
 			}
-			input = linearTransformation(input);
+			data.afterLT[round] = linearTransformation(data.afterSBOX[round]);
 
 			if (DEBUG) {
-				toString("\nRound " + round + ": ", input);
+				toString("\nRound " + round + ": ", data.afterLT[round]);
 				System.out.println();
 			}
 
 		}
-		input = XOR(input, subKeys[32]);
+		data.afterXOR[32] = XOR(data.afterSBOX[31], data.subKeys[32]);
 
 		if (DEBUG) {
 			System.out.print("\nRound 32: ");
-			toString(input);
+			toString(data.afterXOR[32]);
 			System.out.print("\t");
-			toString(subKeys[32]);
+			toString(data.subKeys[32]);
 
 		}
 
-		input = FP(input);
+		data.afterFinalPermutation = FP(data.afterXOR[32]);
 
 		if (DEBUG) {
-			toString("\nAfter Final permutation CP: \n", input);
+			toString("\nAfter Final permutation CP: \n", data.afterFinalPermutation);
 			System.out.println();
 		}
 
-		input = little2Big(input);
-		cipherText = input;
-		toString("\nCiphertext: ", cipherText);
+		data.cipherText = little2Big(data.afterFinalPermutation);
+		
+		toString("\nCiphertext: ", data.cipherText);
 		System.out.println();
 
-		return cipherText;
+		return data.cipherText;
 	}
 
 	public int[] decrypt(int[] plainText, int[] key) throws KeyException, SBoxException, RotationShiftException, TextException {
 		if (plainText.length != 4) 
 			throw new TextException(plainText.length);
-		if (this.key.length != 8 && this.key.length != 6 && this.key.length != 4)
-			throw new KeyException(this.key.length * 4);
+		if (key.length != 8 && key.length != 6 && key.length != 4)
+			throw new KeyException(key.length * 4);
 		System.out.println(decryptString);
 	
 		
 		toString("Ciphertext: ", plainText);
 		toString("\nKey:        ", key);
 		
-		serpent.plainText = little2Big(plainText);
-		serpent.key = little2Big(key);
+		data.text = little2Big(plainText);
+		data.key = little2Big(key);
 		
-		int[] input = serpent.plainText;
+		
 
 		makePreKeys();
 		keySchedule();
 
-		input = IP(input);
+		data.afterInitalPermutation = IP(data.text);
 
-		for (int i = 31; i >= 0; i--) {
-			if (i == 31)
-				input = XOR(input, subKeys[32]);
+		for (int round = 31; round >= 0; round--) {
+			if (round == 31)
+				data.afterXOR[round] = XOR(data.afterInitalPermutation, data.subKeys[32]);
 			else
-				input = inverseLinearTransformation(input);
+				data.afterLT[round] = inverseLinearTransformation(data.afterXOR[round + 1]);
 
-			input = iSBox(input, i % 8);
-			input = XOR(input, subKeys[i]);
+			if(round == 31)
+				data.afterSBOX[round] = iSBox(data.afterXOR[round], round % 8);
+			else
+				data.afterSBOX[round] = iSBox(data.afterLT[round], round % 8);
+				
+			data.afterXOR[round] = XOR(data.afterSBOX[round], data.subKeys[round]);
 
 		}
 
-		input = FP(input);
+		data.afterFinalPermutation = FP(data.afterXOR[0]);
 		
-		cipherText = little2Big(input);
+		data.cipherText = little2Big(data.afterFinalPermutation);
 
-		toString("\nPlain text: ", cipherText);
+		toString("\nPlain text: ", data.cipherText);
 		System.out.println();
-		return cipherText;
+		return data.cipherText;
 	}
 }

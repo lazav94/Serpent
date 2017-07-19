@@ -1,25 +1,41 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 import crypto.Serpent;
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
-import java.awt.GridBagConstraints;
-import javax.swing.JTextField;
-import java.awt.Insets;
-import javax.swing.JButton;
-import javax.swing.JRadioButton;
+import crypto.SerpentData;
+import exceptions.KeyException;
+import exceptions.RotationShiftException;
+import exceptions.SBoxException;
+import exceptions.TextException;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class MainFrame {
 
-	private JFrame frame;
-	
-	private Serpent serpent;
+	public static MainFrame mainFrame = new MainFrame();
+
+	public static JFrame frmSerpant;
+
+	private Serpent serpent = Serpent.getInstance();
+
 	private JTextField keyTextField;
-	private JTextField textField;
+	private JTextField plainTextField;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+
+	public InitialPermutation initialPermutationFrame;
+	public Rounds roundFrame;
+	public FinalPermutation finalPermutationFrame;
 
 	/**
 	 * Launch the application.
@@ -28,8 +44,9 @@ public class MainFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainFrame window = new MainFrame();
-					window.frame.setVisible(true);
+
+					mainFrame.frmSerpant.setVisible(true);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -44,43 +61,156 @@ public class MainFrame {
 		initialize();
 	}
 
+	public static int[] HexStringToIntArray(String hexString) {
+		if (hexString.length() % 8 != 0) {
+			System.err.println("Must me divisible by 8 ,current size: " + hexString.length());
+			System.exit(-1);
+		}
+
+		int[] result = new int[hexString.length() / 8];
+		for (int i = 0, j = 0; i < hexString.length(); i += 8) {
+			result[j++] = (int) (Long.valueOf(hexString.substring(i, i + 8), 16) & 0xFFFFFFFF);
+		}
+		return result;
+	}
+
 	/**
 	 * Initialize the contents of the frame.
+	 * 
+	 * @wbp.parser.entryPoint
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 310, 307);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		
+		frmSerpant = new JFrame();
+		frmSerpant.setTitle("Serpant");
+		frmSerpant.setBounds(100, 100, 501, 252);
+		frmSerpant.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmSerpant.getContentPane().setLayout(null);
+
 		JLabel lblKey = new JLabel("Key:");
 		lblKey.setBounds(39, 58, 39, 14);
-		frame.getContentPane().add(lblKey);
-		
+		frmSerpant.getContentPane().add(lblKey);
+
 		keyTextField = new JTextField();
-		keyTextField.setBounds(118, 55, 155, 20);
-		frame.getContentPane().add(keyTextField);
+		keyTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int length = keyTextField.getText().length();
+				if(length >= 64)
+					e.consume();
+				String s = "" + e.getKeyChar();
+
+				boolean isHex = s.matches("^[0-9A-Fa-f]+$");
+				if (!isHex)
+					e.consume();
+
+			}
+		});
+		keyTextField.setBounds(118, 55, 357, 20);
+		frmSerpant.getContentPane().add(keyTextField);
 		keyTextField.setColumns(10);
-		
-		JButton radnom = new JButton("Start");
-		radnom.setBounds(171, 227, 89, 23);
-		frame.getContentPane().add(radnom);
-		
-		JRadioButton rdbtnCrypto = new JRadioButton("crypto");
-		rdbtnCrypto.setBounds(39, 142, 109, 23);
-		frame.getContentPane().add(rdbtnCrypto);
-		
-		JRadioButton rdbtnDecrypto = new JRadioButton("decrypto");
-		rdbtnDecrypto.setBounds(39, 168, 109, 23);
-		frame.getContentPane().add(rdbtnDecrypto);
-		
+
 		JLabel lblPlainText = new JLabel("Plain text:");
 		lblPlainText.setBounds(39, 101, 70, 14);
-		frame.getContentPane().add(lblPlainText);
-		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(118, 98, 155, 20);
-		frame.getContentPane().add(textField);
+		frmSerpant.getContentPane().add(lblPlainText);
+
+		plainTextField = new JTextField();
+		plainTextField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				int length = plainTextField.getText().length();
+				if(length >= 32)
+					e.consume();
+				String s = "" + e.getKeyChar();
+				boolean isHex = s.matches("^[0-9A-Fa-f]+$");
+				if (!isHex)
+					e.consume();
+			}
+		});
+		plainTextField.setColumns(10);
+		plainTextField.setBounds(118, 98, 357, 20);
+		frmSerpant.getContentPane().add(plainTextField);
+
+		JRadioButton rdbtnEncrypt = new JRadioButton("Encrypt");
+		rdbtnEncrypt.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				lblPlainText.setText("Plain text:");
+			}
+		});
+		rdbtnEncrypt.setSelected(true);
+		buttonGroup.add(rdbtnEncrypt);
+		rdbtnEncrypt.setBounds(118, 131, 109, 23);
+		frmSerpant.getContentPane().add(rdbtnEncrypt);
+
+		JRadioButton rdbtnDecrypt = new JRadioButton("Decrypt");
+		rdbtnDecrypt.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				lblPlainText.setText("Cipher text:");
+			}
+		});
+		buttonGroup.add(rdbtnDecrypt);
+		rdbtnDecrypt.setBounds(118, 157, 109, 23);
+		frmSerpant.getContentPane().add(rdbtnDecrypt);
+
+		JButton start = new JButton("Start");
+		start.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				String textString = plainTextField.getText();
+				String keyString = keyTextField.getText();
+
+				if (textString.length() != 32) {
+					JOptionPane.showMessageDialog(null, "Text area must be 32B lenght", "Error",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				if (keyString.length() != 32 && keyString.length() != 48 && keyString.length() != 64) {
+					JOptionPane.showMessageDialog(null, "Key size must be 32B, 48B or 64B size", "Error",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+
+				int[] text = HexStringToIntArray(textString);
+				int[] key = HexStringToIntArray(keyString);
+
+
+				boolean encypt = rdbtnEncrypt.isSelected();
+				try {
+
+					if (encypt)
+						serpent.encrypt(text, key);
+					else
+						serpent.decrypt(text, key);
+
+					initialPermutationFrame = new InitialPermutation();
+					roundFrame = new Rounds();
+					initialPermutationFrame.frame.setVisible(true);
+					frmSerpant.setVisible(false);
+					finalPermutationFrame = new FinalPermutation();
+					Rounds.round = 0;
+					
+					Object[][] o = serpent.data.intToObject(serpent.data.text);
+
+					// for(int i = 0; i < o.length; i++){
+					// for(int j = 0; j < o[i].length; j++){
+					// System.out.print((char)o[i][j] + " ");
+					// } System.out.println();
+					// }
+
+				} catch (KeyException | SBoxException | RotationShiftException | TextException serpentException) {
+					serpentException.printStackTrace();
+				}
+
+			}
+		});
+		start.setBounds(310, 157, 135, 23);
+		frmSerpant.getContentPane().add(start);
+
+	}
+
+	public static MainFrame getMainFrame() {
+		return mainFrame;
 	}
 }

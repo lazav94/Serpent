@@ -2,15 +2,12 @@ package exceptions;
 
 public class SerpentException extends Exception {
 
+
+	private static final long serialVersionUID = 289480607643515294L;
+
 	public SerpentException() {
-		// TODO Auto-generated constructor stub
+	
 	}
-
-	public SerpentException(String arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
-	}
-
 
 
 

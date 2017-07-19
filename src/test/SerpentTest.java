@@ -6,14 +6,11 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-//import static org.junit.Assert.*;
-//
-//import org.junit.Test;
 
 import crypto.Serpent;
+import crypto.SerpentData;
 import exceptions.KeyException;
 import exceptions.RotationShiftException;
 import exceptions.SBoxException;
@@ -32,16 +29,10 @@ public class SerpentTest {
 		return true;
 
 	}
+	
+	
 
-	private static String bytesToHex(byte[] bytes) {
-		char[] hexChars = new char[bytes.length * 2];
-		for (int j = 0; j < bytes.length; j++) {
-			int v = bytes[j] & 0xFF;
-			hexChars[j * 2] = hexArray[v >>> 4];
-			hexChars[j * 2 + 1] = hexArray[v & 0x0F];
-		}
-		return new String(hexChars);
-	}
+	
 
 	private static int[] HexStringToIntArray(String hexString) {
 		if (hexString.length() % 8 != 0) {
@@ -87,11 +78,12 @@ public class SerpentTest {
 	@Test
 	public void testEncrypt() throws KeyException, SBoxException, RotationShiftException, TextException {
 		Serpent s = Serpent.getInstance();
+
 		int[] key = HexStringToIntArray("80000000000000000000000000000000");
 		int[] plainText = HexStringToIntArray("00000000000000000000000000000000");
 		s.encrypt(plainText, key);
 		assertEquals("Encryption failed!",
-				areEquals(s.cipherText, HexStringToIntArray("264E5481EFF42A4606ABDA06C0BFDA3D")), true);
+				areEquals(s.data.cipherText, HexStringToIntArray("264E5481EFF42A4606ABDA06C0BFDA3D")), true);
 
 	}
 
@@ -102,7 +94,7 @@ public class SerpentTest {
 		int[] cipherText = HexStringToIntArray("264E5481EFF42A4606ABDA06C0BFDA3D");
 		s.decrypt(cipherText, key);
 		assertEquals("Encryption failed!",
-				areEquals(s.cipherText, HexStringToIntArray("00000000000000000000000000000000")), true);
+				areEquals(s.data.cipherText, HexStringToIntArray("00000000000000000000000000000000")), true);
 
 	}
 
@@ -110,6 +102,12 @@ public class SerpentTest {
 
 		try {
 			Serpent s = Serpent.getInstance();
+			
+			int[] key = HexStringToIntArray("00000000000000000000000000000000");
+			int[] plainText = HexStringToIntArray("00000000000000000000000000000000");
+			s.encrypt(plainText, key);
+			
+			/*Serpent s = Serpent.getInstance();
 			int[] key = byteToInt(hexStringToByteArray("Ovo je kljucwifi"));
 			int[] plainText = byteToInt(hexStringToByteArray("Plain Text Test!"));
 			printIntAsString(plainText);
@@ -117,12 +115,12 @@ public class SerpentTest {
 
 			s.encrypt(plainText, key);
 
-			printIntAsString(s.cipherText);
+			printIntAsString(s.data.cipherText);
 
 			key = byteToInt(hexStringToByteArray("Ovo je kljucwifi"));
-			s.decrypt(s.cipherText, key);
+			s.decrypt(s.data.cipherText, key);
 
-			printIntAsString(s.cipherText);
+			printIntAsString(s.data.cipherText);*/
 		} catch (KeyException | SBoxException | RotationShiftException | TextException e) {
 			e.printStackTrace();
 		}

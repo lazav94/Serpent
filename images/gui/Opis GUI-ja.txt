@@ -27,3 +27,13 @@
 
 
 Message box - u slucaju greske!
+
+
+
+KEY SCHEDULER (dugme u tabu gde se koristi SUB KEY i prikaz kako se dobio taj sub key)
+	1) Making W keys
+	2) Making Sub Keys
+
+IP   - frame za tabelu IP 
+FP   - frame za tabelu FP
+SBOX - frame za S-Box tabele
