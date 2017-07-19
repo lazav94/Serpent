@@ -17,13 +17,15 @@ import javax.swing.table.DefaultTableModel;
 
 import crypto.SerpentData;
 import javax.swing.JSlider;
-import javax.swing.SwingConstants;
+
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
 public class Rounds {
 
 	public static int round = 1;
+	public static boolean ENCRYPT = true;
+
 	private static SerpentData data = SerpentData.getInstance();
 	public JFrame frame;
 	private JTable prevXorResultTable;
@@ -39,8 +41,8 @@ public class Rounds {
 	private static final int SBOX_RESULT = 3;
 	private static final int LT_RESULT = 4;
 	private static final int IP_RESULT = 5;
-	
-	private JTable prevXorFResult;
+
+	private JTable prevXorFTable;
 	private JTable SubKeyTable;
 	private JTable ResultTable;
 
@@ -125,6 +127,14 @@ public class Rounds {
 		XOR.add(lblResult);
 
 		JButton btnSubKey = new JButton("Sub Key");
+		btnSubKey.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				SubKeyFrame subKeyFrame = new SubKeyFrame();
+				subKeyFrame.frame.setVisible(true);
+				
+			}
+		});
 		btnSubKey.setBounds(242, 158, 89, 58);
 		XOR.add(btnSubKey);
 
@@ -135,8 +145,10 @@ public class Rounds {
 
 		prevXorResultTable = new JTable();
 		prevXorResultTable.setModel(new DefaultTableModel(
-				((round != 0) ? data.intToObject(data.afterLT[round - 1])
-						: data.intToObject(data.afterInitalPermutation)),
+				(ENCRYPT == true)
+						? ((round != 0) ? data.intToObject(data.afterLT[round - 1])
+								: data.intToObject(data.afterInitalPermutation))
+						: (data.intToObject(data.afterSBOX[round - 1])),
 				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
 
 			private static final long serialVersionUID = 8471904586556849201L;
@@ -182,7 +194,7 @@ public class Rounds {
 		XOR.add(subKeyPanel);
 
 		subKeyTable = new JTable();
-		subKeyTable.setModel(new DefaultTableModel(data.intToObject(data.subKeys[round]),
+		subKeyTable.setModel(new DefaultTableModel(data.intToObject(data.subKeys[ (ENCRYPT == true)? round - 1 : 31]),
 				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
 
 			private static final long serialVersionUID = 6522758475005847455L;
@@ -290,6 +302,18 @@ public class Rounds {
 		SBOX.add(label_11);
 
 		JButton btnSbox = new JButton("SBOX");
+		btnSbox.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				SBOXFrame sboxFrame = new SBOXFrame();
+				sboxFrame.frmSbox.setVisible(true);
+
+
+				sboxFrame.table.setRowSelectionInterval(round % 8 -1, round % 8);
+				sboxFrame.table.setSelectionBackground(Color.GRAY);
+				
+			}
+		});
 		btnSbox.setBounds(228, 70, 89, 76);
 		SBOX.add(btnSbox);
 
@@ -299,7 +323,9 @@ public class Rounds {
 		SBOX.add(prevSBoxResultPanel);
 
 		prevSBoxResultTable = new JTable();
-		prevSBoxResultTable.setModel(new DefaultTableModel(data.intToObject(data.afterXOR[round]),
+		prevSBoxResultTable.setModel(new DefaultTableModel(
+				(ENCRYPT == true) ? data.intToObject(data.afterXOR[round])
+						: data.intToObject((round == 32) ? data.afterXOR[32] : data.afterLT[round]),
 				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
 			/**
 			 * 
@@ -347,16 +373,18 @@ public class Rounds {
 		SBOX.add(SBoxResultPanel);
 
 		SBoxResultTable = new JTable();
-		SBoxResultTable.setModel(new DefaultTableModel(data.intToObject(data.afterSBOX[round]),
-				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
+		SBoxResultTable
+				.setModel(new DefaultTableModel(data.intToObject(data.afterSBOX[ENCRYPT ? round - 1 : round - 2]),
+						new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
 
-			private static final long serialVersionUID = -710303563721443981L;
-			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false, false };
+					private static final long serialVersionUID = -710303563721443981L;
+					boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false,
+							false };
 
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+					public boolean isCellEditable(int row, int column) {
+						return columnEditables[column];
+					}
+				});
 		SBoxResultTable.getColumnModel().getColumn(0).setPreferredWidth(20);
 		SBoxResultTable.getColumnModel().getColumn(0).setMinWidth(20);
 		SBoxResultTable.getColumnModel().getColumn(0).setMaxWidth(50);
@@ -426,18 +454,23 @@ public class Rounds {
 		LT.add(prevLTResultPanel);
 
 		prevLTResultTable = new JTable();
-		prevLTResultTable.setModel(new DefaultTableModel(data.intToObject(data.afterSBOX[round]),
-				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = -5253752856371066056L;
-			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false, false };
+		prevLTResultTable
+				.setModel(new DefaultTableModel(
+						(ENCRYPT == true) ? data.intToObject(data.afterSBOX[round])
+								: data.intToObject(
+										(round == 32) ? data.afterInitalPermutation : data.afterXOR[round + 1]),
+						new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = -5253752856371066056L;
+					boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false,
+							false };
 
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+					public boolean isCellEditable(int row, int column) {
+						return columnEditables[column];
+					}
+				});
 		prevLTResultTable.getColumnModel().getColumn(0).setPreferredWidth(20);
 		prevLTResultTable.getColumnModel().getColumn(0).setMinWidth(20);
 		prevLTResultTable.getColumnModel().getColumn(0).setMaxWidth(50);
@@ -474,7 +507,7 @@ public class Rounds {
 		LT.add(resultLTPanel);
 
 		resultLTTable = new JTable();
-		resultLTTable.setModel(new DefaultTableModel(data.intToObject(data.afterLT[round]),
+		resultLTTable.setModel(new DefaultTableModel(data.intToObject(data.afterLT[ENCRYPT ? round - 1 : round - 1]),
 				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
 
 			private static final long serialVersionUID = -469619480133487274L;
@@ -513,109 +546,99 @@ public class Rounds {
 		resultLTTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		resultLTTable.setBackground(Color.WHITE);
 		resultLTPanel.add(resultLTTable);
-		
+
 		JPanel XORFinal = new JPanel();
-		
+
 		XORFinal.setLayout(null);
 		tabbedPane.addTab("XOR", null, XORFinal, null);
-		tabbedPane.setEnabledAt(3, false);
-		
+		tabbedPane.setEnabledAt(3, ENCRYPT == true ? false : true);
+
 		JLabel label_1 = new JLabel("XOR");
 		label_1.setBounds(187, 105, 46, 14);
 		XORFinal.add(label_1);
-		
+
 		JLabel label_2 = new JLabel("=");
 		label_2.setBounds(404, 105, 33, 14);
 		XORFinal.add(label_2);
-		
+
 		JLabel label_3 = new JLabel("SubKey (round)");
 		label_3.setBounds(220, 50, 110, 14);
 		XORFinal.add(label_3);
-		
+
 		JLabel label_4 = new JLabel("Previously result");
 		label_4.setBounds(10, 50, 118, 14);
 		XORFinal.add(label_4);
-		
+
 		JLabel label_5 = new JLabel("Result");
 		label_5.setBounds(442, 50, 52, 14);
 		XORFinal.add(label_5);
-		
+
 		JButton button = new JButton("Sub Key");
 		button.setBounds(242, 158, 89, 58);
 		XORFinal.add(button);
-		
-		JPanel prevXorFTable = new JPanel();
-		prevXorFTable.setBorder(null);
-		prevXorFTable.setBounds(10, 75, 172, 76);
-		XORFinal.add(prevXorFTable);
-		
-		prevXorFResult = new JTable();
-		prevXorFResult.setModel(new DefaultTableModel(
-			data.intToObject(data.afterSBOX[31]),
-			new String[] {
-				"0", "1", "2", "3", "4", "5", "6", "7"
-			}
-		) {
+
+		JPanel prevXorFPanel = new JPanel();
+		prevXorFPanel.setBorder(null);
+		prevXorFPanel.setBounds(10, 75, 172, 76);
+		XORFinal.add(prevXorFPanel);
+
+		prevXorFTable = new JTable();
+		prevXorFTable.setModel(new DefaultTableModel(data.intToObject(data.afterSBOX[31]),
+				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
 			/**
 			 * 
 			 */
 			private static final long serialVersionUID = -5838131697177452106L;
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false, false
-			};
+			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false, false };
+
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
 		});
-		prevXorFResult.getColumnModel().getColumn(0).setPreferredWidth(20);
-		prevXorFResult.getColumnModel().getColumn(0).setMinWidth(20);
-		prevXorFResult.getColumnModel().getColumn(0).setMaxWidth(20);
-		prevXorFResult.getColumnModel().getColumn(1).setPreferredWidth(20);
-		prevXorFResult.getColumnModel().getColumn(1).setMinWidth(20);
-		prevXorFResult.getColumnModel().getColumn(1).setMaxWidth(20);
-		prevXorFResult.getColumnModel().getColumn(2).setPreferredWidth(20);
-		prevXorFResult.getColumnModel().getColumn(2).setMinWidth(20);
-		prevXorFResult.getColumnModel().getColumn(2).setMaxWidth(20);
-		prevXorFResult.getColumnModel().getColumn(3).setPreferredWidth(20);
-		prevXorFResult.getColumnModel().getColumn(3).setMinWidth(20);
-		prevXorFResult.getColumnModel().getColumn(3).setMaxWidth(20);
-		prevXorFResult.getColumnModel().getColumn(4).setPreferredWidth(20);
-		prevXorFResult.getColumnModel().getColumn(4).setMinWidth(20);
-		prevXorFResult.getColumnModel().getColumn(4).setMaxWidth(20);
-		prevXorFResult.getColumnModel().getColumn(5).setPreferredWidth(20);
-		prevXorFResult.getColumnModel().getColumn(5).setMinWidth(20);
-		prevXorFResult.getColumnModel().getColumn(5).setMaxWidth(20);
-		prevXorFResult.getColumnModel().getColumn(6).setPreferredWidth(20);
-		prevXorFResult.getColumnModel().getColumn(6).setMinWidth(20);
-		prevXorFResult.getColumnModel().getColumn(6).setMaxWidth(20);
-		prevXorFResult.getColumnModel().getColumn(7).setPreferredWidth(20);
-		prevXorFResult.getColumnModel().getColumn(7).setMinWidth(20);
-		prevXorFResult.getColumnModel().getColumn(7).setMaxWidth(20);
-		prevXorFResult.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		prevXorFResult.setRowSelectionAllowed(false);
-		prevXorFResult.setBorder(new LineBorder(new Color(0, 0, 0)));
-		prevXorFResult.setBackground(Color.WHITE);
-		prevXorFTable.add(prevXorFResult);
-		
+		prevXorFTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+		prevXorFTable.getColumnModel().getColumn(0).setMinWidth(20);
+		prevXorFTable.getColumnModel().getColumn(0).setMaxWidth(20);
+		prevXorFTable.getColumnModel().getColumn(1).setPreferredWidth(20);
+		prevXorFTable.getColumnModel().getColumn(1).setMinWidth(20);
+		prevXorFTable.getColumnModel().getColumn(1).setMaxWidth(20);
+		prevXorFTable.getColumnModel().getColumn(2).setPreferredWidth(20);
+		prevXorFTable.getColumnModel().getColumn(2).setMinWidth(20);
+		prevXorFTable.getColumnModel().getColumn(2).setMaxWidth(20);
+		prevXorFTable.getColumnModel().getColumn(3).setPreferredWidth(20);
+		prevXorFTable.getColumnModel().getColumn(3).setMinWidth(20);
+		prevXorFTable.getColumnModel().getColumn(3).setMaxWidth(20);
+		prevXorFTable.getColumnModel().getColumn(4).setPreferredWidth(20);
+		prevXorFTable.getColumnModel().getColumn(4).setMinWidth(20);
+		prevXorFTable.getColumnModel().getColumn(4).setMaxWidth(20);
+		prevXorFTable.getColumnModel().getColumn(5).setPreferredWidth(20);
+		prevXorFTable.getColumnModel().getColumn(5).setMinWidth(20);
+		prevXorFTable.getColumnModel().getColumn(5).setMaxWidth(20);
+		prevXorFTable.getColumnModel().getColumn(6).setPreferredWidth(20);
+		prevXorFTable.getColumnModel().getColumn(6).setMinWidth(20);
+		prevXorFTable.getColumnModel().getColumn(6).setMaxWidth(20);
+		prevXorFTable.getColumnModel().getColumn(7).setPreferredWidth(20);
+		prevXorFTable.getColumnModel().getColumn(7).setMinWidth(20);
+		prevXorFTable.getColumnModel().getColumn(7).setMaxWidth(20);
+		prevXorFTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		prevXorFTable.setRowSelectionAllowed(false);
+		prevXorFTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+		prevXorFTable.setBackground(Color.WHITE);
+		prevXorFPanel.add(prevXorFTable);
+
 		JPanel SubKeyPanel = new JPanel();
 		SubKeyPanel.setBorder(null);
 		SubKeyPanel.setBounds(220, 75, 172, 76);
 		XORFinal.add(SubKeyPanel);
-				
+
 		SubKeyTable = new JTable();
-		SubKeyTable.setModel(new DefaultTableModel(
-			data.intToObject(data.subKeys[32]),
-			new String[] {
-				"0", "1", "2", "3", "4", "5", "6", "7"
-			}
-		) {
+		SubKeyTable.setModel(new DefaultTableModel(data.intToObject(data.subKeys[32]),
+				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
 			/**
 			 * 
 			 */
 			private static final long serialVersionUID = -3586282447720910272L;
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false, false
-			};
+			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false, false };
+
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
@@ -657,26 +680,21 @@ public class Rounds {
 		SubKeyTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		SubKeyTable.setBackground(Color.WHITE);
 		SubKeyPanel.add(SubKeyTable);
-		
+
 		JPanel ResultPanel = new JPanel();
 		ResultPanel.setBorder(null);
 		ResultPanel.setBounds(438, 75, 172, 76);
 		XORFinal.add(ResultPanel);
-		
+
 		ResultTable = new JTable();
-		ResultTable.setModel(new DefaultTableModel(
-			data.intToObject(data.afterXOR[32]),
-			new String[] {
-				"0", "1", "2", "3", "4", "5", "6", "7"
-			}
-		) {
+		ResultTable.setModel(new DefaultTableModel(data.intToObject(data.afterXOR[32]),
+				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
 			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1221999896256837407L;
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false, false
-			};
+			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false, false };
+
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
@@ -730,35 +748,72 @@ public class Rounds {
 		JLabel roundNumber = new JLabel(Integer.toString(round + 1));
 		roundNumber.setBounds(106, 271, 46, 14);
 		frame.getContentPane().add(roundNumber);
-		
+
 		JSlider slider = new JSlider();
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
+
 				round = slider.getValue();
-				roundNumber.setText(""+round);
+				roundNumber.setText("" + round);
 				
-				if (round == 32) {
-					tabbedPane.setEnabledAt(2, false);
-					tabbedPane.setEnabledAt(3, true);
-					refreshTable(prevXorResultTable, LT_RESULT, round - 2);
-					refreshTable(subKeyTable, SUBKEYS, round-1);
-					refreshTable(XorResultTable, XOR_RESULT, round-1);
-					refreshTable(prevSBoxResultTable, XOR_RESULT, round-1);
-					refreshTable(SBoxResultTable, SBOX_RESULT, round-1);
+				if (ENCRYPT) {
+					if (round == 32) {
+						tabbedPane.setEnabledAt(2, false);
+						tabbedPane.setEnabledAt(3, true);
+						refreshTable(prevXorResultTable, LT_RESULT, round - 2);
+						refreshTable(subKeyTable, SUBKEYS, round - 1);
+						refreshTable(XorResultTable, XOR_RESULT, round - 1);
+						refreshTable(prevSBoxResultTable, XOR_RESULT, round - 1);
+						refreshTable(SBoxResultTable, SBOX_RESULT, round - 1);
+					} else {
+						tabbedPane.setEnabledAt(2, true);
+						tabbedPane.setEnabledAt(3, false);
+						if (round > 1)
+							refreshTable(prevXorResultTable, LT_RESULT, round - 2);
+						else
+							refreshTable(prevXorResultTable, IP_RESULT, 0);
+						refreshTable(subKeyTable, SUBKEYS, round - 1);
+						refreshTable(XorResultTable, XOR_RESULT, round - 1);
+						refreshTable(prevSBoxResultTable, XOR_RESULT, round - 1);
+						refreshTable(SBoxResultTable, SBOX_RESULT, round - 1);
+						refreshTable(prevLTResultTable, SBOX_RESULT, round - 1);
+						refreshTable(resultLTTable, LT_RESULT, round - 1);
+					}
 				} else {
-					tabbedPane.setEnabledAt(2, true);
-					tabbedPane.setEnabledAt(3, false);
-					if(round > 1)
-						refreshTable(prevXorResultTable, LT_RESULT, round - 1);
-					else
-						refreshTable(prevXorResultTable , IP_RESULT, round);
 					refreshTable(subKeyTable, SUBKEYS, round);
-					refreshTable(XorResultTable, XOR_RESULT, round);
-					refreshTable(prevSBoxResultTable, XOR_RESULT, round);
-					refreshTable(SBoxResultTable, SBOX_RESULT, round);
-					refreshTable(prevLTResultTable, SBOX_RESULT, round);
-					refreshTable(resultLTTable, LT_RESULT, round);
+
+					if (round == 32) {
+						tabbedPane.setEnabledAt(2, false);
+						tabbedPane.setEnabledAt(3, true);
+						
+						refreshTable(prevXorFTable, IP_RESULT, round);
+						refreshTable(subKeyTable, SUBKEYS, round - 1);
+
+						refreshTable(prevSBoxResultTable, XOR_RESULT, round);
+						refreshTable(SBoxResultTable, SBOX_RESULT, round - 1);
+
+						refreshTable(prevXorResultTable, SBOX_RESULT, round - 1);
+						refreshTable(XorResultTable, XOR_RESULT, round - 1);
+						
+					}
+					if (round < 32) {
+						tabbedPane.setEnabledAt(2, true);
+						tabbedPane.setEnabledAt(3, false);
+						
+						refreshTable(prevLTResultTable, XOR_RESULT, round);
+						refreshTable(resultLTTable, LT_RESULT, round-1);
+						
+						refreshTable(subKeyTable, SUBKEYS, round-1);
+
+						refreshTable(prevSBoxResultTable, LT_RESULT, round-1);
+						refreshTable(SBoxResultTable, SBOX_RESULT, round-1);
+
+						refreshTable(prevXorResultTable, SBOX_RESULT, round-1);
+						refreshTable(XorResultTable, XOR_RESULT, round-1);
+					}
+
 				}
+
 			}
 		});
 		slider.setValue(round);
@@ -771,35 +826,44 @@ public class Rounds {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 
-				
-				if (round++ >= 32){
-					frame.setVisible(false);
-					MainFrame.mainFrame.finalPermutationFrame.frame.setVisible(true);
-					round = 31;
-					return;
-				}
-				
-				slider.setValue(round);
-				
-			/*		roundNumber.setText(Integer.toString(round + 1));
-			if (round == 31) {
-					tabbedPane.setEnabledAt(2, false);
-					tabbedPane.setEnabledAt(3, true);
-					refreshTable(prevXorResultTable, LT_RESULT, round - 1);
-					refreshTable(subKeyTable, SUBKEYS, round);
-					refreshTable(XorResultTable, XOR_RESULT, round);
-					refreshTable(prevSBoxResultTable, XOR_RESULT, round);
-					refreshTable(SBoxResultTable, SBOX_RESULT, round);
+				if (ENCRYPT) {
+
+					if (round++ >= 32) {
+						frame.setVisible(false);
+						MainFrame.mainFrame.finalPermutationFrame.frame.setVisible(true);
+						round = 31;
+						return;
+					}
+
 				} else {
-					
-					refreshTable(prevXorResultTable, LT_RESULT, round - 1);
-					refreshTable(subKeyTable, SUBKEYS, round);
-					refreshTable(XorResultTable, XOR_RESULT, round);
-					refreshTable(prevSBoxResultTable, XOR_RESULT, round);
-					refreshTable(SBoxResultTable, SBOX_RESULT, round);
-					refreshTable(prevLTResultTable, SBOX_RESULT, round);
-					refreshTable(resultLTTable, LT_RESULT, round);
-				}*/
+					if (--round <= 0) {
+
+						frame.setVisible(false);
+						MainFrame.mainFrame.initialPermutationFrame.frame.setVisible(true);
+						round = 0;
+						return;
+					}
+				}
+				slider.setValue(round);
+
+				/*
+				 * roundNumber.setText(Integer.toString(round + 1)); if (round
+				 * == 31) { tabbedPane.setEnabledAt(2, false);
+				 * tabbedPane.setEnabledAt(3, true);
+				 * refreshTable(prevXorResultTable, LT_RESULT, round - 1);
+				 * refreshTable(subKeyTable, SUBKEYS, round);
+				 * refreshTable(XorResultTable, XOR_RESULT, round);
+				 * refreshTable(prevSBoxResultTable, XOR_RESULT, round);
+				 * refreshTable(SBoxResultTable, SBOX_RESULT, round); } else {
+				 * 
+				 * refreshTable(prevXorResultTable, LT_RESULT, round - 1);
+				 * refreshTable(subKeyTable, SUBKEYS, round);
+				 * refreshTable(XorResultTable, XOR_RESULT, round);
+				 * refreshTable(prevSBoxResultTable, XOR_RESULT, round);
+				 * refreshTable(SBoxResultTable, SBOX_RESULT, round);
+				 * refreshTable(prevLTResultTable, SBOX_RESULT, round);
+				 * refreshTable(resultLTTable, LT_RESULT, round); }
+				 */
 
 			}
 		});
@@ -808,54 +872,51 @@ public class Rounds {
 		btnPreviuous.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				
-				if(--round <= 0){
-					frame.setVisible(false);
-					MainFrame.mainFrame.initialPermutationFrame.frame.setVisible(true);
-					round = 0;
-					return;
+				if (ENCRYPT) {
+					if (--round <= 0) {
+						frame.setVisible(false);
+						MainFrame.mainFrame.initialPermutationFrame.frame.setVisible(true);
+						round = 0;
+						return;
+					}
+				} else {
+					if (round++ >= 32) {
+						frame.setVisible(false);
+						MainFrame.mainFrame.finalPermutationFrame.frame.setVisible(true);
+						round = 31;
+						return;
+					}
 				}
 				slider.setValue(round);
-				/*roundNumber.setText(Integer.toString(round + 1));
-				
-				
-				if (round > 31){
-					frame.setVisible(false);
-					// TODO
-					MainFrame.mainFrame.frmSerpant.setVisible(true);
-				}
-				else if (round == 31) {
-					tabbedPane.setEnabledAt(2, false);
-					tabbedPane.setEnabledAt(3, true);
-					refreshTable(prevXorResultTable, LT_RESULT, round - 1);
-					refreshTable(subKeyTable, SUBKEYS, round);
-					refreshTable(XorResultTable, XOR_RESULT, round);
-					refreshTable(prevSBoxResultTable, XOR_RESULT, round);
-					refreshTable(SBoxResultTable, SBOX_RESULT, round);
-				} else {
-					tabbedPane.setEnabledAt(2, true);
-					tabbedPane.setEnabledAt(3, false);
-					if(round > 1)
-						refreshTable(prevXorResultTable, LT_RESULT, round - 1);
-					else
-						refreshTable(prevXorResultTable , IP_RESULT, round);
-					refreshTable(subKeyTable, SUBKEYS, round);
-					refreshTable(XorResultTable, XOR_RESULT, round);
-					refreshTable(prevSBoxResultTable, XOR_RESULT, round);
-					refreshTable(SBoxResultTable, SBOX_RESULT, round);
-					refreshTable(prevLTResultTable, SBOX_RESULT, round);
-					refreshTable(resultLTTable, LT_RESULT, round);
-				}*/
+				/*
+				 * roundNumber.setText(Integer.toString(round + 1));
+				 * 
+				 * 
+				 * if (round > 31){ frame.setVisible(false); // TODO
+				 * MainFrame.mainFrame.frmSerpant.setVisible(true); } else if
+				 * (round == 31) { tabbedPane.setEnabledAt(2, false);
+				 * tabbedPane.setEnabledAt(3, true);
+				 * refreshTable(prevXorResultTable, LT_RESULT, round - 1);
+				 * refreshTable(subKeyTable, SUBKEYS, round);
+				 * refreshTable(XorResultTable, XOR_RESULT, round);
+				 * refreshTable(prevSBoxResultTable, XOR_RESULT, round);
+				 * refreshTable(SBoxResultTable, SBOX_RESULT, round); } else {
+				 * tabbedPane.setEnabledAt(2, true); tabbedPane.setEnabledAt(3,
+				 * false); if(round > 1) refreshTable(prevXorResultTable,
+				 * LT_RESULT, round - 1); else refreshTable(prevXorResultTable ,
+				 * IP_RESULT, round); refreshTable(subKeyTable, SUBKEYS, round);
+				 * refreshTable(XorResultTable, XOR_RESULT, round);
+				 * refreshTable(prevSBoxResultTable, XOR_RESULT, round);
+				 * refreshTable(SBoxResultTable, SBOX_RESULT, round);
+				 * refreshTable(prevLTResultTable, SBOX_RESULT, round);
+				 * refreshTable(resultLTTable, LT_RESULT, round); }
+				 */
 
-				
-				
 			}
 		});
 
 		btnPreviuous.setBounds(394, 308, 99, 23);
 		frame.getContentPane().add(btnPreviuous);
-		
-	
+
 	}
 }

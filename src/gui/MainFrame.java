@@ -95,7 +95,7 @@ public class MainFrame {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				int length = keyTextField.getText().length();
-				if(length >= 64)
+				if (length >= 64)
 					e.consume();
 				String s = "" + e.getKeyChar();
 
@@ -118,7 +118,7 @@ public class MainFrame {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				int length = plainTextField.getText().length();
-				if(length >= 32)
+				if (length >= 32)
 					e.consume();
 				String s = "" + e.getKeyChar();
 				boolean isHex = s.matches("^[0-9A-Fa-f]+$");
@@ -175,24 +175,25 @@ public class MainFrame {
 				int[] text = HexStringToIntArray(textString);
 				int[] key = HexStringToIntArray(keyString);
 
-
-				boolean encypt = rdbtnEncrypt.isSelected();
+				Rounds.ENCRYPT = rdbtnEncrypt.isSelected();
 				try {
 
-					if (encypt)
+					if (Rounds.ENCRYPT) {
 						serpent.encrypt(text, key);
-					else
+						Rounds.round = 1;
+					} else {
 						serpent.decrypt(text, key);
+						Rounds.round = 32;
+					}
 
 					initialPermutationFrame = new InitialPermutation();
 					roundFrame = new Rounds();
 					initialPermutationFrame.frame.setVisible(true);
 					frmSerpant.setVisible(false);
 					finalPermutationFrame = new FinalPermutation();
-					Rounds.round = 0;
-					
-					Object[][] o = serpent.data.intToObject(serpent.data.text);
 
+					// Object[][] o =
+					// serpent.data.intToObject(serpent.data.text);
 					// for(int i = 0; i < o.length; i++){
 					// for(int j = 0; j < o[i].length; j++){
 					// System.out.print((char)o[i][j] + " ");

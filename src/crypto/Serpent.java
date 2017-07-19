@@ -10,18 +10,14 @@ import exceptions.TextException;
  *
  */
 // TODO Use logger instead System.out
-// TODO Make class to store data for every step 
+// TODO Make class to store data for every step
 public class Serpent {
-	
-	
-	
-	
 
 	private static boolean DEBUG = true;
 	private static Serpent serpent = null;
 
 	public SerpentData data = SerpentData.getInstance();
-	
+
 	public static Serpent getInstance() {
 		if (serpent == null)
 			serpent = new Serpent();
@@ -31,8 +27,6 @@ public class Serpent {
 	private static final String encryptString = "===========================================\n==================ENCRYPT==================\n===========================================\n";
 	private static final String decryptString = "\n===========================================\n==================DECRYPT==================\n===========================================\n";
 
-	
-	
 	public static int little2Big(int value) {
 		int b1 = (value >> 0) & 0xff;
 		int b2 = (value >> 8) & 0xff;
@@ -47,9 +41,6 @@ public class Serpent {
 			array[i] = little2Big(array[i]);
 		return array;
 	}
-
-	
-
 
 	public static final byte SBox[][] = { { 3, 8, 15, 1, 10, 6, 5, 11, 14, 13, 4, 2, 7, 0, 9, 12 },
 			{ 15, 12, 2, 7, 9, 0, 5, 10, 1, 11, 14, 8, 6, 13, 3, 4 },
@@ -87,7 +78,6 @@ public class Serpent {
 	/** The fractional part of the golden ratio, <code>(sqrt(5)+1)/2.</code> */
 	private static final int PHI = 0x9e3779b9;
 
-	
 	private static int getBit(int[] x, int i) {
 		return (x[i / 32] >>> (i % 32)) & 0x01;
 	}
@@ -329,14 +319,14 @@ public class Serpent {
 
 		c = RightRotate(c, 22);
 		a = RightRotate(a, 5);
-		c = XOR(XOR(c, d), LeftShift(b, 7)); 
-		a = XOR(XOR(a, b), d); 
-		d = RightRotate(d, 7); 
-		b = RightRotate(b, 1); 
-		d = XOR(XOR(d, c), LeftShift(a, 3)); 
-		b = XOR(XOR(b, a), c); 
-		c = RightRotate(c, 3); 
-		a = RightRotate(a, 13); 
+		c = XOR(XOR(c, d), LeftShift(b, 7));
+		a = XOR(XOR(a, b), d);
+		d = RightRotate(d, 7);
+		b = RightRotate(b, 1);
+		d = XOR(XOR(d, c), LeftShift(a, 3));
+		b = XOR(XOR(b, a), c);
+		c = RightRotate(c, 3);
+		a = RightRotate(a, 13);
 
 		input[0] = a;
 		input[1] = b;
@@ -351,21 +341,21 @@ public class Serpent {
 	private int[] linearTransformation(int[] input) throws RotationShiftException {
 
 		input = FP(input);
-		
+
 		int a = input[0];
 		int b = input[1];
 		int c = input[2];
 		int d = input[3];
-	
-		a = LeftRotate(a, 13); 
-		c = LeftRotate(c, 3); 
-		b = XOR(XOR(b, a), c); 
-		d = XOR(XOR(d, c), LeftShift(a, 3)); 										
-		b = LeftRotate(b, 1); 
-		d = LeftRotate(d, 7); 
-		a = XOR(XOR(a, b), d); 
-		c = XOR(XOR(c, d), LeftShift(b, 7)); 
-		a = LeftRotate(a, 5); 
+
+		a = LeftRotate(a, 13);
+		c = LeftRotate(c, 3);
+		b = XOR(XOR(b, a), c);
+		d = XOR(XOR(d, c), LeftShift(a, 3));
+		b = LeftRotate(b, 1);
+		d = LeftRotate(d, 7);
+		a = XOR(XOR(a, b), d);
+		c = XOR(XOR(c, d), LeftShift(b, 7));
+		a = LeftRotate(a, 5);
 		c = LeftRotate(c, 22);
 
 		input[0] = a;
@@ -378,31 +368,26 @@ public class Serpent {
 
 	}
 
-	public int[] encrypt(int[] plainText, int[] key) throws KeyException, SBoxException, RotationShiftException, TextException {
+	public int[] encrypt(int[] plainText, int[] key)
+			throws KeyException, SBoxException, RotationShiftException, TextException {
 		if (key.length != 8 && key.length != 6 && key.length != 4)
 			throw new KeyException(key.length * 4);
 
-		if (plainText.length != 4) 
+		if (plainText.length != 4)
 			throw new TextException(plainText.length);
-		
-		
+
 		System.out.println(encryptString);
 		toString("Plain text: ", plainText);
 		toString("\nKey:        ", key);
-		
+
 		data.text = little2Big(plainText);
 		data.key = little2Big(key);
 
-		
-
 		makePreKeys();
 		keySchedule();
-		
-
 
 		data.afterInitalPermutation = IP(plainText);
-		
-	
+
 		if (DEBUG) {
 			System.out.println("After Intial permutation:");
 			toString(data.afterInitalPermutation);
@@ -410,14 +395,14 @@ public class Serpent {
 		}
 		for (int round = 0; round < 32; round++) {
 
-			if(round == 0)
+			if (round == 0)
 				data.afterXOR[round] = XOR(data.afterInitalPermutation, data.subKeys[round]);
 			else
 				data.afterXOR[round] = XOR(data.afterLT[round - 1], data.subKeys[round]);
-			
+
 			if (DEBUG)
 				toString("\nXOR " + round + ": ", data.afterXOR[round]);
-			
+
 			data.afterSBOX[round] = SBox(data.afterXOR[round], round % 8);
 			if (DEBUG)
 				toString("\nSBox  " + round + ": ", data.afterSBOX[round]);
@@ -450,51 +435,69 @@ public class Serpent {
 		}
 
 		data.cipherText = little2Big(data.afterFinalPermutation);
-		
+
 		toString("\nCiphertext: ", data.cipherText);
 		System.out.println();
 
 		return data.cipherText;
 	}
 
-	public int[] decrypt(int[] plainText, int[] key) throws KeyException, SBoxException, RotationShiftException, TextException {
-		if (plainText.length != 4) 
+	public int[] decrypt(int[] plainText, int[] key)
+			throws KeyException, SBoxException, RotationShiftException, TextException {
+		if (plainText.length != 4)
 			throw new TextException(plainText.length);
 		if (key.length != 8 && key.length != 6 && key.length != 4)
 			throw new KeyException(key.length * 4);
 		System.out.println(decryptString);
-	
-		
+
 		toString("Ciphertext: ", plainText);
 		toString("\nKey:        ", key);
-		
+
 		data.text = little2Big(plainText);
 		data.key = little2Big(key);
-		
-		
 
 		makePreKeys();
 		keySchedule();
 
 		data.afterInitalPermutation = IP(data.text);
 
+		if (DEBUG) {
+			toString("After Inital permutation:\n", data.afterInitalPermutation);
+			System.out.println();
+		}
+
 		for (int round = 31; round >= 0; round--) {
 			if (round == 31)
-				data.afterXOR[round] = XOR(data.afterInitalPermutation, data.subKeys[32]);
+				data.afterXOR[32] = XOR(data.afterInitalPermutation, data.subKeys[32]);
 			else
 				data.afterLT[round] = inverseLinearTransformation(data.afterXOR[round + 1]);
 
-			if(round == 31)
-				data.afterSBOX[round] = iSBox(data.afterXOR[round], round % 8);
+			if (DEBUG) {
+				if (round == 31)
+					toString("\nXOR " + 32 + ": ", data.afterXOR[32]);
+				else
+					toString("\nLT " + round + ": ", data.afterLT[round]);
+			}
+
+			if (round == 31)
+				data.afterSBOX[round] = iSBox(data.afterXOR[32], round % 8);
 			else
 				data.afterSBOX[round] = iSBox(data.afterLT[round], round % 8);
-				
+
+			if (DEBUG)
+				toString("\nSBOX " + round + ": ", data.afterSBOX[round]);
+
 			data.afterXOR[round] = XOR(data.afterSBOX[round], data.subKeys[round]);
+
+			if (DEBUG){
+				toString("\nXOR " + round + ": ", data.afterXOR[round]);
+				System.out.println();
+			}
 
 		}
 
 		data.afterFinalPermutation = FP(data.afterXOR[0]);
-		
+
 		data.cipherText = little2Big(data.afterFinalPermutation);
 
 		toString("\nPlain text: ", data.cipherText);
