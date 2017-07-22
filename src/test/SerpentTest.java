@@ -1,16 +1,10 @@
 package test;
 
-import static org.junit.Assert.*;
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.IntBuffer;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-
 import crypto.Serpent;
-import crypto.SerpentData;
 import exceptions.KeyException;
 import exceptions.RotationShiftException;
 import exceptions.SBoxException;
@@ -18,8 +12,7 @@ import exceptions.TextException;
 
 public class SerpentTest {
 
-	private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
-
+	
 	private static boolean areEquals(int[] a, int[] b) {
 		if (a.length != b.length)
 			return false;
@@ -29,9 +22,6 @@ public class SerpentTest {
 		return true;
 
 	}
-	
-	
-
 	
 
 	private static int[] HexStringToIntArray(String hexString) {
@@ -47,33 +37,7 @@ public class SerpentTest {
 		return result;
 	}
 
-	private static byte[] hexStringToByteArray(String s) {
-		int len = s.length();
-		byte[] data = new byte[len];
 
-		for (int i = 0; i < len; i++)
-			data[i] = (byte) s.charAt(i);
-
-		return data;
-	}
-
-	private static int[] byteToInt(byte[] byteArray) {
-		IntBuffer intBuf = ByteBuffer.wrap(byteArray).order(ByteOrder.BIG_ENDIAN).asIntBuffer();
-		int[] array = new int[intBuf.remaining()];
-		intBuf.get(array);
-		return array;
-	}
-
-	private static void printIntAsString(int[] a) {
-		for (int i = 0; i < a.length; i++) {
-			char c1 = (char) ((a[i] >> 24) & 0xFF);
-			char c2 = (char) ((a[i] >> 16) & 0xFF);
-			char c3 = (char) ((a[i] >> 8) & 0xFF);
-			char c4 = (char) (a[i] & 0xFF);
-			System.out.print("" + c1 + c2 + c3 + c4);
-		}
-		System.out.println();
-	}
 
 	@Test
 	public void testEncrypt() throws KeyException, SBoxException, RotationShiftException, TextException {

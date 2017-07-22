@@ -10,7 +10,6 @@ import exceptions.TextException;
  *
  */
 // TODO Use logger instead System.out
-// TODO Make class to store data for every step
 public class Serpent {
 
 	private static boolean DEBUG = true;
@@ -95,12 +94,15 @@ public class Serpent {
 			setBit(result, i, getBit(x, T[i] & 0x7F));
 		return result;
 	}
+	
+	
+	
 
-	private static int[] IP(int[] x) {
+	public static int[] IP(int[] x) {
 		return permutate(IP, x);
 	}
 
-	private static int[] FP(int[] x) {
+	public static int[] FP(int[] x) {
 		return permutate(FP, x);
 	}
 
@@ -244,9 +246,6 @@ public class Serpent {
 		return value >> pos;
 	}
 
-	private static int getBit(int x, int i) {
-		return (x >>> i) & 0x01;
-	}
 
 	private void keySchedule() throws SBoxException, RotationShiftException {
 
@@ -264,69 +263,100 @@ public class Serpent {
 			}
 		}
 
-		int[] k = new int[132];
-		int box = 3, a, b, c, d, in, out;
-		for (int i = 0; i < 33; i++, box--) {
+	
+		
+		if (DEBUG)
+			System.out.println("\nSubKeys:");
+		for (int i = 0,subKeysIndex = 0, box = 3; i < 33; i++, box--, subKeysIndex++) {
 			if (box == -1)
 				box = 7;
 
-			a = data.W[4 * i + 8];
-			b = data.W[4 * i + 9];
-			c = data.W[4 * i + 10];
-			d = data.W[4 * i + 11];
 
-			for (int j = 0; j < 32; j++) {
-				in = getBit(a, j) | getBit(b, j) << 1 | getBit(c, j) << 2 | getBit(d, j) << 3;
-				out = SBox((byte) in, box);
-
-				k[4 * i] |= getBit(out, 0) << j;
-				k[4 * i + 1] |= getBit(out, 1) << j;
-				k[4 * i + 2] |= getBit(out, 2) << j;
-				k[4 * i + 3] |= getBit(out, 3) << j;
-
+			data.subKeysBeforIP[subKeysIndex] = new int[]{ data.W[4 * i + 8], data.W[4 * i + 9], data.W[4 * i + 10] , data.W[4 * i + 11]};
+		
+			
+			data.subKeysAfterIP[subKeysIndex] = IP(data.subKeysBeforIP[subKeysIndex]);
+			
+			
+			data.subKeys[subKeysIndex] = SBox(data.subKeysAfterIP[subKeysIndex], box);
+			
+			
+			if (DEBUG){
+				toString("\nWKEYS: " , data.subKeysBeforIP[subKeysIndex]);
+				toString("\nBIP Key:", data.subKeysAfterIP[subKeysIndex]);
+				toString("\nSub Key:", data.subKeys[subKeysIndex]);
+				System.out.println();
 			}
-			if (DEBUG)
-				System.out.printf("%X %X %X %X\n", k[4 * i], k[4 * i + 1], k[4 * i + 2], k[4 * i + 3]);
+		
 		}
-
-		if (DEBUG)
-			System.out.println("\nSubKeys:");
-
-		for (int i = 0, subKeysIndex = 0; i < 33; i++, subKeysIndex++) {
-
-			data.subKeys[subKeysIndex][0] = k[i * 4];
-			data.subKeys[subKeysIndex][1] = k[i * 4 + 1];
-			data.subKeys[subKeysIndex][2] = k[i * 4 + 2];
-			data.subKeys[subKeysIndex][3] = k[i * 4 + 3];
-
-			data.subKeys[subKeysIndex] = IP(data.subKeys[subKeysIndex]);
-			if (DEBUG)
-				toString(data.subKeys[subKeysIndex]);
-
-		}
+		
 		if (DEBUG)
 			System.out.println();
 
 	}
 
-	private int[] inverseLinearTransformation(int[] input) throws RotationShiftException {
+	
+	private int[] inverseLinearTransformation(int[] input, int round ) throws RotationShiftException {
 
 		input = FP(input);
 		int a = input[0];
 		int b = input[1];
 		int c = input[2];
 		int d = input[3];
+		
+
+		data.LTdata[round][0] = a;
+		data.LTdata[round][1] = b;
+		data.LTdata[round][2] = c;
+		data.LTdata[round][3] = d;
+		
+		if(DEBUG)
+			System.out.printf("\n%d:  a %X  b %X  c %X  d %X", round, data.LTdata[round][0],data.LTdata[round][1],data.LTdata[round][2],data.LTdata[round][3]);
+		
+		
 
 		c = RightRotate(c, 22);
 		a = RightRotate(a, 5);
+		
+		data.LTdata[round][4] = a;
+		data.LTdata[round][5] = c;
+		
+		if(DEBUG)
+			System.out.printf("\n%d:  a %X  c %X ", round, data.LTdata[round][4],data.LTdata[round][5]);
+		
+		
+		
+		
 		c = XOR(XOR(c, d), LeftShift(b, 7));
 		a = XOR(XOR(a, b), d);
 		d = RightRotate(d, 7);
 		b = RightRotate(b, 1);
+		
+		
+		data.LTdata[round][6] = b;
+		data.LTdata[round][7] = d;
+		data.LTdata[round][10] = a;
+		data.LTdata[round][11] = c;
+		
+		if(DEBUG)
+			System.out.printf("\n%d:  b %X  d %X  a %X  c %X", round, data.LTdata[round][6],data.LTdata[round][7],data.LTdata[round][10],data.LTdata[round][11]);
+		
+		
+		
+		
 		d = XOR(XOR(d, c), LeftShift(a, 3));
 		b = XOR(XOR(b, a), c);
 		c = RightRotate(c, 3);
 		a = RightRotate(a, 13);
+		
+		data.LTdata[round][8] = b;
+		data.LTdata[round][9] = d;
+		data.LTdata[round][13] = c;
+		data.LTdata[round][12] = a;
+		
+		if(DEBUG)
+			System.out.printf("\n%d:  b %X  d %X  c %X a %X", round, data.LTdata[round][8],data.LTdata[round][9],data.LTdata[round][13],data.LTdata[round][12]);
+		
 
 		input[0] = a;
 		input[1] = b;
@@ -338,7 +368,7 @@ public class Serpent {
 
 	}
 
-	private int[] linearTransformation(int[] input) throws RotationShiftException {
+	private int[] linearTransformation(int[] input, int round) throws RotationShiftException {
 
 		input = FP(input);
 
@@ -346,17 +376,54 @@ public class Serpent {
 		int b = input[1];
 		int c = input[2];
 		int d = input[3];
-
+		
+		data.LTdata[round][0] = a;
+		data.LTdata[round][1] = b;
+		data.LTdata[round][2] = c;
+		data.LTdata[round][3] = d;
+		if(DEBUG)
+			System.out.printf("\n%d:  %X %X %X %X", round, data.LTdata[round][0],data.LTdata[round][1],data.LTdata[round][2],data.LTdata[round][3]);
+		
+		
 		a = LeftRotate(a, 13);
 		c = LeftRotate(c, 3);
 		b = XOR(XOR(b, a), c);
 		d = XOR(XOR(d, c), LeftShift(a, 3));
+		
+		data.LTdata[round][4] = a;
+		data.LTdata[round][5] = c;
+		data.LTdata[round][6] = b;
+		data.LTdata[round][7] = d;
+		
+		if(DEBUG)
+			System.out.printf("\n%d:  %X %X %X %X", round, data.LTdata[round][4],data.LTdata[round][5],data.LTdata[round][6],data.LTdata[round][7]);
+		
+		
+		
 		b = LeftRotate(b, 1);
 		d = LeftRotate(d, 7);
 		a = XOR(XOR(a, b), d);
 		c = XOR(XOR(c, d), LeftShift(b, 7));
+		
+		data.LTdata[round][8] = b;
+		data.LTdata[round][9] = d;
+		data.LTdata[round][10] = a;
+		data.LTdata[round][11] = c;
+		
+		if(DEBUG)
+			System.out.printf("\n%d:  %X %X %X %X", round, data.LTdata[round][8],data.LTdata[round][9],data.LTdata[round][10],data.LTdata[round][11]);
+		
+		
 		a = LeftRotate(a, 5);
 		c = LeftRotate(c, 22);
+		
+		data.LTdata[round][12] = a;
+		data.LTdata[round][13] = c;
+		
+		if(DEBUG)
+			System.out.printf("\n%d: %X %X", round, data.LTdata[round][12],data.LTdata[round][13]);
+		
+		
 
 		input[0] = a;
 		input[1] = b;
@@ -364,6 +431,8 @@ public class Serpent {
 		input[3] = d;
 
 		input = IP(input);
+		
+		
 		return input;
 
 	}
@@ -386,7 +455,8 @@ public class Serpent {
 		makePreKeys();
 		keySchedule();
 
-		data.afterInitalPermutation = IP(plainText);
+		data.afterInitalPermutation = IP(data.text);
+		
 
 		if (DEBUG) {
 			System.out.println("After Intial permutation:");
@@ -409,7 +479,7 @@ public class Serpent {
 			if (round == 31) {
 				break;
 			}
-			data.afterLT[round] = linearTransformation(data.afterSBOX[round]);
+			data.afterLT[round] = linearTransformation(data.afterSBOX[round], round);
 
 			if (DEBUG) {
 				toString("\nRound " + round + ": ", data.afterLT[round]);
@@ -470,7 +540,7 @@ public class Serpent {
 			if (round == 31)
 				data.afterXOR[32] = XOR(data.afterInitalPermutation, data.subKeys[32]);
 			else
-				data.afterLT[round] = inverseLinearTransformation(data.afterXOR[round + 1]);
+				data.afterLT[round] = inverseLinearTransformation(data.afterXOR[round + 1], round);
 
 			if (DEBUG) {
 				if (round == 31)

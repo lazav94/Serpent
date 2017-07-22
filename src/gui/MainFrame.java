@@ -13,7 +13,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import crypto.Serpent;
-import crypto.SerpentData;
 import exceptions.KeyException;
 import exceptions.RotationShiftException;
 import exceptions.SBoxException;
@@ -45,7 +44,7 @@ public class MainFrame {
 			public void run() {
 				try {
 
-					mainFrame.frmSerpant.setVisible(true);
+					MainFrame.frmSerpant.setVisible(true);
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -81,6 +80,7 @@ public class MainFrame {
 	 */
 	private void initialize() {
 		frmSerpant = new JFrame();
+		frmSerpant.setResizable(false);
 		frmSerpant.setTitle("Serpant");
 		frmSerpant.setBounds(100, 100, 501, 252);
 		frmSerpant.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -188,7 +188,7 @@ public class MainFrame {
 
 					initialPermutationFrame = new InitialPermutation();
 					roundFrame = new Rounds();
-					initialPermutationFrame.frame.setVisible(true);
+					initialPermutationFrame.frmInitialPermutation.setVisible(true);
 					frmSerpant.setVisible(false);
 					finalPermutationFrame = new FinalPermutation();
 
