@@ -134,7 +134,7 @@ public class Rounds {
 		frmSerpentRounds = new JFrame();
 		frmSerpentRounds.setTitle("Serpent rounds");
 		frmSerpentRounds.setResizable(false);
-		frmSerpentRounds.setBounds(100, 100, 733, 396);
+		frmSerpentRounds.setBounds(100, 100, 733, 366);
 		frmSerpentRounds.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSerpentRounds.getContentPane().setLayout(null);
 
@@ -553,174 +553,162 @@ public class Rounds {
 		XOR.setLayout(null);
 
 		JLabel lblXor = new JLabel("XOR");
-		lblXor.setBounds(216, 105, 46, 14);
+		lblXor.setBounds(217, 105, 46, 14);
 		XOR.add(lblXor);
 
 		JLabel label = new JLabel("=");
-		label.setBounds(470, 105, 33, 14);
+		label.setBounds(473, 105, 33, 14);
 		XOR.add(label);
 
 		JLabel lblSubkeyround = new JLabel("Sub key [" + round + "]");
-		lblSubkeyround.setBounds(272, 50, 110, 14);
+		lblSubkeyround.setBounds(276, 50, 110, 14);
 		XOR.add(lblSubkeyround);
 
 		JLabel lblPrivi = new JLabel("Previously result");
-		lblPrivi.setBounds(20, 50, 118, 14);
+		lblPrivi.setBounds(22, 50, 118, 14);
 		XOR.add(lblPrivi);
 
 		JLabel lblResult = new JLabel("Result");
-		lblResult.setBounds(513, 50, 52, 14);
+		lblResult.setBounds(518, 50, 52, 14);
 		XOR.add(lblResult);
-
-		JPanel prevXorResultPanel = new JPanel();
-		prevXorResultPanel.setBorder(null);
-		prevXorResultPanel.setBounds(18, 75, 172, 76);
-		XOR.add(prevXorResultPanel);
-
-		prevXorResultTable = new JTable();
-		prevXorResultTable.setModel(new DefaultTableModel(
-				(ENCRYPT == true)
-						? ((round != 0) ? SerpentData.intToObject(data.afterLT[round - 1])
-								: SerpentData.intToObject(data.afterInitalPermutation))
-						: (SerpentData.intToObject(data.afterSBOX[round - 1])),
-				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
-
-			private static final long serialVersionUID = 8471904586556849201L;
-			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false, false };
-
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		prevXorResultTable.getColumnModel().getColumn(0).setPreferredWidth(20);
-		prevXorResultTable.getColumnModel().getColumn(0).setMinWidth(20);
-		prevXorResultTable.getColumnModel().getColumn(0).setMaxWidth(50);
-		prevXorResultTable.getColumnModel().getColumn(1).setPreferredWidth(20);
-		prevXorResultTable.getColumnModel().getColumn(1).setMinWidth(20);
-		prevXorResultTable.getColumnModel().getColumn(1).setMaxWidth(50);
-		prevXorResultTable.getColumnModel().getColumn(2).setPreferredWidth(20);
-		prevXorResultTable.getColumnModel().getColumn(2).setMinWidth(20);
-		prevXorResultTable.getColumnModel().getColumn(2).setMaxWidth(50);
-		prevXorResultTable.getColumnModel().getColumn(3).setPreferredWidth(20);
-		prevXorResultTable.getColumnModel().getColumn(3).setMinWidth(20);
-		prevXorResultTable.getColumnModel().getColumn(3).setMaxWidth(50);
-		prevXorResultTable.getColumnModel().getColumn(4).setPreferredWidth(20);
-		prevXorResultTable.getColumnModel().getColumn(4).setMinWidth(20);
-		prevXorResultTable.getColumnModel().getColumn(4).setMaxWidth(50);
-		prevXorResultTable.getColumnModel().getColumn(5).setPreferredWidth(20);
-		prevXorResultTable.getColumnModel().getColumn(5).setMinWidth(20);
-		prevXorResultTable.getColumnModel().getColumn(5).setMaxWidth(50);
-		prevXorResultTable.getColumnModel().getColumn(6).setPreferredWidth(20);
-		prevXorResultTable.getColumnModel().getColumn(6).setMinWidth(20);
-		prevXorResultTable.getColumnModel().getColumn(6).setMaxWidth(50);
-		prevXorResultTable.getColumnModel().getColumn(7).setPreferredWidth(20);
-		prevXorResultTable.getColumnModel().getColumn(7).setMinWidth(20);
-		prevXorResultTable.getColumnModel().getColumn(7).setMaxWidth(50);
-		prevXorResultTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		prevXorResultTable.setRowSelectionAllowed(false);
-		prevXorResultTable.setBorder(new LineBorder(new Color(0, 0, 0)));
-		prevXorResultTable.setBackground(Color.WHITE);
-		prevXorResultPanel.add(prevXorResultTable);
-
-		JPanel subKeyPanel = new JPanel();
-		subKeyPanel.setBorder(null);
-		subKeyPanel.setBounds(272, 75, 172, 76);
-		XOR.add(subKeyPanel);
-
-		subKeyTable = new JTable();
-		subKeyTable.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				tabbedPane.setSelectedIndex(0);
-			}
-		});
-		subKeyTable.setModel(
-				new DefaultTableModel(SerpentData.intToObject(data.subKeys[(ENCRYPT == true) ? round - 1 : 31]),
+		
+				prevXorResultTable = new JTable();
+				prevXorResultTable.setBounds(24, 75, 160, 64);
+				XOR.add(prevXorResultTable);
+				prevXorResultTable.setModel(new DefaultTableModel(
+						(ENCRYPT == true)
+								? ((round != 0) ? SerpentData.intToObject(data.afterLT[round - 1])
+										: SerpentData.intToObject(data.afterInitalPermutation))
+								: (SerpentData.intToObject(data.afterSBOX[round - 1])),
 						new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
 
-					private static final long serialVersionUID = 6522758475005847455L;
-					boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false,
-							false };
+					private static final long serialVersionUID = 8471904586556849201L;
+					boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false, false };
 
 					public boolean isCellEditable(int row, int column) {
 						return columnEditables[column];
 					}
 				});
-		subKeyTable.getColumnModel().getColumn(0).setPreferredWidth(20);
-		subKeyTable.getColumnModel().getColumn(0).setMinWidth(20);
-		subKeyTable.getColumnModel().getColumn(0).setMaxWidth(50);
-		subKeyTable.getColumnModel().getColumn(1).setPreferredWidth(20);
-		subKeyTable.getColumnModel().getColumn(1).setMinWidth(20);
-		subKeyTable.getColumnModel().getColumn(1).setMaxWidth(50);
-		subKeyTable.getColumnModel().getColumn(2).setPreferredWidth(20);
-		subKeyTable.getColumnModel().getColumn(2).setMinWidth(20);
-		subKeyTable.getColumnModel().getColumn(2).setMaxWidth(50);
-		subKeyTable.getColumnModel().getColumn(3).setPreferredWidth(20);
-		subKeyTable.getColumnModel().getColumn(3).setMinWidth(20);
-		subKeyTable.getColumnModel().getColumn(3).setMaxWidth(50);
-		subKeyTable.getColumnModel().getColumn(4).setPreferredWidth(20);
-		subKeyTable.getColumnModel().getColumn(4).setMinWidth(20);
-		subKeyTable.getColumnModel().getColumn(4).setMaxWidth(50);
-		subKeyTable.getColumnModel().getColumn(5).setPreferredWidth(20);
-		subKeyTable.getColumnModel().getColumn(5).setMinWidth(20);
-		subKeyTable.getColumnModel().getColumn(5).setMaxWidth(50);
-		subKeyTable.getColumnModel().getColumn(6).setPreferredWidth(20);
-		subKeyTable.getColumnModel().getColumn(6).setMinWidth(20);
-		subKeyTable.getColumnModel().getColumn(6).setMaxWidth(50);
-		subKeyTable.getColumnModel().getColumn(7).setPreferredWidth(20);
-		subKeyTable.getColumnModel().getColumn(7).setMinWidth(20);
-		subKeyTable.getColumnModel().getColumn(7).setMaxWidth(50);
-		subKeyTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		subKeyTable.setRowSelectionAllowed(false);
-		subKeyTable.setBorder(new LineBorder(new Color(0, 0, 0)));
-		subKeyTable.setBackground(Color.WHITE);
-		subKeyPanel.add(subKeyTable);
+				prevXorResultTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+				prevXorResultTable.getColumnModel().getColumn(0).setMinWidth(20);
+				prevXorResultTable.getColumnModel().getColumn(0).setMaxWidth(50);
+				prevXorResultTable.getColumnModel().getColumn(1).setPreferredWidth(20);
+				prevXorResultTable.getColumnModel().getColumn(1).setMinWidth(20);
+				prevXorResultTable.getColumnModel().getColumn(1).setMaxWidth(50);
+				prevXorResultTable.getColumnModel().getColumn(2).setPreferredWidth(20);
+				prevXorResultTable.getColumnModel().getColumn(2).setMinWidth(20);
+				prevXorResultTable.getColumnModel().getColumn(2).setMaxWidth(50);
+				prevXorResultTable.getColumnModel().getColumn(3).setPreferredWidth(20);
+				prevXorResultTable.getColumnModel().getColumn(3).setMinWidth(20);
+				prevXorResultTable.getColumnModel().getColumn(3).setMaxWidth(50);
+				prevXorResultTable.getColumnModel().getColumn(4).setPreferredWidth(20);
+				prevXorResultTable.getColumnModel().getColumn(4).setMinWidth(20);
+				prevXorResultTable.getColumnModel().getColumn(4).setMaxWidth(50);
+				prevXorResultTable.getColumnModel().getColumn(5).setPreferredWidth(20);
+				prevXorResultTable.getColumnModel().getColumn(5).setMinWidth(20);
+				prevXorResultTable.getColumnModel().getColumn(5).setMaxWidth(50);
+				prevXorResultTable.getColumnModel().getColumn(6).setPreferredWidth(20);
+				prevXorResultTable.getColumnModel().getColumn(6).setMinWidth(20);
+				prevXorResultTable.getColumnModel().getColumn(6).setMaxWidth(50);
+				prevXorResultTable.getColumnModel().getColumn(7).setPreferredWidth(20);
+				prevXorResultTable.getColumnModel().getColumn(7).setMinWidth(20);
+				prevXorResultTable.getColumnModel().getColumn(7).setMaxWidth(50);
+				prevXorResultTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				prevXorResultTable.setRowSelectionAllowed(false);
+				prevXorResultTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+				prevXorResultTable.setBackground(Color.WHITE);
+		
+				subKeyTable = new JTable();
+				subKeyTable.setBounds(278, 75, 160, 64);
+				XOR.add(subKeyTable);
+				subKeyTable.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mousePressed(MouseEvent arg0) {
+						tabbedPane.setSelectedIndex(0);
+					}
+				});
+				subKeyTable.setModel(
+						new DefaultTableModel(SerpentData.intToObject(data.subKeys[(ENCRYPT == true) ? round - 1 : 31]),
+								new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
 
-		JPanel XorResultPanel = new JPanel();
-		XorResultPanel.setBorder(null);
-		XorResultPanel.setBounds(513, 75, 172, 76);
-		XOR.add(XorResultPanel);
+							private static final long serialVersionUID = 6522758475005847455L;
+							boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false,
+									false };
 
-		XorResultTable = new JTable();
-		XorResultTable.setModel(new DefaultTableModel(SerpentData.intToObject(data.afterXOR[round]),
-				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
+							public boolean isCellEditable(int row, int column) {
+								return columnEditables[column];
+							}
+						});
+				subKeyTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+				subKeyTable.getColumnModel().getColumn(0).setMinWidth(20);
+				subKeyTable.getColumnModel().getColumn(0).setMaxWidth(50);
+				subKeyTable.getColumnModel().getColumn(1).setPreferredWidth(20);
+				subKeyTable.getColumnModel().getColumn(1).setMinWidth(20);
+				subKeyTable.getColumnModel().getColumn(1).setMaxWidth(50);
+				subKeyTable.getColumnModel().getColumn(2).setPreferredWidth(20);
+				subKeyTable.getColumnModel().getColumn(2).setMinWidth(20);
+				subKeyTable.getColumnModel().getColumn(2).setMaxWidth(50);
+				subKeyTable.getColumnModel().getColumn(3).setPreferredWidth(20);
+				subKeyTable.getColumnModel().getColumn(3).setMinWidth(20);
+				subKeyTable.getColumnModel().getColumn(3).setMaxWidth(50);
+				subKeyTable.getColumnModel().getColumn(4).setPreferredWidth(20);
+				subKeyTable.getColumnModel().getColumn(4).setMinWidth(20);
+				subKeyTable.getColumnModel().getColumn(4).setMaxWidth(50);
+				subKeyTable.getColumnModel().getColumn(5).setPreferredWidth(20);
+				subKeyTable.getColumnModel().getColumn(5).setMinWidth(20);
+				subKeyTable.getColumnModel().getColumn(5).setMaxWidth(50);
+				subKeyTable.getColumnModel().getColumn(6).setPreferredWidth(20);
+				subKeyTable.getColumnModel().getColumn(6).setMinWidth(20);
+				subKeyTable.getColumnModel().getColumn(6).setMaxWidth(50);
+				subKeyTable.getColumnModel().getColumn(7).setPreferredWidth(20);
+				subKeyTable.getColumnModel().getColumn(7).setMinWidth(20);
+				subKeyTable.getColumnModel().getColumn(7).setMaxWidth(50);
+				subKeyTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				subKeyTable.setRowSelectionAllowed(false);
+				subKeyTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+				subKeyTable.setBackground(Color.WHITE);
+		
+				XorResultTable = new JTable();
+				XorResultTable.setBounds(519, 75, 160, 64);
+				XOR.add(XorResultTable);
+				XorResultTable.setModel(new DefaultTableModel(SerpentData.intToObject(data.afterXOR[round]),
+						new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
 
-			private static final long serialVersionUID = 294862973519694063L;
-			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false, false };
+					private static final long serialVersionUID = 294862973519694063L;
+					boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false, false };
 
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		XorResultTable.getColumnModel().getColumn(0).setPreferredWidth(20);
-		XorResultTable.getColumnModel().getColumn(0).setMinWidth(20);
-		XorResultTable.getColumnModel().getColumn(0).setMaxWidth(50);
-		XorResultTable.getColumnModel().getColumn(1).setPreferredWidth(20);
-		XorResultTable.getColumnModel().getColumn(1).setMinWidth(20);
-		XorResultTable.getColumnModel().getColumn(1).setMaxWidth(50);
-		XorResultTable.getColumnModel().getColumn(2).setPreferredWidth(20);
-		XorResultTable.getColumnModel().getColumn(2).setMinWidth(20);
-		XorResultTable.getColumnModel().getColumn(2).setMaxWidth(50);
-		XorResultTable.getColumnModel().getColumn(3).setPreferredWidth(20);
-		XorResultTable.getColumnModel().getColumn(3).setMinWidth(20);
-		XorResultTable.getColumnModel().getColumn(3).setMaxWidth(50);
-		XorResultTable.getColumnModel().getColumn(4).setPreferredWidth(20);
-		XorResultTable.getColumnModel().getColumn(4).setMinWidth(20);
-		XorResultTable.getColumnModel().getColumn(4).setMaxWidth(50);
-		XorResultTable.getColumnModel().getColumn(5).setPreferredWidth(20);
-		XorResultTable.getColumnModel().getColumn(5).setMinWidth(20);
-		XorResultTable.getColumnModel().getColumn(5).setMaxWidth(50);
-		XorResultTable.getColumnModel().getColumn(6).setPreferredWidth(20);
-		XorResultTable.getColumnModel().getColumn(6).setMinWidth(20);
-		XorResultTable.getColumnModel().getColumn(6).setMaxWidth(50);
-		XorResultTable.getColumnModel().getColumn(7).setPreferredWidth(20);
-		XorResultTable.getColumnModel().getColumn(7).setMinWidth(20);
-		XorResultTable.getColumnModel().getColumn(7).setMaxWidth(50);
-		XorResultTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		XorResultTable.setRowSelectionAllowed(false);
-		XorResultTable.setBorder(new LineBorder(new Color(0, 0, 0)));
-		XorResultTable.setBackground(Color.WHITE);
-		XorResultPanel.add(XorResultTable);
+					public boolean isCellEditable(int row, int column) {
+						return columnEditables[column];
+					}
+				});
+				XorResultTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+				XorResultTable.getColumnModel().getColumn(0).setMinWidth(20);
+				XorResultTable.getColumnModel().getColumn(0).setMaxWidth(50);
+				XorResultTable.getColumnModel().getColumn(1).setPreferredWidth(20);
+				XorResultTable.getColumnModel().getColumn(1).setMinWidth(20);
+				XorResultTable.getColumnModel().getColumn(1).setMaxWidth(50);
+				XorResultTable.getColumnModel().getColumn(2).setPreferredWidth(20);
+				XorResultTable.getColumnModel().getColumn(2).setMinWidth(20);
+				XorResultTable.getColumnModel().getColumn(2).setMaxWidth(50);
+				XorResultTable.getColumnModel().getColumn(3).setPreferredWidth(20);
+				XorResultTable.getColumnModel().getColumn(3).setMinWidth(20);
+				XorResultTable.getColumnModel().getColumn(3).setMaxWidth(50);
+				XorResultTable.getColumnModel().getColumn(4).setPreferredWidth(20);
+				XorResultTable.getColumnModel().getColumn(4).setMinWidth(20);
+				XorResultTable.getColumnModel().getColumn(4).setMaxWidth(50);
+				XorResultTable.getColumnModel().getColumn(5).setPreferredWidth(20);
+				XorResultTable.getColumnModel().getColumn(5).setMinWidth(20);
+				XorResultTable.getColumnModel().getColumn(5).setMaxWidth(50);
+				XorResultTable.getColumnModel().getColumn(6).setPreferredWidth(20);
+				XorResultTable.getColumnModel().getColumn(6).setMinWidth(20);
+				XorResultTable.getColumnModel().getColumn(6).setMaxWidth(50);
+				XorResultTable.getColumnModel().getColumn(7).setPreferredWidth(20);
+				XorResultTable.getColumnModel().getColumn(7).setMinWidth(20);
+				XorResultTable.getColumnModel().getColumn(7).setMaxWidth(50);
+				XorResultTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				XorResultTable.setRowSelectionAllowed(false);
+				XorResultTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+				XorResultTable.setBackground(Color.WHITE);
 
 		JPanel SBOX = new JPanel();
 		tabbedPane.addTab("SBox", null, SBOX, null);
@@ -728,11 +716,11 @@ public class Rounds {
 		SBOX.setLayout(null);
 
 		JLabel label_7 = new JLabel("Previously result");
-		label_7.setBounds(56, 45, 118, 14);
+		label_7.setBounds(61, 61, 118, 14);
 		SBOX.add(label_7);
 
 		JLabel label_8 = new JLabel("Result");
-		label_8.setBounds(475, 45, 46, 14);
+		label_8.setBounds(478, 61, 46, 14);
 		SBOX.add(label_8);
 
 		JButton button_2 = new JButton("Next");
@@ -751,26 +739,67 @@ public class Rounds {
 
 			}
 		});
-		btnSbox.setBounds(284, 70, 135, 76);
+		btnSbox.setBounds(284, 79, 135, 72);
 		SBOX.add(btnSbox);
+		
+				prevSBoxResultTable = new JTable();
+				prevSBoxResultTable.setRowSelectionAllowed(false);
+				prevSBoxResultTable.setBounds(62, 81, 160, 64);
+				SBOX.add(prevSBoxResultTable);
+				prevSBoxResultTable
+						.setModel(
+								new DefaultTableModel(
+										(ENCRYPT == true) ? SerpentData.intToObject(data.afterXOR[round])
+												: SerpentData
+														.intToObject((round == 32) ? data.afterXOR[32] : data.afterLT[round]),
+										new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
+									/**
+									 * 
+									 */
+									private static final long serialVersionUID = 294862973519694063L;
+									boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false,
+											false };
 
-		JPanel prevSBoxResultPanel = new JPanel();
-		prevSBoxResultPanel.setBorder(null);
-		prevSBoxResultPanel.setBounds(56, 70, 172, 76);
-		SBOX.add(prevSBoxResultPanel);
-
-		prevSBoxResultTable = new JTable();
-		prevSBoxResultTable
-				.setModel(
-						new DefaultTableModel(
-								(ENCRYPT == true) ? SerpentData.intToObject(data.afterXOR[round])
-										: SerpentData
-												.intToObject((round == 32) ? data.afterXOR[32] : data.afterLT[round]),
+									public boolean isCellEditable(int row, int column) {
+										return columnEditables[column];
+									}
+								});
+				prevSBoxResultTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+				prevSBoxResultTable.getColumnModel().getColumn(0).setMinWidth(20);
+				prevSBoxResultTable.getColumnModel().getColumn(0).setMaxWidth(50);
+				prevSBoxResultTable.getColumnModel().getColumn(1).setPreferredWidth(20);
+				prevSBoxResultTable.getColumnModel().getColumn(1).setMinWidth(20);
+				prevSBoxResultTable.getColumnModel().getColumn(1).setMaxWidth(50);
+				prevSBoxResultTable.getColumnModel().getColumn(2).setPreferredWidth(20);
+				prevSBoxResultTable.getColumnModel().getColumn(2).setMinWidth(20);
+				prevSBoxResultTable.getColumnModel().getColumn(2).setMaxWidth(50);
+				prevSBoxResultTable.getColumnModel().getColumn(3).setPreferredWidth(20);
+				prevSBoxResultTable.getColumnModel().getColumn(3).setMinWidth(20);
+				prevSBoxResultTable.getColumnModel().getColumn(3).setMaxWidth(50);
+				prevSBoxResultTable.getColumnModel().getColumn(4).setPreferredWidth(20);
+				prevSBoxResultTable.getColumnModel().getColumn(4).setMinWidth(20);
+				prevSBoxResultTable.getColumnModel().getColumn(4).setMaxWidth(50);
+				prevSBoxResultTable.getColumnModel().getColumn(5).setPreferredWidth(20);
+				prevSBoxResultTable.getColumnModel().getColumn(5).setMinWidth(20);
+				prevSBoxResultTable.getColumnModel().getColumn(5).setMaxWidth(50);
+				prevSBoxResultTable.getColumnModel().getColumn(6).setPreferredWidth(20);
+				prevSBoxResultTable.getColumnModel().getColumn(6).setMinWidth(20);
+				prevSBoxResultTable.getColumnModel().getColumn(6).setMaxWidth(50);
+				prevSBoxResultTable.getColumnModel().getColumn(7).setPreferredWidth(20);
+				prevSBoxResultTable.getColumnModel().getColumn(7).setMinWidth(20);
+				prevSBoxResultTable.getColumnModel().getColumn(7).setMaxWidth(50);
+				prevSBoxResultTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				prevSBoxResultTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+				prevSBoxResultTable.setBackground(Color.WHITE);
+		
+				SBoxResultTable = new JTable();
+				SBoxResultTable.setBounds(481, 81, 160, 64);
+				SBOX.add(SBoxResultTable);
+				SBoxResultTable.setModel(
+						new DefaultTableModel(SerpentData.intToObject(data.afterSBOX[ENCRYPT ? round - 1 : round - 2]),
 								new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
-							/**
-							 * 
-							 */
-							private static final long serialVersionUID = 294862973519694063L;
+
+							private static final long serialVersionUID = -710303563721443981L;
 							boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false,
 									false };
 
@@ -778,83 +807,34 @@ public class Rounds {
 								return columnEditables[column];
 							}
 						});
-		prevSBoxResultTable.getColumnModel().getColumn(0).setPreferredWidth(20);
-		prevSBoxResultTable.getColumnModel().getColumn(0).setMinWidth(20);
-		prevSBoxResultTable.getColumnModel().getColumn(0).setMaxWidth(50);
-		prevSBoxResultTable.getColumnModel().getColumn(1).setPreferredWidth(20);
-		prevSBoxResultTable.getColumnModel().getColumn(1).setMinWidth(20);
-		prevSBoxResultTable.getColumnModel().getColumn(1).setMaxWidth(50);
-		prevSBoxResultTable.getColumnModel().getColumn(2).setPreferredWidth(20);
-		prevSBoxResultTable.getColumnModel().getColumn(2).setMinWidth(20);
-		prevSBoxResultTable.getColumnModel().getColumn(2).setMaxWidth(50);
-		prevSBoxResultTable.getColumnModel().getColumn(3).setPreferredWidth(20);
-		prevSBoxResultTable.getColumnModel().getColumn(3).setMinWidth(20);
-		prevSBoxResultTable.getColumnModel().getColumn(3).setMaxWidth(50);
-		prevSBoxResultTable.getColumnModel().getColumn(4).setPreferredWidth(20);
-		prevSBoxResultTable.getColumnModel().getColumn(4).setMinWidth(20);
-		prevSBoxResultTable.getColumnModel().getColumn(4).setMaxWidth(50);
-		prevSBoxResultTable.getColumnModel().getColumn(5).setPreferredWidth(20);
-		prevSBoxResultTable.getColumnModel().getColumn(5).setMinWidth(20);
-		prevSBoxResultTable.getColumnModel().getColumn(5).setMaxWidth(50);
-		prevSBoxResultTable.getColumnModel().getColumn(6).setPreferredWidth(20);
-		prevSBoxResultTable.getColumnModel().getColumn(6).setMinWidth(20);
-		prevSBoxResultTable.getColumnModel().getColumn(6).setMaxWidth(50);
-		prevSBoxResultTable.getColumnModel().getColumn(7).setPreferredWidth(20);
-		prevSBoxResultTable.getColumnModel().getColumn(7).setMinWidth(20);
-		prevSBoxResultTable.getColumnModel().getColumn(7).setMaxWidth(50);
-		prevSBoxResultTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		prevSBoxResultTable.setRowSelectionAllowed(false);
-		prevSBoxResultTable.setBorder(new LineBorder(new Color(0, 0, 0)));
-		prevSBoxResultTable.setBackground(Color.WHITE);
-		prevSBoxResultPanel.add(prevSBoxResultTable);
-
-		JPanel SBoxResultPanel = new JPanel();
-		SBoxResultPanel.setBorder(null);
-		SBoxResultPanel.setBounds(475, 70, 172, 76);
-		SBOX.add(SBoxResultPanel);
-
-		SBoxResultTable = new JTable();
-		SBoxResultTable.setModel(
-				new DefaultTableModel(SerpentData.intToObject(data.afterSBOX[ENCRYPT ? round - 1 : round - 2]),
-						new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
-
-					private static final long serialVersionUID = -710303563721443981L;
-					boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false,
-							false };
-
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
-		SBoxResultTable.getColumnModel().getColumn(0).setPreferredWidth(20);
-		SBoxResultTable.getColumnModel().getColumn(0).setMinWidth(20);
-		SBoxResultTable.getColumnModel().getColumn(0).setMaxWidth(50);
-		SBoxResultTable.getColumnModel().getColumn(1).setPreferredWidth(20);
-		SBoxResultTable.getColumnModel().getColumn(1).setMinWidth(20);
-		SBoxResultTable.getColumnModel().getColumn(1).setMaxWidth(50);
-		SBoxResultTable.getColumnModel().getColumn(2).setPreferredWidth(20);
-		SBoxResultTable.getColumnModel().getColumn(2).setMinWidth(20);
-		SBoxResultTable.getColumnModel().getColumn(2).setMaxWidth(50);
-		SBoxResultTable.getColumnModel().getColumn(3).setPreferredWidth(20);
-		SBoxResultTable.getColumnModel().getColumn(3).setMinWidth(20);
-		SBoxResultTable.getColumnModel().getColumn(3).setMaxWidth(50);
-		SBoxResultTable.getColumnModel().getColumn(4).setPreferredWidth(20);
-		SBoxResultTable.getColumnModel().getColumn(4).setMinWidth(20);
-		SBoxResultTable.getColumnModel().getColumn(4).setMaxWidth(50);
-		SBoxResultTable.getColumnModel().getColumn(5).setPreferredWidth(20);
-		SBoxResultTable.getColumnModel().getColumn(5).setMinWidth(20);
-		SBoxResultTable.getColumnModel().getColumn(5).setMaxWidth(50);
-		SBoxResultTable.getColumnModel().getColumn(6).setPreferredWidth(20);
-		SBoxResultTable.getColumnModel().getColumn(6).setMinWidth(20);
-		SBoxResultTable.getColumnModel().getColumn(6).setMaxWidth(50);
-		SBoxResultTable.getColumnModel().getColumn(7).setPreferredWidth(20);
-		SBoxResultTable.getColumnModel().getColumn(7).setMinWidth(20);
-		SBoxResultTable.getColumnModel().getColumn(7).setMaxWidth(50);
-		SBoxResultTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		SBoxResultTable.setRowSelectionAllowed(false);
-		SBoxResultTable.setBorder(new LineBorder(new Color(0, 0, 0)));
-		SBoxResultTable.setBackground(Color.WHITE);
-		SBoxResultPanel.add(SBoxResultTable);
+				SBoxResultTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+				SBoxResultTable.getColumnModel().getColumn(0).setMinWidth(20);
+				SBoxResultTable.getColumnModel().getColumn(0).setMaxWidth(50);
+				SBoxResultTable.getColumnModel().getColumn(1).setPreferredWidth(20);
+				SBoxResultTable.getColumnModel().getColumn(1).setMinWidth(20);
+				SBoxResultTable.getColumnModel().getColumn(1).setMaxWidth(50);
+				SBoxResultTable.getColumnModel().getColumn(2).setPreferredWidth(20);
+				SBoxResultTable.getColumnModel().getColumn(2).setMinWidth(20);
+				SBoxResultTable.getColumnModel().getColumn(2).setMaxWidth(50);
+				SBoxResultTable.getColumnModel().getColumn(3).setPreferredWidth(20);
+				SBoxResultTable.getColumnModel().getColumn(3).setMinWidth(20);
+				SBoxResultTable.getColumnModel().getColumn(3).setMaxWidth(50);
+				SBoxResultTable.getColumnModel().getColumn(4).setPreferredWidth(20);
+				SBoxResultTable.getColumnModel().getColumn(4).setMinWidth(20);
+				SBoxResultTable.getColumnModel().getColumn(4).setMaxWidth(50);
+				SBoxResultTable.getColumnModel().getColumn(5).setPreferredWidth(20);
+				SBoxResultTable.getColumnModel().getColumn(5).setMinWidth(20);
+				SBoxResultTable.getColumnModel().getColumn(5).setMaxWidth(50);
+				SBoxResultTable.getColumnModel().getColumn(6).setPreferredWidth(20);
+				SBoxResultTable.getColumnModel().getColumn(6).setMinWidth(20);
+				SBoxResultTable.getColumnModel().getColumn(6).setMaxWidth(50);
+				SBoxResultTable.getColumnModel().getColumn(7).setPreferredWidth(20);
+				SBoxResultTable.getColumnModel().getColumn(7).setMinWidth(20);
+				SBoxResultTable.getColumnModel().getColumn(7).setMaxWidth(50);
+				SBoxResultTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				SBoxResultTable.setRowSelectionAllowed(false);
+				SBoxResultTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+				SBoxResultTable.setBackground(Color.WHITE);
 
 		JButton btnPreviousRound = new JButton("Previous round");
 		btnPreviousRound.setBounds(381, 230, 125, 23);
@@ -866,11 +846,11 @@ public class Rounds {
 		LT.setLayout(null);
 
 		JLabel label_6 = new JLabel("Previously result");
-		label_6.setBounds(56, 42, 118, 14);
+		label_6.setBounds(33, 58, 118, 14);
 		LT.add(label_6);
 
 		JLabel label_9 = new JLabel("=");
-		label_9.setBounds(443, 98, 46, 14);
+		label_9.setBounds(438, 109, 46, 14);
 		LT.add(label_9);
 
 		JLabel label_10 = new JLabel("Result");
@@ -880,107 +860,99 @@ public class Rounds {
 		JButton button_1 = new JButton("Next");
 		button_1.setBounds(521, 230, 89, 23);
 		LT.add(button_1);
+		
+				prevLTResultTable = new JTable();
+				prevLTResultTable.setBounds(35, 81, 160, 64);
+				LT.add(prevLTResultTable);
+				prevLTResultTable
+						.setModel(new DefaultTableModel(
+								(ENCRYPT == true) ? SerpentData.intToObject(data.afterSBOX[round])
+										: SerpentData.intToObject(
+												(round == 32) ? data.afterInitalPermutation : data.afterXOR[round + 1]),
+								new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
+							/**
+							 * 
+							 */
+							private static final long serialVersionUID = -5253752856371066056L;
+							boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false,
+									false };
 
-		JPanel prevLTResultPanel = new JPanel();
-		prevLTResultPanel.setBorder(null);
-		prevLTResultPanel.setBounds(56, 67, 172, 76);
-		LT.add(prevLTResultPanel);
+							public boolean isCellEditable(int row, int column) {
+								return columnEditables[column];
+							}
+						});
+				prevLTResultTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+				prevLTResultTable.getColumnModel().getColumn(0).setMinWidth(20);
+				prevLTResultTable.getColumnModel().getColumn(0).setMaxWidth(50);
+				prevLTResultTable.getColumnModel().getColumn(1).setPreferredWidth(20);
+				prevLTResultTable.getColumnModel().getColumn(1).setMinWidth(20);
+				prevLTResultTable.getColumnModel().getColumn(1).setMaxWidth(50);
+				prevLTResultTable.getColumnModel().getColumn(2).setPreferredWidth(20);
+				prevLTResultTable.getColumnModel().getColumn(2).setMinWidth(20);
+				prevLTResultTable.getColumnModel().getColumn(2).setMaxWidth(50);
+				prevLTResultTable.getColumnModel().getColumn(3).setPreferredWidth(20);
+				prevLTResultTable.getColumnModel().getColumn(3).setMinWidth(20);
+				prevLTResultTable.getColumnModel().getColumn(3).setMaxWidth(50);
+				prevLTResultTable.getColumnModel().getColumn(4).setPreferredWidth(20);
+				prevLTResultTable.getColumnModel().getColumn(4).setMinWidth(20);
+				prevLTResultTable.getColumnModel().getColumn(4).setMaxWidth(50);
+				prevLTResultTable.getColumnModel().getColumn(5).setPreferredWidth(20);
+				prevLTResultTable.getColumnModel().getColumn(5).setMinWidth(20);
+				prevLTResultTable.getColumnModel().getColumn(5).setMaxWidth(50);
+				prevLTResultTable.getColumnModel().getColumn(6).setPreferredWidth(20);
+				prevLTResultTable.getColumnModel().getColumn(6).setMinWidth(20);
+				prevLTResultTable.getColumnModel().getColumn(6).setMaxWidth(50);
+				prevLTResultTable.getColumnModel().getColumn(7).setPreferredWidth(20);
+				prevLTResultTable.getColumnModel().getColumn(7).setMinWidth(20);
+				prevLTResultTable.getColumnModel().getColumn(7).setMaxWidth(50);
+				prevLTResultTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+				prevLTResultTable.setRowSelectionAllowed(false);
+				prevLTResultTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+				prevLTResultTable.setBackground(Color.WHITE);
+		
+				resultLTTable = new JTable();
+				resultLTTable.setBounds(508, 81, 160, 64);
+				LT.add(resultLTTable);
+				resultLTTable
+						.setModel(new DefaultTableModel(SerpentData.intToObject(data.afterLT[ENCRYPT ? round - 1 : round - 1]),
+								new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
 
-		prevLTResultTable = new JTable();
-		prevLTResultTable
-				.setModel(new DefaultTableModel(
-						(ENCRYPT == true) ? SerpentData.intToObject(data.afterSBOX[round])
-								: SerpentData.intToObject(
-										(round == 32) ? data.afterInitalPermutation : data.afterXOR[round + 1]),
-						new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
-					/**
-					 * 
-					 */
-					private static final long serialVersionUID = -5253752856371066056L;
-					boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false,
-							false };
+							private static final long serialVersionUID = -469619480133487274L;
+							boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false,
+									false };
 
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
-		prevLTResultTable.getColumnModel().getColumn(0).setPreferredWidth(20);
-		prevLTResultTable.getColumnModel().getColumn(0).setMinWidth(20);
-		prevLTResultTable.getColumnModel().getColumn(0).setMaxWidth(50);
-		prevLTResultTable.getColumnModel().getColumn(1).setPreferredWidth(20);
-		prevLTResultTable.getColumnModel().getColumn(1).setMinWidth(20);
-		prevLTResultTable.getColumnModel().getColumn(1).setMaxWidth(50);
-		prevLTResultTable.getColumnModel().getColumn(2).setPreferredWidth(20);
-		prevLTResultTable.getColumnModel().getColumn(2).setMinWidth(20);
-		prevLTResultTable.getColumnModel().getColumn(2).setMaxWidth(50);
-		prevLTResultTable.getColumnModel().getColumn(3).setPreferredWidth(20);
-		prevLTResultTable.getColumnModel().getColumn(3).setMinWidth(20);
-		prevLTResultTable.getColumnModel().getColumn(3).setMaxWidth(50);
-		prevLTResultTable.getColumnModel().getColumn(4).setPreferredWidth(20);
-		prevLTResultTable.getColumnModel().getColumn(4).setMinWidth(20);
-		prevLTResultTable.getColumnModel().getColumn(4).setMaxWidth(50);
-		prevLTResultTable.getColumnModel().getColumn(5).setPreferredWidth(20);
-		prevLTResultTable.getColumnModel().getColumn(5).setMinWidth(20);
-		prevLTResultTable.getColumnModel().getColumn(5).setMaxWidth(50);
-		prevLTResultTable.getColumnModel().getColumn(6).setPreferredWidth(20);
-		prevLTResultTable.getColumnModel().getColumn(6).setMinWidth(20);
-		prevLTResultTable.getColumnModel().getColumn(6).setMaxWidth(50);
-		prevLTResultTable.getColumnModel().getColumn(7).setPreferredWidth(20);
-		prevLTResultTable.getColumnModel().getColumn(7).setMinWidth(20);
-		prevLTResultTable.getColumnModel().getColumn(7).setMaxWidth(50);
-		prevLTResultTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		prevLTResultTable.setRowSelectionAllowed(false);
-		prevLTResultTable.setBorder(new LineBorder(new Color(0, 0, 0)));
-		prevLTResultTable.setBackground(Color.WHITE);
-		prevLTResultPanel.add(prevLTResultTable);
-
-		JPanel resultLTPanel = new JPanel();
-		resultLTPanel.setBorder(null);
-		resultLTPanel.setBounds(477, 67, 172, 76);
-		LT.add(resultLTPanel);
-
-		resultLTTable = new JTable();
-		resultLTTable
-				.setModel(new DefaultTableModel(SerpentData.intToObject(data.afterLT[ENCRYPT ? round - 1 : round - 1]),
-						new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
-
-					private static final long serialVersionUID = -469619480133487274L;
-					boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false,
-							false };
-
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
-		resultLTTable.getColumnModel().getColumn(0).setPreferredWidth(20);
-		resultLTTable.getColumnModel().getColumn(0).setMinWidth(20);
-		resultLTTable.getColumnModel().getColumn(0).setMaxWidth(50);
-		resultLTTable.getColumnModel().getColumn(1).setPreferredWidth(20);
-		resultLTTable.getColumnModel().getColumn(1).setMinWidth(20);
-		resultLTTable.getColumnModel().getColumn(1).setMaxWidth(50);
-		resultLTTable.getColumnModel().getColumn(2).setPreferredWidth(20);
-		resultLTTable.getColumnModel().getColumn(2).setMinWidth(20);
-		resultLTTable.getColumnModel().getColumn(2).setMaxWidth(50);
-		resultLTTable.getColumnModel().getColumn(3).setPreferredWidth(20);
-		resultLTTable.getColumnModel().getColumn(3).setMinWidth(20);
-		resultLTTable.getColumnModel().getColumn(3).setMaxWidth(50);
-		resultLTTable.getColumnModel().getColumn(4).setPreferredWidth(20);
-		resultLTTable.getColumnModel().getColumn(4).setMinWidth(20);
-		resultLTTable.getColumnModel().getColumn(4).setMaxWidth(50);
-		resultLTTable.getColumnModel().getColumn(5).setPreferredWidth(20);
-		resultLTTable.getColumnModel().getColumn(5).setMinWidth(20);
-		resultLTTable.getColumnModel().getColumn(5).setMaxWidth(50);
-		resultLTTable.getColumnModel().getColumn(6).setPreferredWidth(20);
-		resultLTTable.getColumnModel().getColumn(6).setMinWidth(20);
-		resultLTTable.getColumnModel().getColumn(6).setMaxWidth(50);
-		resultLTTable.getColumnModel().getColumn(7).setPreferredWidth(20);
-		resultLTTable.getColumnModel().getColumn(7).setMinWidth(20);
-		resultLTTable.getColumnModel().getColumn(7).setMaxWidth(50);
-		resultLTTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		resultLTTable.setRowSelectionAllowed(false);
-		resultLTTable.setBorder(new LineBorder(new Color(0, 0, 0)));
-		resultLTTable.setBackground(Color.WHITE);
-		resultLTPanel.add(resultLTTable);
+							public boolean isCellEditable(int row, int column) {
+								return columnEditables[column];
+							}
+						});
+				resultLTTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+				resultLTTable.getColumnModel().getColumn(0).setMinWidth(20);
+				resultLTTable.getColumnModel().getColumn(0).setMaxWidth(50);
+				resultLTTable.getColumnModel().getColumn(1).setPreferredWidth(20);
+				resultLTTable.getColumnModel().getColumn(1).setMinWidth(20);
+				resultLTTable.getColumnModel().getColumn(1).setMaxWidth(50);
+				resultLTTable.getColumnModel().getColumn(2).setPreferredWidth(20);
+				resultLTTable.getColumnModel().getColumn(2).setMinWidth(20);
+				resultLTTable.getColumnModel().getColumn(2).setMaxWidth(50);
+				resultLTTable.getColumnModel().getColumn(3).setPreferredWidth(20);
+				resultLTTable.getColumnModel().getColumn(3).setMinWidth(20);
+				resultLTTable.getColumnModel().getColumn(3).setMaxWidth(50);
+				resultLTTable.getColumnModel().getColumn(4).setPreferredWidth(20);
+				resultLTTable.getColumnModel().getColumn(4).setMinWidth(20);
+				resultLTTable.getColumnModel().getColumn(4).setMaxWidth(50);
+				resultLTTable.getColumnModel().getColumn(5).setPreferredWidth(20);
+				resultLTTable.getColumnModel().getColumn(5).setMinWidth(20);
+				resultLTTable.getColumnModel().getColumn(5).setMaxWidth(50);
+				resultLTTable.getColumnModel().getColumn(6).setPreferredWidth(20);
+				resultLTTable.getColumnModel().getColumn(6).setMinWidth(20);
+				resultLTTable.getColumnModel().getColumn(6).setMaxWidth(50);
+				resultLTTable.getColumnModel().getColumn(7).setPreferredWidth(20);
+				resultLTTable.getColumnModel().getColumn(7).setMinWidth(20);
+				resultLTTable.getColumnModel().getColumn(7).setMaxWidth(50);
+				resultLTTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+				resultLTTable.setRowSelectionAllowed(false);
+				resultLTTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+				resultLTTable.setBackground(Color.WHITE);
 
 		JButton btnLinearTransformation = new JButton("Linear Transformation");
 		btnLinearTransformation.addMouseListener(new MouseAdapter() {
@@ -991,7 +963,7 @@ public class Rounds {
 			}
 		});
 		btnLinearTransformation.setHorizontalAlignment(SwingConstants.LEADING);
-		btnLinearTransformation.setBounds(259, 67, 162, 76);
+		btnLinearTransformation.setBounds(230, 81, 162, 70);
 		LT.add(btnLinearTransformation);
 
 		JPanel XORFinal = new JPanel();
@@ -1001,81 +973,74 @@ public class Rounds {
 		tabbedPane.setEnabledAt( 4 , false);
 
 		JLabel label_1 = new JLabel("XOR");
-		label_1.setBounds(234, 105, 46, 14);
+		label_1.setBounds(219, 106, 46, 14);
 		XORFinal.add(label_1);
 
 		JLabel label_2 = new JLabel("=");
-		label_2.setBounds(454, 105, 33, 14);
+		label_2.setBounds(473, 106, 33, 14);
 		XORFinal.add(label_2);
 
 		JLabel label_3 = new JLabel("SubKey[33]");
-		label_3.setBounds(266, 50, 110, 14);
+		label_3.setBounds(276, 50, 110, 14);
 		XORFinal.add(label_3);
 
 		JLabel label_4 = new JLabel("Previously result");
-		label_4.setBounds(47, 50, 118, 14);
+		label_4.setBounds(23, 50, 118, 14);
 		XORFinal.add(label_4);
 
 		JLabel label_5 = new JLabel("Result");
-		label_5.setBounds(485, 50, 52, 14);
+		label_5.setBounds(518, 50, 52, 14);
 		XORFinal.add(label_5);
+		
+				prevXorFTable = new JTable();
+				prevXorFTable.setBounds(24, 81, 160, 64);
+				XORFinal.add(prevXorFTable);
+				prevXorFTable.setModel(new DefaultTableModel(SerpentData.intToObject(data.afterSBOX[31]),
+						new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = -5838131697177452106L;
+					boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false, false };
 
-		JPanel prevXorFPanel = new JPanel();
-		prevXorFPanel.setBorder(null);
-		prevXorFPanel.setBounds(47, 75, 172, 76);
-		XORFinal.add(prevXorFPanel);
-
-		prevXorFTable = new JTable();
-		prevXorFTable.setModel(new DefaultTableModel(SerpentData.intToObject(data.afterSBOX[31]),
-				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = -5838131697177452106L;
-			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false, false };
-
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		prevXorFTable.getColumnModel().getColumn(0).setPreferredWidth(20);
-		prevXorFTable.getColumnModel().getColumn(0).setMinWidth(20);
-		prevXorFTable.getColumnModel().getColumn(0).setMaxWidth(20);
-		prevXorFTable.getColumnModel().getColumn(1).setPreferredWidth(20);
-		prevXorFTable.getColumnModel().getColumn(1).setMinWidth(20);
-		prevXorFTable.getColumnModel().getColumn(1).setMaxWidth(20);
-		prevXorFTable.getColumnModel().getColumn(2).setPreferredWidth(20);
-		prevXorFTable.getColumnModel().getColumn(2).setMinWidth(20);
-		prevXorFTable.getColumnModel().getColumn(2).setMaxWidth(20);
-		prevXorFTable.getColumnModel().getColumn(3).setPreferredWidth(20);
-		prevXorFTable.getColumnModel().getColumn(3).setMinWidth(20);
-		prevXorFTable.getColumnModel().getColumn(3).setMaxWidth(20);
-		prevXorFTable.getColumnModel().getColumn(4).setPreferredWidth(20);
-		prevXorFTable.getColumnModel().getColumn(4).setMinWidth(20);
-		prevXorFTable.getColumnModel().getColumn(4).setMaxWidth(20);
-		prevXorFTable.getColumnModel().getColumn(5).setPreferredWidth(20);
-		prevXorFTable.getColumnModel().getColumn(5).setMinWidth(20);
-		prevXorFTable.getColumnModel().getColumn(5).setMaxWidth(20);
-		prevXorFTable.getColumnModel().getColumn(6).setPreferredWidth(20);
-		prevXorFTable.getColumnModel().getColumn(6).setMinWidth(20);
-		prevXorFTable.getColumnModel().getColumn(6).setMaxWidth(20);
-		prevXorFTable.getColumnModel().getColumn(7).setPreferredWidth(20);
-		prevXorFTable.getColumnModel().getColumn(7).setMinWidth(20);
-		prevXorFTable.getColumnModel().getColumn(7).setMaxWidth(20);
-		prevXorFTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		prevXorFTable.setRowSelectionAllowed(false);
-		prevXorFTable.setBorder(new LineBorder(new Color(0, 0, 0)));
-		prevXorFTable.setBackground(Color.WHITE);
-		prevXorFPanel.add(prevXorFTable);
-
-		JPanel SubKeyPanel = new JPanel();
-		SubKeyPanel.setBorder(null);
-		SubKeyPanel.setBounds(266, 75, 172, 76);
-		XORFinal.add(SubKeyPanel);
+					public boolean isCellEditable(int row, int column) {
+						return columnEditables[column];
+					}
+				});
+				prevXorFTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+				prevXorFTable.getColumnModel().getColumn(0).setMinWidth(20);
+				prevXorFTable.getColumnModel().getColumn(0).setMaxWidth(20);
+				prevXorFTable.getColumnModel().getColumn(1).setPreferredWidth(20);
+				prevXorFTable.getColumnModel().getColumn(1).setMinWidth(20);
+				prevXorFTable.getColumnModel().getColumn(1).setMaxWidth(20);
+				prevXorFTable.getColumnModel().getColumn(2).setPreferredWidth(20);
+				prevXorFTable.getColumnModel().getColumn(2).setMinWidth(20);
+				prevXorFTable.getColumnModel().getColumn(2).setMaxWidth(20);
+				prevXorFTable.getColumnModel().getColumn(3).setPreferredWidth(20);
+				prevXorFTable.getColumnModel().getColumn(3).setMinWidth(20);
+				prevXorFTable.getColumnModel().getColumn(3).setMaxWidth(20);
+				prevXorFTable.getColumnModel().getColumn(4).setPreferredWidth(20);
+				prevXorFTable.getColumnModel().getColumn(4).setMinWidth(20);
+				prevXorFTable.getColumnModel().getColumn(4).setMaxWidth(20);
+				prevXorFTable.getColumnModel().getColumn(5).setPreferredWidth(20);
+				prevXorFTable.getColumnModel().getColumn(5).setMinWidth(20);
+				prevXorFTable.getColumnModel().getColumn(5).setMaxWidth(20);
+				prevXorFTable.getColumnModel().getColumn(6).setPreferredWidth(20);
+				prevXorFTable.getColumnModel().getColumn(6).setMinWidth(20);
+				prevXorFTable.getColumnModel().getColumn(6).setMaxWidth(20);
+				prevXorFTable.getColumnModel().getColumn(7).setPreferredWidth(20);
+				prevXorFTable.getColumnModel().getColumn(7).setMinWidth(20);
+				prevXorFTable.getColumnModel().getColumn(7).setMaxWidth(20);
+				prevXorFTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				prevXorFTable.setRowSelectionAllowed(false);
+				prevXorFTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+				prevXorFTable.setBackground(Color.WHITE);
 		
 		
 
 		SubKeyTable = new JTable();
+		SubKeyTable.setBounds(278, 81, 160, 64);
+		XORFinal.add(SubKeyTable);
 		SubKeyTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -1088,8 +1053,6 @@ public class Rounds {
 				
 		
 				lblSubKey.setText("Sub Key[ " + (round + ((lastSubKeyFlag==true) ? 1 : 0)) + "]" );
-				
-				
 				
 				btnSbox_1.setText("S-Box: " + ((40 - (round + ((lastSubKeyFlag==true) ? 1 : 0)) - 4) % 8 + 1));
 				
@@ -1152,78 +1115,73 @@ public class Rounds {
 		SubKeyTable.getColumnModel().getColumn(7).setPreferredWidth(20);
 		SubKeyTable.getColumnModel().getColumn(7).setMinWidth(20);
 		SubKeyTable.getColumnModel().getColumn(7).setMaxWidth(20);
-		SubKeyTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		SubKeyTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		SubKeyTable.setRowSelectionAllowed(false);
 		SubKeyTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		SubKeyTable.setBackground(Color.WHITE);
-		SubKeyPanel.add(SubKeyTable);
+		
+				ResultTable = new JTable();
+				ResultTable.setBounds(519, 81, 160, 64);
+				XORFinal.add(ResultTable);
+				ResultTable.setModel(new DefaultTableModel(SerpentData.intToObject(data.afterXOR[32]),
+						new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1221999896256837407L;
+					boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false, false };
 
-		JPanel ResultPanel = new JPanel();
-		ResultPanel.setBorder(null);
-		ResultPanel.setBounds(485, 75, 172, 76);
-		XORFinal.add(ResultPanel);
-
-		ResultTable = new JTable();
-		ResultTable.setModel(new DefaultTableModel(SerpentData.intToObject(data.afterXOR[32]),
-				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1221999896256837407L;
-			boolean[] columnEditables = new boolean[] { false, false, false, false, false, false, false, false };
-
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		ResultTable.getColumnModel().getColumn(0).setResizable(false);
-		ResultTable.getColumnModel().getColumn(0).setPreferredWidth(20);
-		ResultTable.getColumnModel().getColumn(0).setMinWidth(20);
-		ResultTable.getColumnModel().getColumn(0).setMaxWidth(20);
-		ResultTable.getColumnModel().getColumn(1).setResizable(false);
-		ResultTable.getColumnModel().getColumn(1).setPreferredWidth(20);
-		ResultTable.getColumnModel().getColumn(1).setMinWidth(20);
-		ResultTable.getColumnModel().getColumn(1).setMaxWidth(20);
-		ResultTable.getColumnModel().getColumn(2).setResizable(false);
-		ResultTable.getColumnModel().getColumn(2).setPreferredWidth(20);
-		ResultTable.getColumnModel().getColumn(2).setMinWidth(20);
-		ResultTable.getColumnModel().getColumn(2).setMaxWidth(20);
-		ResultTable.getColumnModel().getColumn(3).setResizable(false);
-		ResultTable.getColumnModel().getColumn(3).setPreferredWidth(20);
-		ResultTable.getColumnModel().getColumn(3).setMinWidth(20);
-		ResultTable.getColumnModel().getColumn(3).setMaxWidth(20);
-		ResultTable.getColumnModel().getColumn(4).setResizable(false);
-		ResultTable.getColumnModel().getColumn(4).setPreferredWidth(20);
-		ResultTable.getColumnModel().getColumn(4).setMinWidth(20);
-		ResultTable.getColumnModel().getColumn(4).setMaxWidth(20);
-		ResultTable.getColumnModel().getColumn(5).setResizable(false);
-		ResultTable.getColumnModel().getColumn(5).setPreferredWidth(20);
-		ResultTable.getColumnModel().getColumn(5).setMinWidth(20);
-		ResultTable.getColumnModel().getColumn(5).setMaxWidth(20);
-		ResultTable.getColumnModel().getColumn(6).setResizable(false);
-		ResultTable.getColumnModel().getColumn(6).setPreferredWidth(20);
-		ResultTable.getColumnModel().getColumn(6).setMinWidth(20);
-		ResultTable.getColumnModel().getColumn(6).setMaxWidth(20);
-		ResultTable.getColumnModel().getColumn(7).setResizable(false);
-		ResultTable.getColumnModel().getColumn(7).setPreferredWidth(20);
-		ResultTable.getColumnModel().getColumn(7).setMinWidth(20);
-		ResultTable.getColumnModel().getColumn(7).setMaxWidth(20);
-		ResultTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		ResultTable.setRowSelectionAllowed(false);
-		ResultTable.setBorder(new LineBorder(new Color(0, 0, 0)));
-		ResultTable.setBackground(Color.WHITE);
-		ResultPanel.add(ResultTable);
+					public boolean isCellEditable(int row, int column) {
+						return columnEditables[column];
+					}
+				});
+				ResultTable.getColumnModel().getColumn(0).setResizable(false);
+				ResultTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+				ResultTable.getColumnModel().getColumn(0).setMinWidth(20);
+				ResultTable.getColumnModel().getColumn(0).setMaxWidth(20);
+				ResultTable.getColumnModel().getColumn(1).setResizable(false);
+				ResultTable.getColumnModel().getColumn(1).setPreferredWidth(20);
+				ResultTable.getColumnModel().getColumn(1).setMinWidth(20);
+				ResultTable.getColumnModel().getColumn(1).setMaxWidth(20);
+				ResultTable.getColumnModel().getColumn(2).setResizable(false);
+				ResultTable.getColumnModel().getColumn(2).setPreferredWidth(20);
+				ResultTable.getColumnModel().getColumn(2).setMinWidth(20);
+				ResultTable.getColumnModel().getColumn(2).setMaxWidth(20);
+				ResultTable.getColumnModel().getColumn(3).setResizable(false);
+				ResultTable.getColumnModel().getColumn(3).setPreferredWidth(20);
+				ResultTable.getColumnModel().getColumn(3).setMinWidth(20);
+				ResultTable.getColumnModel().getColumn(3).setMaxWidth(20);
+				ResultTable.getColumnModel().getColumn(4).setResizable(false);
+				ResultTable.getColumnModel().getColumn(4).setPreferredWidth(20);
+				ResultTable.getColumnModel().getColumn(4).setMinWidth(20);
+				ResultTable.getColumnModel().getColumn(4).setMaxWidth(20);
+				ResultTable.getColumnModel().getColumn(5).setResizable(false);
+				ResultTable.getColumnModel().getColumn(5).setPreferredWidth(20);
+				ResultTable.getColumnModel().getColumn(5).setMinWidth(20);
+				ResultTable.getColumnModel().getColumn(5).setMaxWidth(20);
+				ResultTable.getColumnModel().getColumn(6).setResizable(false);
+				ResultTable.getColumnModel().getColumn(6).setPreferredWidth(20);
+				ResultTable.getColumnModel().getColumn(6).setMinWidth(20);
+				ResultTable.getColumnModel().getColumn(6).setMaxWidth(20);
+				ResultTable.getColumnModel().getColumn(7).setResizable(false);
+				ResultTable.getColumnModel().getColumn(7).setPreferredWidth(20);
+				ResultTable.getColumnModel().getColumn(7).setMinWidth(20);
+				ResultTable.getColumnModel().getColumn(7).setMaxWidth(20);
+				ResultTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				ResultTable.setRowSelectionAllowed(false);
+				ResultTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+				ResultTable.setBackground(Color.WHITE);
 
 		JButton btnNext = new JButton("Next");
-		btnNext.setBounds(521, 308, 89, 23);
+		btnNext.setBounds(628, 289, 89, 23);
 		frmSerpentRounds.getContentPane().add(btnNext);
 
 		JLabel lblRound = new JLabel("Round: ");
-		lblRound.setBounds(36, 271, 46, 14);
+		lblRound.setBounds(36, 286, 46, 14);
 		frmSerpentRounds.getContentPane().add(lblRound);
 
 		JLabel roundNumber = new JLabel(Integer.toString(round + 1));
-		roundNumber.setBounds(106, 271, 46, 14);
+		roundNumber.setBounds(92, 286, 46, 14);
 		frmSerpentRounds.getContentPane().add(roundNumber);
 
 		if(ENCRYPT == true){
@@ -1263,7 +1221,7 @@ public class Rounds {
 				 w2.setText("W[" + ((round - 1) * 4 + 9 + ((lastSubKeyFlag==true) ? 4 : 0)) + "]");
 				 w3.setText("W[" + ((round - 1) * 4 + 10+ ((lastSubKeyFlag==true) ? 4 : 0)) + "]");
 				 w4.setText("W[" + ((round - 1) * 4 + 11 + ((lastSubKeyFlag==true) ? 4 : 0)) + "]");
-				lastSubKeyFlag = false;
+				
 				
 				refreshTable(subKeyTable_1, KEYS_SCHEDULER, round - 1);
 				refreshTable(SubKeyAfterIPTable, KEYS_SCHEDULER_IP, round - 1);
@@ -1271,6 +1229,14 @@ public class Rounds {
 				refreshTable(w2Table, W2, round - 1);
 				refreshTable(w3Table, W3, round - 1);
 				refreshTable(w4Table, W4, round - 1);
+				
+				lastSubKeyFlag = false;
+				
+				@SuppressWarnings("unused")
+				IP ip = new IP(2);
+				
+				
+				
 				if (ENCRYPT) {
 					if (round == 32) {
 						btnLinearTransformation.setEnabled(false);
@@ -1332,13 +1298,13 @@ public class Rounds {
 					}
 
 				}
-
+				
 			}
 		});
 		slider.setValue(round);
 		slider.setMinimum(1);
 		slider.setMaximum(32);
-		slider.setBounds(36, 308, 200, 26);
+		slider.setBounds(148, 286, 200, 26);
 		frmSerpentRounds.getContentPane().add(slider);
 
 		btnNext.addMouseListener(new MouseAdapter() {
@@ -1358,7 +1324,7 @@ public class Rounds {
 					if (--round <= 0) {
 
 						frmSerpentRounds.setVisible(false);
-						MainFrame.mainFrame.initialPermutationFrame.frmInitialPermutation.setVisible(true);
+						MainFrame.mainFrame.finalPermutationFrame.frmFinalPermutation.setVisible(true);
 						round = 0;
 						return;
 					}
@@ -1368,7 +1334,7 @@ public class Rounds {
 			}
 		});
 
-		JButton btnPreviuous = new JButton("Previuous");
+		JButton btnPreviuous = new JButton("Previous");
 		btnPreviuous.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -1382,7 +1348,7 @@ public class Rounds {
 				} else {
 					if (round++ >= 32) {
 						frmSerpentRounds.setVisible(false);
-						MainFrame.mainFrame.finalPermutationFrame.frmFinalPermutation.setVisible(true);
+						MainFrame.mainFrame.initialPermutationFrame.frmInitialPermutation.setVisible(true);
 						round = 31;
 						return;
 					}
@@ -1392,7 +1358,7 @@ public class Rounds {
 			}
 		});
 
-		btnPreviuous.setBounds(394, 308, 99, 23);
+		btnPreviuous.setBounds(519, 289, 99, 23);
 		frmSerpentRounds.getContentPane().add(btnPreviuous);
 
 	}

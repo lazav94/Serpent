@@ -1,39 +1,38 @@
 1. Main
-	- radio button  - bira se da li se kriptuje ili dekriptuje
+	- radio button  - bira se rezim rada (kriptovanje ili dekriptovanje)
 	- text area     - za kljuc
-	- text area     - za plain ili cipher text (zavisi od radio buttona)
-	- button        - pokrece se algoritam (za uneta polja u text area-e)
+	- text area     - za plain ili cipher text (zavisi od rezima rada)
+	- button (Start)- pokrece se algoritam (za uneta polja u text area-e)
+
 2. Inital permutation / Final Permutation)
     - prikaz plain text-a i kako izgleda posle permutacije
-	- button        - next (za sledeci korak)
+    - button    "next" (za sledeci korak)
+    - button  	"back" (vracanje na main frame)
 	
 3. Round 0 - 30
-	- Cetri taba:
+	- Pet taba:
+ 		- KEY SCHEDULER (dugme u tabu gde se koristi SUB KEY i prikaz kako se dobio taj sub key)
+			1) Making W keys (Generisanje W[i], W[i+1], W[i+2], W[i+3])
+			2) Making Sub Keys (spajanje u sub key (round))
 		- Trenutni CP XOR SubKey = Result
-		- Trenuti CP SBOX = Result					// Prikaz SBox
-		- Trenutni CP LT = Result					// Prikaz slike linearne transformacije, nije vidljivo u poslednjoj iteraciji
+		- Trenuti CP SBOX = Result			// Prikaz SBox
+		- Trenutni CP LT = Result			// Prikaz slike linearne transformacije, nije vidljivo u poslednjoj iteraciji
 		- Trenutni CP XOR SubKey(32) = Result		// vidljiv samo u poslendjoj iteraciji
 	- dugme za prikaz generisanja subKey(round)
 	- dugme next za prelazak u sledecu iteraciju
+	- dugme back
 	
-4. Generisanje sub key(round)
-	- Generisanje W[i], W[i+1], W[i+2], W[i+3]
-	- spajanje u sub key (round)
 
-
-5. Final iteration / Inital  isto kao 3 uz prikaz CP
-
-
+4. Final iteration / Inital  isto kao 3 uz prikaz CipherTexta/PlainTexta
 
 
 Message box - u slucaju greske!
 
 
 
-KEY SCHEDULER (dugme u tabu gde se koristi SUB KEY i prikaz kako se dobio taj sub key)
-	1) Making W keys
-	2) Making Sub Keys
 
-IP   - frame za tabelu IP 
-FP   - frame za tabelu FP
-SBOX - frame za S-Box tabele
+
+IP table   - frame za tabelu IP 
+FP table   - frame za tabelu FP
+SBOX table - frame za S-Box tabele
+LT table   - frame za Linear transformation
