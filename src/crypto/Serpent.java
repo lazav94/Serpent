@@ -97,6 +97,7 @@ public class Serpent {
 	
 	
 	
+	
 
 	public static int[] IP(int[] x) {
 		return permutate(IP, x);
@@ -253,8 +254,9 @@ public class Serpent {
 			System.out.println();
 		for (int i = 8; i < 140; i++) {
 			int temp1 = XOR(XOR(data.W[i - 8], data.W[i - 5]), XOR(data.W[i - 3], data.W[i - 1]));
+		
 			temp1 = XOR(temp1, PHI ^ (i - 8));
-
+			data.sumW[i] = temp1;
 			data.W[i] = LeftRotate(temp1, 11);
 
 			if (DEBUG) {
@@ -504,8 +506,9 @@ public class Serpent {
 			System.out.println();
 		}
 
+		
 		data.cipherText = little2Big(data.afterFinalPermutation);
-
+	
 		toString("\nCiphertext: ", data.cipherText);
 		System.out.println();
 

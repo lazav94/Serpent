@@ -91,6 +91,7 @@ public class MainFrame {
 		frmSerpant.getContentPane().add(lblKey);
 
 		keyTextField = new JTextField();
+		keyTextField.setText("12345678912345678912345678912345");
 		keyTextField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -114,6 +115,7 @@ public class MainFrame {
 		frmSerpant.getContentPane().add(lblPlainText);
 
 		plainTextField = new JTextField();
+		plainTextField.setText("12345678912345678912345678912345");
 		plainTextField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
