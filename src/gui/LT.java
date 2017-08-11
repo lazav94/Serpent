@@ -16,11 +16,15 @@ import javax.swing.table.DefaultTableModel;
 
 import crypto.SerpentData;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.Font;
+import java.awt.SystemColor;
 
 public class LT {
 
 	public static SerpentData data = SerpentData.getInstance();
 	public JFrame frmLinearTransformation;
+	
+	
 	private JTable a1;
 	private JTable b1;
 	private JTable c1;
@@ -57,6 +61,11 @@ public class LT {
 	private JLabel xor2;
 	private JLabel xor3;
 	private JLabel xor4;
+	
+	
+	
+	
+	
 
 	/**
 	 * Launch the application.
@@ -78,7 +87,7 @@ public class LT {
 		
 		
 	
-		String toolTipString = "<html> <code>";
+		String toolTipString = "<html> <font size='5' face='verdana' > ";
 		toolTipString += String.format("%32s", Integer.toBinaryString(data.LTdata[Rounds.round - 1][prev])).replace(' ',
 				'0');
 		if(Rounds.ENCRYPT)
@@ -86,25 +95,25 @@ public class LT {
 		else
 			toolTipString += "<br> &gt&gt&gt " + pos + "<br>";
 		toolTipString += String.format("%32s", Integer.toBinaryString(data.LTdata[Rounds.round - 1][next])).replace(' ',
-				'0') + "<br></code></html>";
+				'0') + "<br></font> </html>";
 		argLabel.setToolTipText(toolTipString);
 	}
 
 	private void xorToolTip(JLabel argLabel, int a, int b, int c, int result, int pos) {
-		String toolTipString = "<html> <code>";
+		String toolTipString = "<html>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size='5' face='verdana' >";
 		toolTipString += String.format("%32s", Integer.toBinaryString(data.LTdata[Rounds.round - 1][a])).replace(' ',
-				'0') + "<br>";
+				'0') + "<br>+";
 		toolTipString += String.format("%32s", Integer.toBinaryString(data.LTdata[Rounds.round - 1][b])).replace(' ',
-				'0') + "<br>";
+				'0') + "<br>+";
 		if (pos > 0) {
 			toolTipString += String.format("%32s", Integer.toBinaryString(data.LTdata[Rounds.round - 1][c] << pos))
 					.replace(' ', '0') + "<br>";
 		} else
 			toolTipString += String.format("%32s", Integer.toBinaryString(data.LTdata[Rounds.round - 1][c]))
 					.replace(' ', '0') + "<br>";
-		toolTipString += "==================================<br>";
+		toolTipString += "=========================<br>&nbsp;&nbsp;&nbsp;";
 		toolTipString += String.format("%32s", Integer.toBinaryString(data.LTdata[Rounds.round - 1][result]))
-				.replace(' ', '0') + "</code></html>";
+				.replace(' ', '0') + "</font> </html>";
 		argLabel.setToolTipText(toolTipString);
 	}
 
@@ -131,8 +140,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().setLayout(null);
 
 		df = new JTable();
+		df.setFont(new Font("Verdana", Font.PLAIN, 12));
 		df.setForeground(Color.BLACK);
-		df.setBackground(Color.WHITE);
+		df.setBackground(SystemColor.menu);
 		df.setShowVerticalLines(false);
 		df.setEnabled(false);
 		df.setBounds(376, 570, 112, 15);
@@ -181,11 +191,12 @@ public class LT {
 		df.getColumnModel().getColumn(7).setMaxWidth(14);
 
 		a1 = new JTable();
+		a1.setFont(new Font("Verdana", Font.PLAIN, 12));
 		a1.setForeground(Color.BLACK);
-		a1.setBackground(Color.WHITE);
+		a1.setBackground(SystemColor.menu);
 		a1.setShowVerticalLines(false);
 		a1.setEnabled(false);
-		a1.setBounds(10, (Rounds.ENCRYPT == true) ? 119 : 142, 112, 14);
+		a1.setBounds(10, (Rounds.ENCRYPT)?119:142, 112, 14);
 		a1.setModel(new DefaultTableModel(SerpentData.intToObject(new int[] { data.LTdata[Rounds.round - 1][0] }),
 				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
 			/**
@@ -233,8 +244,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(a1);
 
 		b1 = new JTable();
+		b1.setFont(new Font("Verdana", Font.PLAIN, 12));
 		b1.setForeground(Color.BLACK);
-		b1.setBackground(Color.WHITE);
+		b1.setBackground(SystemColor.menu);
 		b1.setShowVerticalLines(false);
 		b1.setEnabled(false);
 		b1.setBounds(132, (Rounds.ENCRYPT == true) ? 119 : 142, 112, 14);
@@ -285,8 +297,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(b1);
 
 		c1 = new JTable();
+		c1.setFont(new Font("Verdana", Font.PLAIN, 12));
 		c1.setForeground(Color.BLACK);
-		c1.setBackground(Color.WHITE);
+		c1.setBackground(SystemColor.menu);
 		c1.setShowVerticalLines(false);
 		c1.setEnabled(false);
 		c1.setBounds(254, (Rounds.ENCRYPT == true) ? 119 : 142, 112, 15);
@@ -337,8 +350,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(c1);
 
 		d1 = new JTable();
+		d1.setFont(new Font("Verdana", Font.PLAIN, 12));
 		d1.setForeground(Color.BLACK);
-		d1.setBackground(Color.WHITE);
+		d1.setBackground(SystemColor.menu);
 		d1.setShowVerticalLines(false);
 		d1.setEnabled(false);
 		d1.setBounds(376, (Rounds.ENCRYPT == true) ? 119 : 142, 112, 15);
@@ -389,8 +403,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(d1);
 
 		a2 = new JTable();
+		a2.setFont(new Font("Verdana", Font.PLAIN, 12));
 		a2.setForeground(Color.BLACK);
-		a2.setBackground(Color.WHITE);
+		a2.setBackground(SystemColor.menu);
 		a2.setShowVerticalLines(false);
 		a2.setEnabled(false);
 		a2.setBounds(10, 199, 112, 15);
@@ -441,8 +456,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(a2);
 
 		c2 = new JTable();
+		c2.setFont(new Font("Verdana", Font.PLAIN, 12));
 		c2.setForeground(Color.BLACK);
-		c2.setBackground(Color.WHITE);
+		c2.setBackground(SystemColor.menu);
 		c2.setShowVerticalLines(false);
 		c2.setEnabled(false);
 		c2.setBounds(254, 199, 112, 15);
@@ -493,8 +509,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(c2);
 
 		b2 = new JTable();
+		b2.setFont(new Font("Verdana", Font.PLAIN, 12));
 		b2.setForeground(Color.BLACK);
-		b2.setBackground(Color.WHITE);
+		b2.setBackground(SystemColor.menu);
 		b2.setShowVerticalLines(false);
 		b2.setEnabled(false);
 		b2.setBounds(132, (Rounds.ENCRYPT == true) ? 256 : 300, 112, 15);
@@ -545,8 +562,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(b2);
 
 		d2 = new JTable();
+		d2.setFont(new Font("Verdana", Font.PLAIN, 12));
 		d2.setForeground(Color.BLACK);
-		d2.setBackground(Color.WHITE);
+		d2.setBackground(SystemColor.menu);
 		d2.setShowVerticalLines(false);
 		d2.setEnabled(false);
 		d2.setBounds(376, (Rounds.ENCRYPT == true) ? 317 : 300, 112, 15);
@@ -597,8 +615,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(d2);
 
 		b3 = new JTable();
+		b3.setFont(new Font("Verdana", Font.PLAIN, 12));
 		b3.setForeground(Color.BLACK);
-		b3.setBackground(Color.WHITE);
+		b3.setBackground(SystemColor.menu);
 		b3.setShowVerticalLines(false);
 		b3.setEnabled(false);
 		b3.setBounds(132, (Rounds.ENCRYPT == true) ? 482 : 500, 112, 15);
@@ -649,8 +668,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(b3);
 
 		d3 = new JTable();
+		d3.setFont(new Font("Verdana", Font.PLAIN, 12));
 		d3.setForeground(Color.BLACK);
-		d3.setBackground(Color.WHITE);
+		d3.setBackground(SystemColor.menu);
 		d3.setShowVerticalLines(false);
 		d3.setEnabled(false);
 		d3.setBounds(376, (Rounds.ENCRYPT == true) ? 482 : 500, 112, 15);
@@ -701,8 +721,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(d3);
 
 		a3 = new JTable();
+		a3.setFont(new Font("Verdana", Font.PLAIN, 12));
 		a3.setForeground(Color.BLACK);
-		a3.setBackground(Color.WHITE);
+		a3.setBackground(SystemColor.menu);
 		a3.setShowHorizontalLines(false);
 		a3.setShowVerticalLines(false);
 		a3.setEnabled(false);
@@ -754,8 +775,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(a3);
 
 		c3 = new JTable();
+		c3.setFont(new Font("Verdana", Font.PLAIN, 12));
 		c3.setForeground(Color.BLACK);
-		c3.setBackground(Color.WHITE);
+		c3.setBackground(SystemColor.menu);
 		c3.setShowVerticalLines(false);
 		c3.setEnabled(false);
 		c3.setBounds(254, (Rounds.ENCRYPT == true) ? 420 : 300, 112, 15);
@@ -806,8 +828,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(c3);
 
 		a4 = new JTable();
+		a4.setFont(new Font("Verdana", Font.PLAIN, 12));
 		a4.setForeground(Color.BLACK);
-		a4.setBackground(Color.WHITE);
+		a4.setBackground(SystemColor.menu);
 		a4.setShowVerticalLines(false);
 		a4.setEnabled(false);
 		a4.setBounds(10, (Rounds.ENCRYPT == true) ? 482 : 500, 112, 15);
@@ -858,8 +881,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(a4);
 
 		c4 = new JTable();
+		c4.setFont(new Font("Verdana", Font.PLAIN, 12));
 		c4.setForeground(Color.BLACK);
-		c4.setBackground(Color.WHITE);
+		c4.setBackground(SystemColor.menu);
 		c4.setShowVerticalLines(false);
 		c4.setEnabled(false);
 		c4.setBounds(254, (Rounds.ENCRYPT == true) ? 482 : 500, 112, 15);
@@ -910,8 +934,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(c4);
 
 		a = new JTable();
+		a.setFont(new Font("Verdana", Font.PLAIN, 12));
 		a.setForeground(Color.BLACK);
-		a.setBackground(Color.WHITE);
+		a.setBackground(SystemColor.menu);
 		a.setShowVerticalLines(false);
 		a.setEnabled(false);
 		a.setBounds(10, 25, 112, 14);
@@ -963,8 +988,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(a);
 
 		b = new JTable();
+		b.setFont(new Font("Verdana", Font.PLAIN, 12));
 		b.setForeground(Color.BLACK);
-		b.setBackground(Color.WHITE);
+		b.setBackground(SystemColor.menu);
 		b.setShowVerticalLines(false);
 		b.setEnabled(false);
 		b.setBounds(132, 25, 112, 14);
@@ -1016,8 +1042,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(b);
 
 		c = new JTable();
+		c.setFont(new Font("Verdana", Font.PLAIN, 12));
 		c.setForeground(Color.BLACK);
-		c.setBackground(Color.WHITE);
+		c.setBackground(SystemColor.menu);
 		c.setShowVerticalLines(false);
 		c.setEnabled(false);
 		c.setBounds(254, 25, 112, 15);
@@ -1069,8 +1096,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(c);
 
 		d = new JTable();
+		d.setFont(new Font("Verdana", Font.PLAIN, 12));
 		d.setForeground(Color.BLACK);
-		d.setBackground(Color.WHITE);
+		d.setBackground(SystemColor.menu);
 		d.setShowVerticalLines(false);
 		d.setEnabled(false);
 		d.setBounds(376, 25, 112, 15);
@@ -1122,6 +1150,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(d);
 
 		JButton btnInitialPermutation = new JButton("Initial permutation");
+		btnInitialPermutation.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnInitialPermutation.setBounds(10, (Rounds.ENCRYPT == true) ? 524 : 530, 478, 23);
 		btnInitialPermutation.addMouseListener(new MouseAdapter() {
 			@Override
@@ -1133,6 +1162,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(btnInitialPermutation);
 
 		JButton btnNewButton = new JButton("Final permutation");
+		btnNewButton.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnNewButton.setBounds(10, 70, 478, 23);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -1144,8 +1174,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(btnNewButton);
 
 		af = new JTable();
+		af.setFont(new Font("Verdana", Font.PLAIN, 12));
 		af.setForeground(Color.BLACK);
-		af.setBackground(Color.WHITE);
+		af.setBackground(SystemColor.menu);
 		af.setShowVerticalLines(false);
 		af.setEnabled(false);
 		af.setBounds(10, 570, 112, 15);
@@ -1196,8 +1227,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(af);
 
 		bf = new JTable();
+		bf.setFont(new Font("Verdana", Font.PLAIN, 12));
 		bf.setForeground(Color.BLACK);
-		bf.setBackground(Color.WHITE);
+		bf.setBackground(SystemColor.menu);
 		bf.setShowVerticalLines(false);
 		bf.setEnabled(false);
 		bf.setBounds(132, 570, 112, 15);
@@ -1248,8 +1280,9 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(bf);
 
 		cf = new JTable();
+		cf.setFont(new Font("Verdana", Font.PLAIN, 12));
 		cf.setForeground(Color.BLACK);
-		cf.setBackground(Color.WHITE);
+		cf.setBackground(SystemColor.menu);
 		cf.setShowVerticalLines(false);
 		cf.setEnabled(false);
 		cf.setBounds(254, 570, 112, 15);
@@ -1301,22 +1334,24 @@ public class LT {
 		df.setBorder(new LineBorder(new Color(0, 0, 0)));
 		frmLinearTransformation.getContentPane().add(df);
 
-		label13 = new JLabel((Rounds.ENCRYPT == true) ? "<<<13" : ">>>22");
+		label13 = new JLabel((Rounds.ENCRYPT == true) ? "<<<13" : ">>>5");
+		label13.setFont(new Font("Verdana", Font.PLAIN, 12));
 		label13.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				labelToolTip(label13, (Rounds.ENCRYPT == true)?13:22, 0, 4);
+				labelToolTip(label13, (Rounds.ENCRYPT == true)?13:5, 0, 4);
 
 			}
 		});
 		label13.setBounds(43, (Rounds.ENCRYPT == true) ? 159 : 170, 46, 14);
 		frmLinearTransformation.getContentPane().add(label13);
 
-		label = new JLabel((Rounds.ENCRYPT == true) ? "<<<3" : ">>>5");
+		label = new JLabel((Rounds.ENCRYPT == true) ? "<<<3" : ">>>22");
+		label.setFont(new Font("Verdana", Font.PLAIN, 12));
 		label.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				labelToolTip(label, (Rounds.ENCRYPT == true)?3:5, 2, 5);
+				labelToolTip(label, (Rounds.ENCRYPT == true)?3:22, 2, 5);
 			}
 		});
 
@@ -1324,11 +1359,12 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(label);
 
 		label_1 = new JLabel("<<3");
+		label_1.setFont(new Font("Verdana", Font.PLAIN, 12));
 		label_1.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 
-				String toolTipString = "<html> <code>";
+				String toolTipString = "<html> <font size='5' face='verdana' >";
 				toolTipString += String
 						.format("%32s",
 								Integer.toBinaryString(
@@ -1338,7 +1374,7 @@ public class LT {
 						.format("%32s",
 								Integer.toBinaryString(
 										data.LTdata[Rounds.round - 1][((Rounds.ENCRYPT == true) ? 4 : 10)] << 3))
-						.replace(' ', '0') + "<br></code></html>";
+						.replace(' ', '0') + "<br></font></html>";
 				label_1.setToolTipText(toolTipString);
 			}
 		});
@@ -1346,11 +1382,12 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(label_1);
 
 		label_3 = new JLabel("<<7");
+		label_3.setFont(new Font("Verdana", Font.PLAIN, 12));
 		label_3.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 
-				String toolTipString = "<html> <code>";
+				String toolTipString = "<html> <font size='5' face='verdana' > ";
 				toolTipString += String
 						.format("%32s",
 								Integer.toBinaryString(data.LTdata[Rounds.round - 1][((Rounds.ENCRYPT == true) ? 8 : 1)]))
@@ -1359,7 +1396,7 @@ public class LT {
 						.format("%32s",
 								Integer.toBinaryString(
 										data.LTdata[Rounds.round - 1][((Rounds.ENCRYPT == true) ? 8 : 1)] << 7))
-						.replace(' ', '0') + "<br></code></html>";
+						.replace(' ', '0') + "<br></font></html>";
 				label_3.setToolTipText(toolTipString);
 			}
 		});
@@ -1367,6 +1404,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(label_3);
 
 		label_4 = new JLabel((Rounds.ENCRYPT == true) ? "<<<7" : ">>>7");
+		label_4.setFont(new Font("Verdana", Font.PLAIN, 12));
 		label_4.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -1380,6 +1418,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(label_4);
 
 		label_6 = new JLabel((Rounds.ENCRYPT == true) ? "<<<22" : ">>>3");
+		label_6.setFont(new Font("Verdana", Font.PLAIN, 12));
 		label_6.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -1390,6 +1429,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(label_6);
 
 		label_2 = new JLabel((Rounds.ENCRYPT == true) ? "<<<1" : ">>>1");
+		label_2.setFont(new Font("Verdana", Font.PLAIN, 12));
 		label_2.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -1405,6 +1445,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(label_2);
 
 		label_5 = new JLabel((Rounds.ENCRYPT == true) ? "<<<5" : ">>>13");
+		label_5.setFont(new Font("Verdana", Font.PLAIN, 12));
 		label_5.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -1481,5 +1522,33 @@ public class LT {
 //				new ImageIcon(((Rounds.ENCRYPT == true) ? "C:\\Users\\laza\\workspace\\Serpent\\images\\LT1.JPG"
 //						: "C:\\Users\\laza\\workspace\\Serpent\\images\\invLT.JPG")));
 		panel.add(ImageLabel);
+		
+		MainFrame.tableAlignCenter(a1);
+		
+		
+		MainFrame.tableAlignCenter(a1);
+		MainFrame.tableAlignCenter(a2);
+		MainFrame.tableAlignCenter(a3);
+		MainFrame.tableAlignCenter(a4);
+		MainFrame.tableAlignCenter(b1);
+		MainFrame.tableAlignCenter(b2);
+		MainFrame.tableAlignCenter(b3);
+		MainFrame.tableAlignCenter(c1);
+		MainFrame.tableAlignCenter(c2);
+		MainFrame.tableAlignCenter(c3);
+		MainFrame.tableAlignCenter(c4);
+		MainFrame.tableAlignCenter(d1);
+		MainFrame.tableAlignCenter(d2);
+		MainFrame.tableAlignCenter(d3);
+		MainFrame.tableAlignCenter(a);
+		MainFrame.tableAlignCenter(b);
+		MainFrame.tableAlignCenter(c);
+		MainFrame.tableAlignCenter(d);
+		MainFrame.tableAlignCenter(af);
+		MainFrame.tableAlignCenter(bf);
+		MainFrame.tableAlignCenter(cf);
+		MainFrame.tableAlignCenter(df);
+
+
 	}
 }

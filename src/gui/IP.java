@@ -15,6 +15,7 @@ import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Font;
 
 public class IP {
 
@@ -61,15 +62,16 @@ public class IP {
 	 */
 	private void initialize(int type) {
 		frmInitalPermutationPanel = new JFrame();
-		frmInitalPermutationPanel.getContentPane().setBackground(SystemColor.activeCaptionBorder);
+		frmInitalPermutationPanel.getContentPane().setBackground(SystemColor.menu);
 		frmInitalPermutationPanel.setResizable(false);
 		frmInitalPermutationPanel.setTitle("Inital permutation table");
 		frmInitalPermutationPanel.setType(Type.POPUP);
-		frmInitalPermutationPanel.setBounds(100, 100, 809, 439);
+		frmInitalPermutationPanel.setBounds(100, 100, 920, 465);
 		frmInitalPermutationPanel.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmInitalPermutationPanel.getContentPane().setLayout(null);
 
 		PlainTextTable = new JTable();
+		PlainTextTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		PlainTextTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -89,16 +91,17 @@ public class IP {
 					table.setRowSelectionInterval(row, row);
 					table.setColumnSelectionInterval((31 - (column * 4 + 3)) % 32, (31 - 4 * column) % 32);
 
-					AfterIPTable.setRowSelectionInterval(fpMatrix[row][31- column] / 32,fpMatrix[row][31-column] / 32);
-					AfterIPTable.setColumnSelectionInterval(31-fpMatrix[row][31-column] % 32, 31-fpMatrix[row][31-column] % 32);
-					
+					AfterIPTable.setRowSelectionInterval(fpMatrix[row][31 - column] / 32,
+							fpMatrix[row][31 - column] / 32);
+					AfterIPTable.setColumnSelectionInterval(31 - fpMatrix[row][31 - column] % 32,
+							31 - fpMatrix[row][31 - column] % 32);
+
 					AfterIPTable.setRowSelectionInterval(row, row);
 					AfterIPTable.setColumnSelectionInterval(column * 4, column * 4 + 3);
-					
-					
+
 					AfterInitalTable.setRowSelectionInterval(row, row);
 					AfterInitalTable.setColumnSelectionInterval(column, column);
-					
+
 					// table.clearSelection();
 					// table.setRowSelectionInterval(row , row );
 					// table.setColumnSelectionInterval((31 - column)% 32, (31 -
@@ -114,25 +117,26 @@ public class IP {
 		});
 		PlainTextTable.setCellSelectionEnabled(true);
 		PlainTextTable.setColumnSelectionAllowed(true);
-		PlainTextTable.setBounds(321, 19, 160, 64);
+		PlainTextTable.setBounds(369, 19, 175, 64);
 		frmInitalPermutationPanel.getContentPane().add(PlainTextTable);
 		PlainTextTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
-		PlainTextTable.setModel(new DefaultTableModel((type == INITAL_PERMUTATION) ? (SerpentData.intToObject(data.text))
-				: (type == LINEAR_TRANSFORMATION)
-				? (SerpentData.intToObject(Serpent.FP(data.afterLT[Rounds.round - 1])))
-				: (SerpentData.intToObject(data.subKeysBeforIP[Rounds.round
-						- ((Rounds.lastSubKeyFlag == false) ? 1 : 0)])),
-				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
+		PlainTextTable
+				.setModel(new DefaultTableModel((type == INITAL_PERMUTATION) ? (SerpentData.intToObject(data.text))
+						: (type == LINEAR_TRANSFORMATION)
+								? (SerpentData.intToObject(Serpent.FP(data.afterLT[Rounds.round - 1])))
+								: (SerpentData.intToObject(data.subKeysBeforIP[Rounds.round
+										- ((Rounds.lastSubKeyFlag == false) ? 1 : 0)])),
+						new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
 
-			private static final long serialVersionUID = -595476558480084675L;
-			Class<?>[] columnTypes = new Class[] { Character.class, Character.class, Character.class, Character.class,
-					Character.class, Character.class, Character.class, Character.class };
+					private static final long serialVersionUID = -595476558480084675L;
+					Class<?>[] columnTypes = new Class[] { Character.class, Character.class, Character.class,
+							Character.class, Character.class, Character.class, Character.class, Character.class };
 
-			public Class<?> getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
+					public Class<?> getColumnClass(int columnIndex) {
+						return columnTypes[columnIndex];
+					}
+				});
 		PlainTextTable.getColumnModel().getColumn(0).setPreferredWidth(20);
 		PlainTextTable.getColumnModel().getColumn(0).setMinWidth(20);
 		PlainTextTable.getColumnModel().getColumn(0).setMaxWidth(50);
@@ -158,9 +162,11 @@ public class IP {
 		PlainTextTable.getColumnModel().getColumn(7).setMinWidth(20);
 		PlainTextTable.getColumnModel().getColumn(7).setMaxWidth(50);
 		PlainTextTable.setBorder(new LineBorder(new Color(0, 0, 0)));
-		PlainTextTable.setBackground(Color.WHITE);
+		PlainTextTable.setBackground(SystemColor.menu);
+		MainFrame.tableAlignCenter(PlainTextTable);
 
 		AfterInitalTable = new JTable();
+		AfterInitalTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		AfterInitalTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -181,32 +187,30 @@ public class IP {
 					table.setRowSelectionInterval(row, row);
 					table.setColumnSelectionInterval((31 - (column * 4 + 3)) % 32, (31 - 4 * column) % 32);
 
-					AfterIPTable.setRowSelectionInterval(fpMatrix[row][31- column] / 32,fpMatrix[row][31-column] / 32);
-					AfterIPTable.setColumnSelectionInterval(31-fpMatrix[row][31-column] % 32, 31-fpMatrix[row][31-column] % 32);
-					
+					AfterIPTable.setRowSelectionInterval(fpMatrix[row][31 - column] / 32,
+							fpMatrix[row][31 - column] / 32);
+					AfterIPTable.setColumnSelectionInterval(31 - fpMatrix[row][31 - column] % 32,
+							31 - fpMatrix[row][31 - column] % 32);
+
 					AfterIPTable.setRowSelectionInterval(row, row);
 					AfterIPTable.setColumnSelectionInterval(column * 4, column * 4 + 3);
-					
-					
+
 					AfterInitalTable.setRowSelectionInterval(row, row);
 					AfterInitalTable.setColumnSelectionInterval(column, column);
-					
-				
 
 				}
 
-			
 			}
 		});
 		AfterInitalTable.setColumnSelectionAllowed(true);
 		AfterInitalTable.setCellSelectionEnabled(true);
-		AfterInitalTable.setBounds(319, 335, 165, 64);
+		AfterInitalTable.setBounds(369, 351, 175, 64);
 		frmInitalPermutationPanel.getContentPane().add(AfterInitalTable);
-		AfterInitalTable.setModel(new DefaultTableModel((type == INITAL_PERMUTATION) ? (SerpentData.intToObject(data.afterInitalPermutation))
-				: (type == LINEAR_TRANSFORMATION)
-				? (SerpentData.intToObject(data.afterLT[Rounds.round - 1]))
-				: (SerpentData.intToObject(data.subKeysAfterIP[Rounds.round
-						- ((Rounds.lastSubKeyFlag == false) ? 1 : 0)])),
+		AfterInitalTable.setModel(new DefaultTableModel(
+				(type == INITAL_PERMUTATION) ? (SerpentData.intToObject(data.afterInitalPermutation))
+						: (type == LINEAR_TRANSFORMATION) ? (SerpentData.intToObject(data.afterLT[Rounds.round - 1]))
+								: (SerpentData.intToObject(data.subKeysAfterIP[Rounds.round
+										- ((Rounds.lastSubKeyFlag == false) ? 1 : 0)])),
 				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
 			/**
 			 * 
@@ -230,7 +234,7 @@ public class IP {
 		AfterInitalTable.getColumnModel().getColumn(3).setPreferredWidth(20);
 		AfterInitalTable.getColumnModel().getColumn(3).setMinWidth(20);
 		AfterInitalTable.getColumnModel().getColumn(3).setMaxWidth(50);
-		AfterInitalTable.getColumnModel().getColumn(4).setPreferredWidth(25);
+		AfterInitalTable.getColumnModel().getColumn(4).setPreferredWidth(20);
 		AfterInitalTable.getColumnModel().getColumn(4).setMinWidth(20);
 		AfterInitalTable.getColumnModel().getColumn(4).setMaxWidth(50);
 		AfterInitalTable.getColumnModel().getColumn(5).setPreferredWidth(20);
@@ -244,15 +248,18 @@ public class IP {
 		AfterInitalTable.getColumnModel().getColumn(7).setMaxWidth(50);
 		AfterInitalTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		AfterInitalTable.setBorder(new LineBorder(new Color(0, 0, 0)));
-		AfterInitalTable.setBackground(Color.WHITE);
+		AfterInitalTable.setBackground(SystemColor.menu);
+
+		MainFrame.tableAlignCenter(AfterInitalTable);
 
 		table = new JTable();
+		table.setFont(new Font("Verdana", Font.PLAIN, 11));
 		table.setToolTipText("   ");
 		table.setColumnSelectionAllowed(true);
 		table.setCellSelectionEnabled(true);
-		table.setBorder(new LineBorder(Color.WHITE));
+		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		table.setForeground(Color.BLACK);
-		table.setBackground(Color.WHITE);
+		table.setBackground(SystemColor.menu);
 		table.setEnabled(false);
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		table.setModel(new DefaultTableModel(
@@ -271,139 +278,146 @@ public class IP {
 		table.getColumnModel().getColumn(0).setResizable(false);
 		table.getColumnModel().getColumn(0).setPreferredWidth(25);
 		table.getColumnModel().getColumn(0).setMinWidth(25);
-		table.getColumnModel().getColumn(0).setMaxWidth(25);
+		table.getColumnModel().getColumn(0).setMaxWidth(30);
 		table.getColumnModel().getColumn(1).setResizable(false);
 		table.getColumnModel().getColumn(1).setPreferredWidth(25);
 		table.getColumnModel().getColumn(1).setMinWidth(25);
-		table.getColumnModel().getColumn(1).setMaxWidth(25);
+		table.getColumnModel().getColumn(1).setMaxWidth(30);
 		table.getColumnModel().getColumn(2).setResizable(false);
 		table.getColumnModel().getColumn(2).setPreferredWidth(25);
 		table.getColumnModel().getColumn(2).setMinWidth(25);
-		table.getColumnModel().getColumn(2).setMaxWidth(25);
+		table.getColumnModel().getColumn(2).setMaxWidth(30);
 		table.getColumnModel().getColumn(3).setResizable(false);
 		table.getColumnModel().getColumn(3).setPreferredWidth(25);
 		table.getColumnModel().getColumn(3).setMinWidth(25);
-		table.getColumnModel().getColumn(3).setMaxWidth(25);
+		table.getColumnModel().getColumn(3).setMaxWidth(30);
 		table.getColumnModel().getColumn(4).setResizable(false);
 		table.getColumnModel().getColumn(4).setPreferredWidth(25);
 		table.getColumnModel().getColumn(4).setMinWidth(25);
-		table.getColumnModel().getColumn(4).setMaxWidth(25);
+		table.getColumnModel().getColumn(4).setMaxWidth(30);
 		table.getColumnModel().getColumn(5).setResizable(false);
 		table.getColumnModel().getColumn(5).setPreferredWidth(25);
 		table.getColumnModel().getColumn(5).setMinWidth(25);
-		table.getColumnModel().getColumn(5).setMaxWidth(25);
+		table.getColumnModel().getColumn(5).setMaxWidth(30);
 		table.getColumnModel().getColumn(6).setResizable(false);
 		table.getColumnModel().getColumn(6).setPreferredWidth(25);
 		table.getColumnModel().getColumn(6).setMinWidth(25);
-		table.getColumnModel().getColumn(6).setMaxWidth(25);
+		table.getColumnModel().getColumn(6).setMaxWidth(30);
 		table.getColumnModel().getColumn(7).setResizable(false);
 		table.getColumnModel().getColumn(7).setPreferredWidth(25);
 		table.getColumnModel().getColumn(7).setMinWidth(25);
-		table.getColumnModel().getColumn(7).setMaxWidth(25);
+		table.getColumnModel().getColumn(7).setMaxWidth(30);
 		table.getColumnModel().getColumn(8).setResizable(false);
 		table.getColumnModel().getColumn(8).setPreferredWidth(25);
 		table.getColumnModel().getColumn(8).setMinWidth(25);
-		table.getColumnModel().getColumn(8).setMaxWidth(25);
+		table.getColumnModel().getColumn(8).setMaxWidth(30);
 		table.getColumnModel().getColumn(9).setResizable(false);
 		table.getColumnModel().getColumn(9).setPreferredWidth(25);
 		table.getColumnModel().getColumn(9).setMinWidth(25);
-		table.getColumnModel().getColumn(9).setMaxWidth(25);
+		table.getColumnModel().getColumn(9).setMaxWidth(30);
 		table.getColumnModel().getColumn(10).setResizable(false);
 		table.getColumnModel().getColumn(10).setPreferredWidth(25);
 		table.getColumnModel().getColumn(10).setMinWidth(25);
-		table.getColumnModel().getColumn(10).setMaxWidth(25);
+		table.getColumnModel().getColumn(10).setMaxWidth(30);
 		table.getColumnModel().getColumn(11).setResizable(false);
 		table.getColumnModel().getColumn(11).setPreferredWidth(25);
 		table.getColumnModel().getColumn(11).setMinWidth(25);
-		table.getColumnModel().getColumn(11).setMaxWidth(25);
+		table.getColumnModel().getColumn(11).setMaxWidth(30);
 		table.getColumnModel().getColumn(12).setResizable(false);
 		table.getColumnModel().getColumn(12).setPreferredWidth(25);
 		table.getColumnModel().getColumn(12).setMinWidth(25);
-		table.getColumnModel().getColumn(12).setMaxWidth(25);
+		table.getColumnModel().getColumn(12).setMaxWidth(30);
 		table.getColumnModel().getColumn(13).setResizable(false);
 		table.getColumnModel().getColumn(13).setPreferredWidth(25);
 		table.getColumnModel().getColumn(13).setMinWidth(25);
-		table.getColumnModel().getColumn(13).setMaxWidth(25);
+		table.getColumnModel().getColumn(13).setMaxWidth(30);
 		table.getColumnModel().getColumn(14).setResizable(false);
 		table.getColumnModel().getColumn(14).setPreferredWidth(25);
 		table.getColumnModel().getColumn(14).setMinWidth(25);
-		table.getColumnModel().getColumn(14).setMaxWidth(25);
+		table.getColumnModel().getColumn(14).setMaxWidth(30);
 		table.getColumnModel().getColumn(15).setResizable(false);
 		table.getColumnModel().getColumn(15).setPreferredWidth(25);
 		table.getColumnModel().getColumn(15).setMinWidth(25);
-		table.getColumnModel().getColumn(15).setMaxWidth(25);
+		table.getColumnModel().getColumn(15).setMaxWidth(30);
 		table.getColumnModel().getColumn(16).setResizable(false);
 		table.getColumnModel().getColumn(16).setPreferredWidth(25);
 		table.getColumnModel().getColumn(16).setMinWidth(25);
-		table.getColumnModel().getColumn(16).setMaxWidth(25);
+		table.getColumnModel().getColumn(16).setMaxWidth(30);
 
 		table.getColumnModel().getColumn(17).setPreferredWidth(25);
 		table.getColumnModel().getColumn(17).setMinWidth(25);
-		table.getColumnModel().getColumn(17).setMaxWidth(25);
+		table.getColumnModel().getColumn(17).setMaxWidth(30);
 		table.getColumnModel().getColumn(17).setResizable(false);
 		table.getColumnModel().getColumn(18).setResizable(false);
 		table.getColumnModel().getColumn(18).setPreferredWidth(25);
 		table.getColumnModel().getColumn(18).setMinWidth(25);
-		table.getColumnModel().getColumn(18).setMaxWidth(25);
+		table.getColumnModel().getColumn(18).setMaxWidth(30);
 		table.getColumnModel().getColumn(19).setResizable(false);
 		table.getColumnModel().getColumn(19).setPreferredWidth(25);
 		table.getColumnModel().getColumn(19).setMinWidth(25);
-		table.getColumnModel().getColumn(19).setMaxWidth(25);
+		table.getColumnModel().getColumn(19).setMaxWidth(30);
+		table.getColumnModel().getColumn(20).setResizable(false);
+		table.getColumnModel().getColumn(20).setPreferredWidth(25);
+		table.getColumnModel().getColumn(20).setMinWidth(25);
+		table.getColumnModel().getColumn(20).setMaxWidth(30);
 		table.getColumnModel().getColumn(25).setResizable(false);
 		table.getColumnModel().getColumn(25).setPreferredWidth(25);
 		table.getColumnModel().getColumn(25).setMinWidth(25);
-		table.getColumnModel().getColumn(25).setMaxWidth(25);
+		table.getColumnModel().getColumn(25).setMaxWidth(30);
 		table.getColumnModel().getColumn(21).setResizable(false);
 		table.getColumnModel().getColumn(21).setPreferredWidth(25);
 		table.getColumnModel().getColumn(21).setMinWidth(25);
-		table.getColumnModel().getColumn(21).setMaxWidth(25);
+		table.getColumnModel().getColumn(21).setMaxWidth(30);
 		table.getColumnModel().getColumn(22).setResizable(false);
 		table.getColumnModel().getColumn(22).setPreferredWidth(25);
 		table.getColumnModel().getColumn(22).setMinWidth(25);
-		table.getColumnModel().getColumn(22).setMaxWidth(25);
+		table.getColumnModel().getColumn(22).setMaxWidth(30);
 		table.getColumnModel().getColumn(23).setResizable(false);
 		table.getColumnModel().getColumn(23).setPreferredWidth(25);
 		table.getColumnModel().getColumn(23).setMinWidth(25);
-		table.getColumnModel().getColumn(23).setMaxWidth(25);
+		table.getColumnModel().getColumn(23).setMaxWidth(30);
 		table.getColumnModel().getColumn(24).setResizable(false);
 		table.getColumnModel().getColumn(24).setPreferredWidth(25);
 		table.getColumnModel().getColumn(24).setMinWidth(25);
-		table.getColumnModel().getColumn(24).setMaxWidth(25);
+		table.getColumnModel().getColumn(24).setMaxWidth(30);
 		table.getColumnModel().getColumn(25).setResizable(false);
 		table.getColumnModel().getColumn(25).setPreferredWidth(25);
 		table.getColumnModel().getColumn(25).setMinWidth(25);
-		table.getColumnModel().getColumn(25).setMaxWidth(25);
+		table.getColumnModel().getColumn(25).setMaxWidth(30);
 		table.getColumnModel().getColumn(26).setResizable(false);
 		table.getColumnModel().getColumn(26).setPreferredWidth(25);
 		table.getColumnModel().getColumn(26).setMinWidth(25);
-		table.getColumnModel().getColumn(26).setMaxWidth(25);
+		table.getColumnModel().getColumn(26).setMaxWidth(30);
 		table.getColumnModel().getColumn(27).setResizable(false);
 		table.getColumnModel().getColumn(27).setPreferredWidth(25);
 		table.getColumnModel().getColumn(27).setMinWidth(25);
-		table.getColumnModel().getColumn(27).setMaxWidth(25);
+		table.getColumnModel().getColumn(27).setMaxWidth(30);
 		table.getColumnModel().getColumn(28).setResizable(false);
 		table.getColumnModel().getColumn(28).setPreferredWidth(25);
 		table.getColumnModel().getColumn(28).setMinWidth(25);
-		table.getColumnModel().getColumn(28).setMaxWidth(25);
+		table.getColumnModel().getColumn(28).setMaxWidth(30);
 		table.getColumnModel().getColumn(29).setResizable(false);
 		table.getColumnModel().getColumn(29).setPreferredWidth(25);
 		table.getColumnModel().getColumn(29).setMinWidth(25);
-		table.getColumnModel().getColumn(29).setMaxWidth(25);
+		table.getColumnModel().getColumn(29).setMaxWidth(30);
 		table.getColumnModel().getColumn(30).setResizable(false);
 		table.getColumnModel().getColumn(30).setPreferredWidth(25);
 		table.getColumnModel().getColumn(30).setMinWidth(25);
-		table.getColumnModel().getColumn(30).setMaxWidth(25);
+		table.getColumnModel().getColumn(30).setMaxWidth(30);
 		table.getColumnModel().getColumn(31).setResizable(false);
 		table.getColumnModel().getColumn(31).setPreferredWidth(25);
 		table.getColumnModel().getColumn(31).setMinWidth(25);
-		table.getColumnModel().getColumn(31).setMaxWidth(25);
+		table.getColumnModel().getColumn(31).setMaxWidth(30);
 
 		table.setEnabled(false);
 
-		table.setBounds(0, 173, 803, 64);
+		MainFrame.tableAlignCenter(table);
+
+		table.setBounds(5, 185, 903, 64);
 		frmInitalPermutationPanel.getContentPane().add(table);
 
 		plainTextTable = new JTable();
+		plainTextTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		plainTextTable.setColumnSelectionAllowed(true);
 		plainTextTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -421,18 +435,19 @@ public class IP {
 
 					table.setRowSelectionInterval(row, row);
 					table.setColumnSelectionInterval((31 - column) % 32, (31 - column) % 32);
-					
-					AfterIPTable.setRowSelectionInterval(fpMatrix[row][31- column] / 32,fpMatrix[row][31-column] / 32);
-					AfterIPTable.setColumnSelectionInterval(31-fpMatrix[row][31-column] % 32, 31-fpMatrix[row][31-column] % 32);
-					
+
+					AfterIPTable.setRowSelectionInterval(fpMatrix[row][31 - column] / 32,
+							fpMatrix[row][31 - column] / 32);
+					AfterIPTable.setColumnSelectionInterval(31 - fpMatrix[row][31 - column] % 32,
+							31 - fpMatrix[row][31 - column] % 32);
 
 				}
 
 			}
 		});
-		plainTextTable.setBorder(new LineBorder(Color.WHITE));
+		plainTextTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		plainTextTable.setForeground(new Color(0, 0, 0));
-		plainTextTable.setBackground(Color.WHITE);
+		plainTextTable.setBackground(SystemColor.menu);
 		plainTextTable.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		plainTextTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		plainTextTable.setModel(
@@ -448,137 +463,144 @@ public class IP {
 		plainTextTable.getColumnModel().getColumn(0).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(0).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(0).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(0).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(0).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(1).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(1).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(1).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(1).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(1).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(2).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(2).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(2).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(2).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(2).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(3).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(3).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(3).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(3).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(3).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(4).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(4).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(4).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(4).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(4).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(5).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(5).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(5).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(5).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(5).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(6).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(6).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(6).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(6).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(6).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(7).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(7).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(7).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(7).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(7).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(8).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(8).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(8).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(8).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(8).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(9).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(9).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(9).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(9).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(9).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(10).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(10).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(10).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(10).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(10).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(11).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(11).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(11).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(11).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(11).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(12).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(12).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(12).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(12).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(12).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(13).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(13).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(13).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(13).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(13).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(14).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(14).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(14).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(14).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(14).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(15).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(15).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(15).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(15).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(15).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(16).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(16).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(16).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(16).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(16).setMaxWidth(30);
 
 		plainTextTable.getColumnModel().getColumn(17).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(17).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(17).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(17).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(17).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(18).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(18).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(18).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(18).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(18).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(19).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(19).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(19).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(19).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(19).setMaxWidth(30);
+		plainTextTable.getColumnModel().getColumn(20).setResizable(false);
+		plainTextTable.getColumnModel().getColumn(20).setPreferredWidth(25);
+		plainTextTable.getColumnModel().getColumn(20).setMinWidth(25);
+		plainTextTable.getColumnModel().getColumn(20).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(25).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(25).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(25).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(25).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(25).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(21).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(21).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(21).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(21).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(21).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(22).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(22).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(22).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(22).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(22).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(23).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(23).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(23).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(23).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(23).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(24).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(24).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(24).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(24).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(24).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(25).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(25).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(25).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(25).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(25).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(26).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(26).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(26).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(26).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(26).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(27).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(27).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(27).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(27).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(27).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(28).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(28).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(28).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(28).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(28).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(29).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(29).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(29).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(29).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(29).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(30).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(30).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(30).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(30).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(30).setMaxWidth(30);
 		plainTextTable.getColumnModel().getColumn(31).setResizable(false);
 		plainTextTable.getColumnModel().getColumn(31).setPreferredWidth(25);
 		plainTextTable.getColumnModel().getColumn(31).setMinWidth(25);
-		plainTextTable.getColumnModel().getColumn(31).setMaxWidth(25);
+		plainTextTable.getColumnModel().getColumn(31).setMaxWidth(30);
 
-		plainTextTable.setBounds(0, 94, 803, 64);
+		plainTextTable.setBounds(5, 102, 903, 64);
+		MainFrame.tableAlignCenter(plainTextTable);
+
 		frmInitalPermutationPanel.getContentPane().add(plainTextTable);
 
 		AfterIPTable = new JTable();
+		AfterIPTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		AfterIPTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -593,12 +615,13 @@ public class IP {
 					AfterIPTable.setRowSelectionInterval(row, row);
 					AfterIPTable.setColumnSelectionInterval(column, column);
 
-
-					table.setRowSelectionInterval(row ,row);
+					table.setRowSelectionInterval(row, row);
 					table.setColumnSelectionInterval((31 - column) % 32, (31 - column) % 32);
 
-					plainTextTable.setRowSelectionInterval(ipMatrix[row][31- column] / 32,ipMatrix[row][31-column] / 32);
-					plainTextTable.setColumnSelectionInterval(31-ipMatrix[row][31-column] % 32, 31-ipMatrix[row][31-column] % 32);
+					plainTextTable.setRowSelectionInterval(ipMatrix[row][31 - column] / 32,
+							ipMatrix[row][31 - column] / 32);
+					plainTextTable.setColumnSelectionInterval(31 - ipMatrix[row][31 - column] % 32,
+							31 - ipMatrix[row][31 - column] % 32);
 
 				}
 
@@ -607,9 +630,9 @@ public class IP {
 		AfterIPTable.setCellSelectionEnabled(true);
 		AfterIPTable.setColumnSelectionAllowed(true);
 
-		AfterIPTable.setBorder(new LineBorder(Color.WHITE));
+		AfterIPTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		AfterIPTable.setForeground(Color.BLACK);
-		AfterIPTable.setBackground(Color.WHITE);
+		AfterIPTable.setBackground(SystemColor.menu);
 		AfterIPTable.setEnabled(false);
 		AfterIPTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		AfterIPTable.setModel(new DefaultTableModel(
@@ -626,136 +649,141 @@ public class IP {
 		AfterIPTable.getColumnModel().getColumn(0).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(0).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(0).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(0).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(0).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(1).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(1).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(1).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(1).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(1).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(2).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(2).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(2).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(2).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(2).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(3).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(3).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(3).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(3).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(3).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(4).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(4).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(4).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(4).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(4).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(5).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(5).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(5).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(5).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(5).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(6).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(6).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(6).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(6).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(6).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(7).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(7).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(7).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(7).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(7).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(8).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(8).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(8).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(8).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(8).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(9).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(9).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(9).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(9).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(9).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(10).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(10).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(10).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(10).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(10).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(11).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(11).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(11).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(11).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(11).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(12).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(12).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(12).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(12).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(12).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(13).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(13).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(13).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(13).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(13).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(14).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(14).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(14).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(14).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(14).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(15).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(15).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(15).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(15).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(15).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(16).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(16).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(16).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(16).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(16).setMaxWidth(30);
 
 		AfterIPTable.getColumnModel().getColumn(17).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(17).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(17).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(17).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(17).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(18).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(18).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(18).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(18).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(18).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(19).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(19).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(19).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(19).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(19).setMaxWidth(30);
+		AfterIPTable.getColumnModel().getColumn(20).setResizable(false);
+		AfterIPTable.getColumnModel().getColumn(20).setPreferredWidth(25);
+		AfterIPTable.getColumnModel().getColumn(20).setMinWidth(25);
+		AfterIPTable.getColumnModel().getColumn(20).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(25).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(25).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(25).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(25).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(25).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(21).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(21).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(21).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(21).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(21).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(22).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(22).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(22).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(22).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(22).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(23).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(23).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(23).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(23).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(23).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(24).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(24).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(24).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(24).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(24).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(25).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(25).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(25).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(25).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(25).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(26).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(26).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(26).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(26).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(26).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(27).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(27).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(27).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(27).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(27).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(28).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(28).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(28).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(28).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(28).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(29).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(29).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(29).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(29).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(29).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(30).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(30).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(30).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(30).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(30).setMaxWidth(30);
 		AfterIPTable.getColumnModel().getColumn(31).setResizable(false);
 		AfterIPTable.getColumnModel().getColumn(31).setPreferredWidth(25);
 		AfterIPTable.getColumnModel().getColumn(31).setMinWidth(25);
-		AfterIPTable.getColumnModel().getColumn(31).setMaxWidth(25);
+		AfterIPTable.getColumnModel().getColumn(31).setMaxWidth(30);
 
 		AfterIPTable.setEnabled(false);
+		MainFrame.tableAlignCenter(AfterIPTable);
 
-		AfterIPTable.setBounds(0, 252, 803, 64);
+		AfterIPTable.setBounds(5, 268, 903, 64);
 		frmInitalPermutationPanel.getContentPane().add(AfterIPTable);
 
 	}

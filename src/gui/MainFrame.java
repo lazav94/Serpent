@@ -10,7 +10,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import crypto.Serpent;
 import exceptions.KeyException;
@@ -19,6 +22,7 @@ import exceptions.SBoxException;
 import exceptions.TextException;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Font;
 
 public class MainFrame {
 
@@ -35,6 +39,13 @@ public class MainFrame {
 	public InitialPermutation initialPermutationFrame;
 	public Rounds roundFrame;
 	public FinalPermutation finalPermutationFrame;
+
+	public static void tableAlignCenter(JTable table){
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );
+		for(int i = 0; i < table.getColumnModel().getColumnCount(); i++)
+		table.getColumnModel().getColumn(i).setCellRenderer( centerRenderer );
+	}
 
 	/**
 	 * Launch the application.
@@ -80,17 +91,20 @@ public class MainFrame {
 	 */
 	private void initialize() {
 		frmSerpant = new JFrame();
+		frmSerpant.setFont(new Font("Verdana", Font.PLAIN, 13));
 		frmSerpant.setResizable(false);
 		frmSerpant.setTitle("Serpant");
-		frmSerpant.setBounds(100, 100, 501, 252);
+		frmSerpant.setBounds(100, 100, 540, 249);
 		frmSerpant.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSerpant.getContentPane().setLayout(null);
 
 		JLabel lblKey = new JLabel("Key:");
-		lblKey.setBounds(39, 58, 39, 14);
+		lblKey.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblKey.setBounds(38, 52, 39, 25);
 		frmSerpant.getContentPane().add(lblKey);
 
 		keyTextField = new JTextField();
+		keyTextField.setFont(new Font("Verdana", Font.PLAIN, 13));
 		keyTextField.setText("12345678912345678912345678912345");
 		keyTextField.addKeyListener(new KeyAdapter() {
 			@Override
@@ -106,15 +120,17 @@ public class MainFrame {
 
 			}
 		});
-		keyTextField.setBounds(118, 55, 357, 20);
+		keyTextField.setBounds(117, 48, 380, 25);
 		frmSerpant.getContentPane().add(keyTextField);
 		keyTextField.setColumns(10);
 
 		JLabel lblPlainText = new JLabel("Plain text:");
-		lblPlainText.setBounds(39, 101, 70, 14);
+		lblPlainText.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblPlainText.setBounds(38, 95, 84, 25);
 		frmSerpant.getContentPane().add(lblPlainText);
 
 		plainTextField = new JTextField();
+		plainTextField.setFont(new Font("Verdana", Font.PLAIN, 13));
 		plainTextField.setText("12345678912345678912345678912345");
 		plainTextField.addKeyListener(new KeyAdapter() {
 			@Override
@@ -129,10 +145,11 @@ public class MainFrame {
 			}
 		});
 		plainTextField.setColumns(10);
-		plainTextField.setBounds(118, 98, 357, 20);
+		plainTextField.setBounds(117, 95, 380, 25);
 		frmSerpant.getContentPane().add(plainTextField);
 
 		JRadioButton rdbtnEncrypt = new JRadioButton("Encrypt");
+		rdbtnEncrypt.setFont(new Font("Verdana", Font.PLAIN, 13));
 		rdbtnEncrypt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -141,10 +158,11 @@ public class MainFrame {
 		});
 		rdbtnEncrypt.setSelected(true);
 		buttonGroup.add(rdbtnEncrypt);
-		rdbtnEncrypt.setBounds(118, 131, 109, 23);
+		rdbtnEncrypt.setBounds(117, 136, 135, 25);
 		frmSerpant.getContentPane().add(rdbtnEncrypt);
 
 		JRadioButton rdbtnDecrypt = new JRadioButton("Decrypt");
+		rdbtnDecrypt.setFont(new Font("Verdana", Font.PLAIN, 13));
 		rdbtnDecrypt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -152,10 +170,11 @@ public class MainFrame {
 			}
 		});
 		buttonGroup.add(rdbtnDecrypt);
-		rdbtnDecrypt.setBounds(118, 157, 109, 23);
+		rdbtnDecrypt.setBounds(117, 162, 135, 25);
 		frmSerpant.getContentPane().add(rdbtnDecrypt);
 
 		JButton start = new JButton("Start");
+		start.setFont(new Font("Verdana", Font.PLAIN, 13));
 		start.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -208,7 +227,7 @@ public class MainFrame {
 
 			}
 		});
-		start.setBounds(310, 157, 135, 23);
+		start.setBounds(362, 162, 135, 25);
 		frmSerpant.getContentPane().add(start);
 
 	}
