@@ -15,6 +15,7 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.event.MouseAdapter;
 
 public class FP {
 
@@ -71,6 +72,17 @@ public class FP {
 		frmInitalPermutationTable.getContentPane().setLayout(null);
 		
 		PlainTextTable = new JTable();
+		PlainTextTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				PlainTextTable.clearSelection();
+				plainTextTable.clearSelection();
+				table.clearSelection();
+				AfterFPTable.clearSelection();
+				AfterFinalTable.clearSelection();
+			}
+		});
+		PlainTextTable.setEnabled(false);
 		PlainTextTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		PlainTextTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -101,20 +113,11 @@ public class FP {
 					AfterFinalTable.setRowSelectionInterval(row, row);
 					AfterFinalTable.setColumnSelectionInterval(column, column);
 					
-					// table.clearSelection();
-					// table.setRowSelectionInterval(row , row );
-					// table.setColumnSelectionInterval((31 - column)% 32, (31 -
-					// column)% 32);
-					//
-					// AfterFPTable.clearSelection();
-					// AfterFPTable.setRowSelectionInterval(row, row);
-					// AfterFPTable.setColumnSelectionInterval(column, column);
 
 				}
 
 			}
 		});
-		PlainTextTable.setCellSelectionEnabled(true);
 		PlainTextTable.setColumnSelectionAllowed(true);
 		PlainTextTable.setBounds(377, 19, 160, 64);
 		frmInitalPermutationTable.getContentPane().add(PlainTextTable);
@@ -165,6 +168,17 @@ public class FP {
 		MainFrame.tableAlignCenter(PlainTextTable);
 
 		AfterFinalTable = new JTable();
+		AfterFinalTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				PlainTextTable.clearSelection();
+				plainTextTable.clearSelection();
+				table.clearSelection();
+				AfterFPTable.clearSelection();
+				AfterFinalTable.clearSelection();
+			}
+		});
+		AfterFinalTable.setEnabled(false);
 		AfterFinalTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		AfterFinalTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -196,7 +210,6 @@ public class FP {
 					AfterFinalTable.setRowSelectionInterval(row, row);
 					AfterFinalTable.setColumnSelectionInterval(column, column);
 					
-				
 
 				}
 
@@ -204,7 +217,6 @@ public class FP {
 			}
 		});
 		AfterFinalTable.setColumnSelectionAllowed(true);
-		AfterFinalTable.setCellSelectionEnabled(true);
 		AfterFinalTable.setBounds(374, 351, 165, 64);
 		frmInitalPermutationTable.getContentPane().add(AfterFinalTable);
 		AfterFinalTable.setModel(new DefaultTableModel((type == 1)?(SerpentData.intToObject(Serpent.little2Big(data.afterFinalPermutation))):
@@ -253,7 +265,6 @@ public class FP {
 		table = new JTable();
 		table.setEnabled(false);
 		table.setFont(new Font("Verdana", Font.PLAIN, 11));
-		table.setCellSelectionEnabled(true);
 		table.setColumnSelectionAllowed(true);
 		table.setBackground(SystemColor.menu);
 		table.setForeground(Color.BLACK);
@@ -416,6 +427,17 @@ public class FP {
 		
 		
 		plainTextTable = new JTable();
+		plainTextTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				PlainTextTable.clearSelection();
+				plainTextTable.clearSelection();
+				table.clearSelection();
+				AfterFPTable.clearSelection();
+				AfterFinalTable.clearSelection();
+			}
+		});
+		plainTextTable.setEnabled(false);
 		plainTextTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		plainTextTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -441,7 +463,6 @@ public class FP {
 				}
 			}
 		});
-		plainTextTable.setCellSelectionEnabled(true);
 		plainTextTable.setColumnSelectionAllowed(true);
 		plainTextTable.setBackground(SystemColor.menu);
 		plainTextTable.setForeground(Color.BLACK);
@@ -602,6 +623,17 @@ public class FP {
 		frmInitalPermutationTable.getContentPane().add(plainTextTable);
 		
 		AfterFPTable = new JTable();
+		AfterFPTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				PlainTextTable.clearSelection();
+				plainTextTable.clearSelection();
+				table.clearSelection();
+				AfterFPTable.clearSelection();
+				AfterFinalTable.clearSelection();
+			}
+		});
+		AfterFPTable.setEnabled(false);
 		AfterFPTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		AfterFPTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -628,7 +660,6 @@ public class FP {
 
 			}
 		});
-		AfterFPTable.setCellSelectionEnabled(true);
 		AfterFPTable.setColumnSelectionAllowed(true);
 		AfterFPTable.setBackground(SystemColor.menu);
 		AfterFPTable.setForeground(Color.BLACK);

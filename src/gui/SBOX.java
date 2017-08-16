@@ -37,7 +37,7 @@ public class SBOX {
 		frmSbox.setResizable(false);
 		frmSbox.setTitle(Rounds.ENCRYPT == true ? "S-Box" : "Inv S-Box");
 		frmSbox.setType(Type.POPUP);
-		frmSbox.setBounds(100, 100, 463, 196);
+		frmSbox.setBounds(100, 100, 508, 196);
 		frmSbox.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmSbox.getContentPane().setLayout(null);
 		
@@ -160,7 +160,7 @@ public class SBOX {
 		table.getColumnModel().getColumn(16).setMinWidth(25);
 		
 		MainFrame.tableAlignCenter(table);
-		table.setBounds(10, 11, 434, 144);
+		table.setBounds(10, 11, 482, 144);
 		frmSbox.getContentPane().add(table);
 	}
 }

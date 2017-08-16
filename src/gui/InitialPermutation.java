@@ -84,6 +84,15 @@ public class InitialPermutation {
 		panel.add(btnBack);
 
 		PlainTextTable = new JTable();
+		PlainTextTable.setEnabled(false);
+		PlainTextTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				PlainTextTable.clearSelection();
+				AfterInitalTable.clearSelection();
+				
+			}
+		});
 		PlainTextTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		PlainTextTable.setBounds(17, 78, 175, 64);
 
@@ -103,16 +112,10 @@ public class InitialPermutation {
 					AfterInitalTable.setRowSelectionInterval(row, row);
 					AfterInitalTable.setColumnSelectionInterval(column, column);
 
-					// table.clearSelection();
-
-				} else {
-					PlainTextTable.setSelectionBackground(Color.GREEN);
-					AfterInitalTable.setSelectionBackground(Color.blue);
-				}
+				} 
 
 			}
 		});
-		PlainTextTable.setCellSelectionEnabled(true);
 		PlainTextTable.setColumnSelectionAllowed(true);
 		PlainTextTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
@@ -157,11 +160,14 @@ public class InitialPermutation {
 		MainFrame.tableAlignCenter(PlainTextTable);
 
 		AfterInitalTable = new JTable();
+		AfterInitalTable.setEnabled(false);
 		AfterInitalTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 
 		AfterInitalTable.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseExited(MouseEvent e) {
+				PlainTextTable.clearSelection();
+				AfterInitalTable.clearSelection();
 			}
 		});
 		AfterInitalTable.setBounds(281, 78, 175, 64);
@@ -180,16 +186,11 @@ public class InitialPermutation {
 					AfterInitalTable.setRowSelectionInterval(row, row);
 					AfterInitalTable.setColumnSelectionInterval(column, column);
 
-					// table.clearSelection();
 
-				} else {
-					PlainTextTable.setSelectionBackground(Color.GREEN);
-					AfterInitalTable.setSelectionBackground(Color.blue);
-				}
+				} 
 			}
 		});
 		AfterInitalTable.setColumnSelectionAllowed(true);
-		AfterInitalTable.setCellSelectionEnabled(true);
 		AfterInitalTable.setModel(new DefaultTableModel(SerpentData.intToObject(data.afterInitalPermutation),
 				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
 			/**
@@ -250,6 +251,7 @@ public class InitialPermutation {
 		lastPermutation.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				Rounds.round = (Rounds.ENCRYPT == true) ? 31 : 0;
 				frmInitialPermutation.setVisible(false);
 				MainFrame.mainFrame.finalPermutationFrame.frmFinalPermutation.setVisible(true);
 
@@ -263,6 +265,7 @@ public class InitialPermutation {
 		round.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				Rounds.round = (Rounds.ENCRYPT == true) ? 0 : 31;
 				frmInitialPermutation.setVisible(false);
 				MainFrame.mainFrame.roundFrame.frmSerpentRounds.setVisible(true);
 			}
@@ -298,8 +301,9 @@ public class InitialPermutation {
 		reset.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				Rounds.round = 0;
 				MainFrame.frmSerpant.setVisible(true);
-				MainFrame.mainFrame.finalPermutationFrame.frmFinalPermutation.setVisible(false);
+				MainFrame.mainFrame.initialPermutationFrame.frmInitialPermutation.setVisible(false);
 			}
 		});
 		reset.setBounds(10, 171, 160, 25);

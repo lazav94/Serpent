@@ -61,6 +61,7 @@ public class FinalPermutation {
 		firstPermutation.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				Rounds.round = (Rounds.ENCRYPT == true) ? 0 : 31;
 				MainFrame.mainFrame.finalPermutationFrame.frmFinalPermutation.setVisible(false);
 				MainFrame.mainFrame.initialPermutationFrame.frmInitialPermutation.setVisible(true);
 
@@ -80,6 +81,7 @@ public class FinalPermutation {
 		rounds.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				Rounds.round = (Rounds.ENCRYPT == true) ? 31 : 0;
 				MainFrame.mainFrame.finalPermutationFrame.frmFinalPermutation.setVisible(false);
 				MainFrame.mainFrame.roundFrame.frmSerpentRounds.setVisible(true);
 			}
@@ -92,6 +94,7 @@ public class FinalPermutation {
 		reset.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				Rounds.round = 0;
 				MainFrame.frmSerpant.setVisible(true);
 				MainFrame.mainFrame.finalPermutationFrame.frmFinalPermutation.setVisible(false);
 			}
@@ -132,6 +135,14 @@ public class FinalPermutation {
 		panel.add(btnBack);
 
 		beforFinalPermutationTable = new JTable();
+		beforFinalPermutationTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				afterFinalPermutationTable.clearSelection();
+				beforFinalPermutationTable.clearSelection();
+			}
+		});
+		beforFinalPermutationTable.setEnabled(false);
 		beforFinalPermutationTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		beforFinalPermutationTable.setBounds(17, 78, 175, 64);
 		panel.add(beforFinalPermutationTable);
@@ -157,7 +168,6 @@ public class FinalPermutation {
 			}
 		});
 		beforFinalPermutationTable.setColumnSelectionAllowed(true);
-		beforFinalPermutationTable.setCellSelectionEnabled(true);
 		beforFinalPermutationTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
 		beforFinalPermutationTable.setModel(
@@ -200,6 +210,14 @@ public class FinalPermutation {
 		beforFinalPermutationTable.setBackground(SystemColor.menu);
 		MainFrame.tableAlignCenter(beforFinalPermutationTable);
 		afterFinalPermutationTable = new JTable();
+		afterFinalPermutationTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				afterFinalPermutationTable.clearSelection();
+				beforFinalPermutationTable.clearSelection();
+			}
+		});
+		afterFinalPermutationTable.setEnabled(false);
 		afterFinalPermutationTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		afterFinalPermutationTable.setBounds(280, 78, 175, 64);
 		panel.add(afterFinalPermutationTable);
@@ -227,7 +245,6 @@ public class FinalPermutation {
 		});
 
 		afterFinalPermutationTable.setColumnSelectionAllowed(true);
-		afterFinalPermutationTable.setCellSelectionEnabled(true);
 		afterFinalPermutationTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
 		afterFinalPermutationTable.setModel(new DefaultTableModel(SerpentData.intToObject(data.afterFinalPermutation),

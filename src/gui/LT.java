@@ -2,8 +2,10 @@ package gui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,9 +17,6 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import crypto.SerpentData;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.Font;
-import java.awt.SystemColor;
 
 public class LT {
 
@@ -142,7 +141,7 @@ public class LT {
 		df = new JTable();
 		df.setFont(new Font("Verdana", Font.PLAIN, 12));
 		df.setForeground(Color.BLACK);
-		df.setBackground(SystemColor.menu);
+		df.setBackground(Color.WHITE);
 		df.setShowVerticalLines(false);
 		df.setEnabled(false);
 		df.setBounds(376, 570, 112, 15);
@@ -193,7 +192,7 @@ public class LT {
 		a1 = new JTable();
 		a1.setFont(new Font("Verdana", Font.PLAIN, 12));
 		a1.setForeground(Color.BLACK);
-		a1.setBackground(SystemColor.menu);
+		a1.setBackground(Color.WHITE);
 		a1.setShowVerticalLines(false);
 		a1.setEnabled(false);
 		a1.setBounds(10, (Rounds.ENCRYPT)?119:142, 112, 14);
@@ -246,7 +245,7 @@ public class LT {
 		b1 = new JTable();
 		b1.setFont(new Font("Verdana", Font.PLAIN, 12));
 		b1.setForeground(Color.BLACK);
-		b1.setBackground(SystemColor.menu);
+		b1.setBackground(Color.WHITE);
 		b1.setShowVerticalLines(false);
 		b1.setEnabled(false);
 		b1.setBounds(132, (Rounds.ENCRYPT == true) ? 119 : 142, 112, 14);
@@ -299,7 +298,7 @@ public class LT {
 		c1 = new JTable();
 		c1.setFont(new Font("Verdana", Font.PLAIN, 12));
 		c1.setForeground(Color.BLACK);
-		c1.setBackground(SystemColor.menu);
+		c1.setBackground(Color.WHITE);
 		c1.setShowVerticalLines(false);
 		c1.setEnabled(false);
 		c1.setBounds(254, (Rounds.ENCRYPT == true) ? 119 : 142, 112, 15);
@@ -352,7 +351,7 @@ public class LT {
 		d1 = new JTable();
 		d1.setFont(new Font("Verdana", Font.PLAIN, 12));
 		d1.setForeground(Color.BLACK);
-		d1.setBackground(SystemColor.menu);
+		d1.setBackground(Color.WHITE);
 		d1.setShowVerticalLines(false);
 		d1.setEnabled(false);
 		d1.setBounds(376, (Rounds.ENCRYPT == true) ? 119 : 142, 112, 15);
@@ -405,7 +404,7 @@ public class LT {
 		a2 = new JTable();
 		a2.setFont(new Font("Verdana", Font.PLAIN, 12));
 		a2.setForeground(Color.BLACK);
-		a2.setBackground(SystemColor.menu);
+		a2.setBackground(Color.WHITE);
 		a2.setShowVerticalLines(false);
 		a2.setEnabled(false);
 		a2.setBounds(10, 199, 112, 15);
@@ -458,7 +457,7 @@ public class LT {
 		c2 = new JTable();
 		c2.setFont(new Font("Verdana", Font.PLAIN, 12));
 		c2.setForeground(Color.BLACK);
-		c2.setBackground(SystemColor.menu);
+		c2.setBackground(Color.WHITE);
 		c2.setShowVerticalLines(false);
 		c2.setEnabled(false);
 		c2.setBounds(254, 199, 112, 15);
@@ -511,7 +510,7 @@ public class LT {
 		b2 = new JTable();
 		b2.setFont(new Font("Verdana", Font.PLAIN, 12));
 		b2.setForeground(Color.BLACK);
-		b2.setBackground(SystemColor.menu);
+		b2.setBackground(Color.WHITE);
 		b2.setShowVerticalLines(false);
 		b2.setEnabled(false);
 		b2.setBounds(132, (Rounds.ENCRYPT == true) ? 256 : 300, 112, 15);
@@ -564,7 +563,7 @@ public class LT {
 		d2 = new JTable();
 		d2.setFont(new Font("Verdana", Font.PLAIN, 12));
 		d2.setForeground(Color.BLACK);
-		d2.setBackground(SystemColor.menu);
+		d2.setBackground(Color.WHITE);
 		d2.setShowVerticalLines(false);
 		d2.setEnabled(false);
 		d2.setBounds(376, (Rounds.ENCRYPT == true) ? 317 : 300, 112, 15);
@@ -617,7 +616,7 @@ public class LT {
 		b3 = new JTable();
 		b3.setFont(new Font("Verdana", Font.PLAIN, 12));
 		b3.setForeground(Color.BLACK);
-		b3.setBackground(SystemColor.menu);
+		b3.setBackground(Color.WHITE);
 		b3.setShowVerticalLines(false);
 		b3.setEnabled(false);
 		b3.setBounds(132, (Rounds.ENCRYPT == true) ? 482 : 500, 112, 15);
@@ -670,7 +669,7 @@ public class LT {
 		d3 = new JTable();
 		d3.setFont(new Font("Verdana", Font.PLAIN, 12));
 		d3.setForeground(Color.BLACK);
-		d3.setBackground(SystemColor.menu);
+		d3.setBackground(Color.WHITE);
 		d3.setShowVerticalLines(false);
 		d3.setEnabled(false);
 		d3.setBounds(376, (Rounds.ENCRYPT == true) ? 482 : 500, 112, 15);
@@ -723,7 +722,7 @@ public class LT {
 		a3 = new JTable();
 		a3.setFont(new Font("Verdana", Font.PLAIN, 12));
 		a3.setForeground(Color.BLACK);
-		a3.setBackground(SystemColor.menu);
+		a3.setBackground(Color.WHITE);
 		a3.setShowHorizontalLines(false);
 		a3.setShowVerticalLines(false);
 		a3.setEnabled(false);
@@ -777,7 +776,7 @@ public class LT {
 		c3 = new JTable();
 		c3.setFont(new Font("Verdana", Font.PLAIN, 12));
 		c3.setForeground(Color.BLACK);
-		c3.setBackground(SystemColor.menu);
+		c3.setBackground(Color.WHITE);
 		c3.setShowVerticalLines(false);
 		c3.setEnabled(false);
 		c3.setBounds(254, (Rounds.ENCRYPT == true) ? 420 : 300, 112, 15);
@@ -830,7 +829,7 @@ public class LT {
 		a4 = new JTable();
 		a4.setFont(new Font("Verdana", Font.PLAIN, 12));
 		a4.setForeground(Color.BLACK);
-		a4.setBackground(SystemColor.menu);
+		a4.setBackground(Color.WHITE);
 		a4.setShowVerticalLines(false);
 		a4.setEnabled(false);
 		a4.setBounds(10, (Rounds.ENCRYPT == true) ? 482 : 500, 112, 15);
@@ -883,7 +882,7 @@ public class LT {
 		c4 = new JTable();
 		c4.setFont(new Font("Verdana", Font.PLAIN, 12));
 		c4.setForeground(Color.BLACK);
-		c4.setBackground(SystemColor.menu);
+		c4.setBackground(Color.WHITE);
 		c4.setShowVerticalLines(false);
 		c4.setEnabled(false);
 		c4.setBounds(254, (Rounds.ENCRYPT == true) ? 482 : 500, 112, 15);
@@ -936,7 +935,7 @@ public class LT {
 		a = new JTable();
 		a.setFont(new Font("Verdana", Font.PLAIN, 12));
 		a.setForeground(Color.BLACK);
-		a.setBackground(SystemColor.menu);
+		a.setBackground(Color.WHITE);
 		a.setShowVerticalLines(false);
 		a.setEnabled(false);
 		a.setBounds(10, 25, 112, 14);
@@ -990,7 +989,7 @@ public class LT {
 		b = new JTable();
 		b.setFont(new Font("Verdana", Font.PLAIN, 12));
 		b.setForeground(Color.BLACK);
-		b.setBackground(SystemColor.menu);
+		b.setBackground(Color.WHITE);
 		b.setShowVerticalLines(false);
 		b.setEnabled(false);
 		b.setBounds(132, 25, 112, 14);
@@ -1044,7 +1043,7 @@ public class LT {
 		c = new JTable();
 		c.setFont(new Font("Verdana", Font.PLAIN, 12));
 		c.setForeground(Color.BLACK);
-		c.setBackground(SystemColor.menu);
+		c.setBackground(Color.WHITE);
 		c.setShowVerticalLines(false);
 		c.setEnabled(false);
 		c.setBounds(254, 25, 112, 15);
@@ -1098,7 +1097,7 @@ public class LT {
 		d = new JTable();
 		d.setFont(new Font("Verdana", Font.PLAIN, 12));
 		d.setForeground(Color.BLACK);
-		d.setBackground(SystemColor.menu);
+		d.setBackground(Color.WHITE);
 		d.setShowVerticalLines(false);
 		d.setEnabled(false);
 		d.setBounds(376, 25, 112, 15);
@@ -1176,7 +1175,7 @@ public class LT {
 		af = new JTable();
 		af.setFont(new Font("Verdana", Font.PLAIN, 12));
 		af.setForeground(Color.BLACK);
-		af.setBackground(SystemColor.menu);
+		af.setBackground(Color.WHITE);
 		af.setShowVerticalLines(false);
 		af.setEnabled(false);
 		af.setBounds(10, 570, 112, 15);
@@ -1229,7 +1228,7 @@ public class LT {
 		bf = new JTable();
 		bf.setFont(new Font("Verdana", Font.PLAIN, 12));
 		bf.setForeground(Color.BLACK);
-		bf.setBackground(SystemColor.menu);
+		bf.setBackground(Color.WHITE);
 		bf.setShowVerticalLines(false);
 		bf.setEnabled(false);
 		bf.setBounds(132, 570, 112, 15);
@@ -1282,7 +1281,7 @@ public class LT {
 		cf = new JTable();
 		cf.setFont(new Font("Verdana", Font.PLAIN, 12));
 		cf.setForeground(Color.BLACK);
-		cf.setBackground(SystemColor.menu);
+		cf.setBackground(Color.WHITE);
 		cf.setShowVerticalLines(false);
 		cf.setEnabled(false);
 		cf.setBounds(254, 570, 112, 15);

@@ -70,6 +70,25 @@ public class Rounds {
 	private JTable SubKeyTable;
 	private JTable ResultTable;
 
+	public void clearAllSelection() {
+		prevXorResultTable.clearSelection();
+		subKeyTable.clearSelection();
+		subKeyTable_1.clearSelection();
+		XorResultTable.clearSelection();
+		prevSBoxResultTable.clearSelection();
+		SBoxResultTable.clearSelection();
+		prevLTResultTable.clearSelection();
+		resultLTTable.clearSelection();
+		w2Table.clearSelection();
+		w1Table.clearSelection();
+		w3Table.clearSelection();
+		w4Table.clearSelection();
+		SubKeyAfterIPTable.clearSelection();
+		prevXorFTable.clearSelection();
+		SubKeyTable.clearSelection();
+		ResultTable.clearSelection();
+	}
+
 	private void refreshTable(JTable table, int type, int round) {
 		Object[][] matrix = null;
 
@@ -187,7 +206,7 @@ public class Rounds {
 				sboxFrame.table.setRowSelectionInterval((40 - (round - ((lastSubKeyFlag == true) ? 1 : 0)) - 4) % 8 + 1,
 						(40 - (round + ((lastSubKeyFlag == true) ? 1 : 0)) - 4) % 8 + 1);
 
-				//sboxFrame.table.setSelectionBackground(Color.GREEN);
+				// sboxFrame.table.setSelectionBackground(Color.GREEN);
 
 			}
 		});
@@ -195,6 +214,7 @@ public class Rounds {
 		keyScheduler.add(btnSbox_1);
 
 		w1Table = new JTable();
+		w1Table.setEnabled(false);
 		w1Table.setBackground(SystemColor.menu);
 		w1Table.setFont(new Font("Verdana", Font.PLAIN, 14));
 		w1Table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -230,7 +250,6 @@ public class Rounds {
 				}
 			}
 		});
-		w1Table.setCellSelectionEnabled(true);
 		w1Table.setColumnSelectionAllowed(true);
 		w1Table.setBounds(11, 33, 160, 16);
 		keyScheduler.add(w1Table);
@@ -240,6 +259,10 @@ public class Rounds {
 			public void mousePressed(MouseEvent e) {
 				W w = new W((round - 1) * 4 + 8);
 				w.frmWKeys.setVisible(true);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				clearAllSelection();
 			}
 		});
 		w1Table.setModel(
@@ -290,8 +313,9 @@ public class Rounds {
 		w1Table.getColumnModel().getColumn(7).setMaxWidth(20);
 
 		MainFrame.tableAlignCenter(w1Table);
-		
+
 		w2Table = new JTable();
+		w2Table.setEnabled(false);
 		w2Table.setBackground(SystemColor.menu);
 		w2Table.setFont(new Font("Verdana", Font.PLAIN, 14));
 		w2Table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -329,7 +353,6 @@ public class Rounds {
 
 			}
 		});
-		w2Table.setCellSelectionEnabled(true);
 		w2Table.setColumnSelectionAllowed(true);
 		w2Table.setBounds(11, 82, 160, 16);
 		keyScheduler.add(w2Table);
@@ -339,6 +362,10 @@ public class Rounds {
 			public void mousePressed(MouseEvent e) {
 				W w = new W((round - 1) * 4 + 9);
 				w.frmWKeys.setVisible(true);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				clearAllSelection();
 			}
 		});
 		w2Table.setModel(new DefaultTableModel(
@@ -389,10 +416,11 @@ public class Rounds {
 		w2Table.getColumnModel().getColumn(7).setPreferredWidth(20);
 		w2Table.getColumnModel().getColumn(7).setMinWidth(20);
 		w2Table.getColumnModel().getColumn(7).setMaxWidth(20);
-		
+
 		MainFrame.tableAlignCenter(w2Table);
 
 		w3Table = new JTable();
+		w3Table.setEnabled(false);
 		w3Table.setBackground(SystemColor.menu);
 		w3Table.setFont(new Font("Verdana", Font.PLAIN, 14));
 		w3Table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -431,7 +459,6 @@ public class Rounds {
 
 			}
 		});
-		w3Table.setCellSelectionEnabled(true);
 		w3Table.setColumnSelectionAllowed(true);
 		w3Table.setBounds(11, 131, 160, 16);
 		keyScheduler.add(w3Table);
@@ -441,6 +468,10 @@ public class Rounds {
 			public void mousePressed(MouseEvent e) {
 				W w = new W((round - 1) * 4 + 10);
 				w.frmWKeys.setVisible(true);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				clearAllSelection();
 			}
 		});
 		w3Table.setModel(new DefaultTableModel(
@@ -490,10 +521,11 @@ public class Rounds {
 		w3Table.getColumnModel().getColumn(7).setPreferredWidth(20);
 		w3Table.getColumnModel().getColumn(7).setMinWidth(20);
 		w3Table.getColumnModel().getColumn(7).setMaxWidth(20);
-		
+
 		MainFrame.tableAlignCenter(w3Table);
 
 		w4Table = new JTable();
+		w4Table.setEnabled(false);
 		w4Table.setBackground(SystemColor.menu);
 		w4Table.setFont(new Font("Verdana", Font.PLAIN, 14));
 		w4Table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -532,7 +564,6 @@ public class Rounds {
 
 			}
 		});
-		w4Table.setCellSelectionEnabled(true);
 		w4Table.setColumnSelectionAllowed(true);
 		w4Table.setBounds(11, 180, 160, 16);
 		keyScheduler.add(w4Table);
@@ -542,6 +573,10 @@ public class Rounds {
 			public void mousePressed(MouseEvent e) {
 				W w = new W((round - 1) * 4 + 11);
 				w.frmWKeys.setVisible(true);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				clearAllSelection();
 			}
 		});
 		w4Table.setModel(new DefaultTableModel(
@@ -589,10 +624,17 @@ public class Rounds {
 		w4Table.getColumnModel().getColumn(7).setPreferredWidth(20);
 		w4Table.getColumnModel().getColumn(7).setMinWidth(20);
 		w4Table.getColumnModel().getColumn(7).setMaxWidth(20);
-		
+
 		MainFrame.tableAlignCenter(w4Table);
 
 		subKeyTable_1 = new JTable();
+		subKeyTable_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				clearAllSelection();
+			}
+		});
+		subKeyTable_1.setEnabled(false);
 		subKeyTable_1.setBackground(SystemColor.menu);
 		subKeyTable_1.setFont(new Font("Verdana", Font.PLAIN, 14));
 		subKeyTable_1.addMouseMotionListener(new MouseMotionAdapter() {
@@ -632,7 +674,7 @@ public class Rounds {
 					SubKeyAfterIPTable.setRowSelectionInterval(row, row);
 					SubKeyAfterIPTable.setColumnSelectionInterval(column, column);
 
-					subKeyTable_1.setRowSelectionInterval(0, 0);
+					subKeyTable_1.setRowSelectionInterval(row, row);
 					subKeyTable_1.setColumnSelectionInterval(column, column);
 
 					// table.clearSelection();
@@ -656,7 +698,6 @@ public class Rounds {
 			}
 		});
 		subKeyTable_1.setColumnSelectionAllowed(true);
-		subKeyTable_1.setCellSelectionEnabled(true);
 		subKeyTable_1.setBounds(518, 79, 160, 64);
 		keyScheduler.add(subKeyTable_1);
 		subKeyTable_1.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -704,10 +745,17 @@ public class Rounds {
 		subKeyTable_1.getColumnModel().getColumn(7).setPreferredWidth(20);
 		subKeyTable_1.getColumnModel().getColumn(7).setMinWidth(20);
 		subKeyTable_1.getColumnModel().getColumn(7).setMaxWidth(20);
-		
+
 		MainFrame.tableAlignCenter(subKeyTable_1);
 
 		SubKeyAfterIPTable = new JTable();
+		SubKeyAfterIPTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+					clearAllSelection();
+			}
+		});
+		SubKeyAfterIPTable.setEnabled(false);
 		SubKeyAfterIPTable.setBackground(SystemColor.menu);
 		SubKeyAfterIPTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		SubKeyAfterIPTable.addMouseMotionListener(new MouseMotionAdapter() {
@@ -769,7 +817,6 @@ public class Rounds {
 			}
 		});
 		SubKeyAfterIPTable.setColumnSelectionAllowed(true);
-		SubKeyAfterIPTable.setCellSelectionEnabled(true);
 		SubKeyAfterIPTable.setBounds(243, 79, 160, 64);
 		keyScheduler.add(SubKeyAfterIPTable);
 		SubKeyAfterIPTable.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -819,7 +866,7 @@ public class Rounds {
 		SubKeyAfterIPTable.getColumnModel().getColumn(7).setPreferredWidth(20);
 		SubKeyAfterIPTable.getColumnModel().getColumn(7).setMinWidth(20);
 		SubKeyAfterIPTable.getColumnModel().getColumn(7).setMaxWidth(20);
-		
+
 		MainFrame.tableAlignCenter(SubKeyAfterIPTable);
 
 		JLabel w1 = new JLabel("W[" + (round - 1) * 4 + 8 + ((lastSubKeyFlag == true) ? 4 : 0) + "]");
@@ -884,9 +931,15 @@ public class Rounds {
 		XOR.add(lblResult);
 
 		prevXorResultTable = new JTable();
+		prevXorResultTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				clearAllSelection();
+			}
+		});
+		prevXorResultTable.setEnabled(false);
 		prevXorResultTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		prevXorResultTable.setColumnSelectionAllowed(true);
-		prevXorResultTable.setCellSelectionEnabled(true);
 		prevXorResultTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -955,10 +1008,11 @@ public class Rounds {
 		prevXorResultTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		prevXorResultTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		prevXorResultTable.setBackground(SystemColor.menu);
-		
+
 		MainFrame.tableAlignCenter(prevXorResultTable);
 
 		subKeyTable = new JTable();
+		subKeyTable.setEnabled(false);
 		subKeyTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		subKeyTable.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		subKeyTable.addMouseMotionListener(new MouseMotionAdapter() {
@@ -985,13 +1039,16 @@ public class Rounds {
 			}
 		});
 		subKeyTable.setColumnSelectionAllowed(true);
-		subKeyTable.setCellSelectionEnabled(true);
 		subKeyTable.setBounds(278, 69, 160, 64);
 		XOR.add(subKeyTable);
 		subKeyTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				tabbedPane.setSelectedIndex(0);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				clearAllSelection();
 			}
 		});
 		subKeyTable.setModel(
@@ -1033,14 +1090,20 @@ public class Rounds {
 		subKeyTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		subKeyTable.setBorder(new LineBorder(new Color(0, 0, 204)));
 		subKeyTable.setBackground(SystemColor.menu);
-		
+
 		MainFrame.tableAlignCenter(subKeyTable);
 
 		XorResultTable = new JTable();
+		XorResultTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				clearAllSelection();
+			}
+		});
+		XorResultTable.setEnabled(false);
 		XorResultTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		XorResultTable.setToolTipText("  ");
 		XorResultTable.setColumnSelectionAllowed(true);
-		XorResultTable.setCellSelectionEnabled(true);
 		XorResultTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -1060,25 +1123,35 @@ public class Rounds {
 
 					XorResultTable.setRowSelectionInterval(row, row);
 					XorResultTable.setColumnSelectionInterval(column, column);
-					
-			
+
 					String xorResult = "<html><font size='5' face='verdana, times, serif' > ";
-					xorResult += "&nbsp;&nbsp;" + String.format("%4s", Integer.toBinaryString(Integer.parseInt(prevXorResultTable.getValueAt(row, column).toString(),16))).replace(' ', '0') + "<br>+";
-					xorResult += String.format("%4s", Integer.toBinaryString(Integer.parseInt(subKeyTable.getValueAt(row, column).toString(),16))).replace(' ', '0') + "<br>";
+					xorResult += "&nbsp;&nbsp;" + String
+							.format("%4s",
+									Integer.toBinaryString(Integer
+											.parseInt(prevXorResultTable.getValueAt(row, column).toString(), 16)))
+							.replace(' ', '0') + "<br>+";
+					xorResult += String
+							.format("%4s",
+									Integer.toBinaryString(
+											Integer.parseInt(subKeyTable.getValueAt(row, column).toString(), 16)))
+							.replace(' ', '0') + "<br>";
 					xorResult += "====<br>";
-					xorResult += "&nbsp;&nbsp;" + String.format("%4s", Integer.toBinaryString(Integer.parseInt(XorResultTable.getValueAt(row, column).toString(),16))).replace(' ', '0') + "<br>";
+					xorResult += "&nbsp;&nbsp;" + String
+							.format("%4s",
+									Integer.toBinaryString(
+											Integer.parseInt(XorResultTable.getValueAt(row, column).toString(), 16)))
+							.replace(' ', '0') + "<br>";
 					xorResult += "</font></html>";
 					XorResultTable.setToolTipText(xorResult);
-		
 
 				}
 
 			}
 		});
-		
+
 		// Tooltip time = 10s
 		ToolTipManager.sharedInstance().setDismissDelay(10000);
-		
+
 		XorResultTable.setBounds(519, 69, 160, 64);
 		XOR.add(XorResultTable);
 		XorResultTable.setModel(new DefaultTableModel(SerpentData.intToObject(data.afterXOR[round]),
@@ -1118,7 +1191,7 @@ public class Rounds {
 		XorResultTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		XorResultTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		XorResultTable.setBackground(SystemColor.menu);
-		
+
 		MainFrame.tableAlignCenter(XorResultTable);
 
 		JPanel SBOX = new JPanel();
@@ -1151,7 +1224,7 @@ public class Rounds {
 				sboxFrame.frmSbox.setVisible(true);
 
 				sboxFrame.table.setRowSelectionInterval((round - 1) % 8 + 1, (round - 1) % 8 + 1);
-			//	sboxFrame.table.setSelectionBackground(Color.GREEN);
+				// sboxFrame.table.setSelectionBackground(Color.GREEN);
 
 			}
 		});
@@ -1159,9 +1232,15 @@ public class Rounds {
 		SBOX.add(btnSbox);
 
 		prevSBoxResultTable = new JTable();
+		prevSBoxResultTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				clearAllSelection();
+			}
+		});
+		prevSBoxResultTable.setEnabled(false);
 		prevSBoxResultTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		prevSBoxResultTable.setColumnSelectionAllowed(true);
-		prevSBoxResultTable.setCellSelectionEnabled(true);
 		prevSBoxResultTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -1230,13 +1309,19 @@ public class Rounds {
 		prevSBoxResultTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		prevSBoxResultTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		prevSBoxResultTable.setBackground(SystemColor.menu);
-		
+
 		MainFrame.tableAlignCenter(prevSBoxResultTable);
 
 		SBoxResultTable = new JTable();
+		SBoxResultTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				clearAllSelection();
+			}
+		});
+		SBoxResultTable.setEnabled(false);
 		SBoxResultTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		SBoxResultTable.setColumnSelectionAllowed(true);
-		SBoxResultTable.setCellSelectionEnabled(true);
 		SBoxResultTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -1301,7 +1386,7 @@ public class Rounds {
 		SBoxResultTable.setBackground(SystemColor.menu);
 
 		MainFrame.tableAlignCenter(SBoxResultTable);
-		
+
 		JButton btnPreviousRound = new JButton("Previous round");
 		btnPreviousRound.setBounds(381, 230, 125, 23);
 		SBOX.add(btnPreviousRound);
@@ -1323,6 +1408,13 @@ public class Rounds {
 		LT.add(label_10);
 
 		prevLTResultTable = new JTable();
+		prevLTResultTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				clearAllSelection();
+			}
+		});
+		prevLTResultTable.setEnabled(false);
 		prevLTResultTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		prevLTResultTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -1343,7 +1435,6 @@ public class Rounds {
 				}
 			}
 		});
-		prevLTResultTable.setCellSelectionEnabled(true);
 		prevLTResultTable.setColumnSelectionAllowed(true);
 		prevLTResultTable.setBounds(45, 81, 160, 64);
 		LT.add(prevLTResultTable);
@@ -1391,10 +1482,17 @@ public class Rounds {
 		prevLTResultTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		prevLTResultTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		prevLTResultTable.setBackground(SystemColor.menu);
-		
+
 		MainFrame.tableAlignCenter(prevLTResultTable);
 
 		resultLTTable = new JTable();
+		resultLTTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				clearAllSelection();
+			}
+		});
+		resultLTTable.setEnabled(false);
 		resultLTTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		resultLTTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -1414,9 +1512,8 @@ public class Rounds {
 
 				}
 			}
-			
+
 		});
-		resultLTTable.setCellSelectionEnabled(true);
 		resultLTTable.setColumnSelectionAllowed(true);
 		resultLTTable.setBounds(483, 81, 160, 64);
 		LT.add(resultLTTable);
@@ -1459,7 +1556,7 @@ public class Rounds {
 		resultLTTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		resultLTTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		resultLTTable.setBackground(SystemColor.menu);
-		
+
 		MainFrame.tableAlignCenter(resultLTTable);
 
 		JButton btnLinearTransformation = new JButton("Linear Transformation");
@@ -1514,13 +1611,18 @@ public class Rounds {
 		XORFinal.add(label_5);
 
 		prevXorFTable = new JTable();
+		prevXorFTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				clearAllSelection();
+			}
+		});
+		prevXorFTable.setEnabled(false);
 		prevXorFTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		prevXorFTable.setColumnSelectionAllowed(true);
-		prevXorFTable.setCellSelectionEnabled(true);
 		prevXorFTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-
 
 				int row = prevXorFTable.rowAtPoint(e.getPoint());
 				int column = prevXorFTable.columnAtPoint(e.getPoint());
@@ -1541,7 +1643,6 @@ public class Rounds {
 
 				}
 
-			
 			}
 		});
 		prevXorFTable.setBounds(22, 81, 160, 64);
@@ -1585,13 +1686,13 @@ public class Rounds {
 		prevXorFTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		prevXorFTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		prevXorFTable.setBackground(SystemColor.menu);
-		
+
 		MainFrame.tableAlignCenter(prevXorFTable);
 
 		SubKeyTable = new JTable();
+		SubKeyTable.setEnabled(false);
 		SubKeyTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		SubKeyTable.setColumnSelectionAllowed(true);
-		SubKeyTable.setCellSelectionEnabled(true);
 		SubKeyTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -1631,7 +1732,7 @@ public class Rounds {
 				lblSubKey.setText("Sub Key[ " + (round + ((lastSubKeyFlag == true) ? 1 : 0)) + "]");
 
 				btnSbox_1.setText("S-Box: " + ((40 - (round - ((lastSubKeyFlag == true) ? 1 : 0)) - 4) % 8 + 1));
-				
+
 				w1.setText("W[" + ((round - 1) * 4 + 8 + ((lastSubKeyFlag == true) ? 4 : 0)) + "]");
 				w2.setText("W[" + ((round - 1) * 4 + 9 + ((lastSubKeyFlag == true) ? 4 : 0)) + "]");
 				w3.setText("W[" + ((round - 1) * 4 + 10 + ((lastSubKeyFlag == true) ? 4 : 0)) + "]");
@@ -1643,6 +1744,10 @@ public class Rounds {
 
 			}
 
+			@Override
+			public void mouseExited(MouseEvent e) {
+				clearAllSelection();
+			}
 		});
 		SubKeyTable.setModel(new DefaultTableModel(SerpentData.intToObject(data.subKeys[32]),
 				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
@@ -1691,13 +1796,19 @@ public class Rounds {
 		SubKeyTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		SubKeyTable.setBorder(new LineBorder(new Color(0, 0, 204)));
 		SubKeyTable.setBackground(SystemColor.menu);
-		
+
 		MainFrame.tableAlignCenter(SubKeyTable);
 
 		ResultTable = new JTable();
+		ResultTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseExited(MouseEvent e) {
+				clearAllSelection();
+			}
+		});
+		ResultTable.setEnabled(false);
 		ResultTable.setFont(new Font("Verdana", Font.PLAIN, 14));
 		ResultTable.setColumnSelectionAllowed(true);
-		ResultTable.setCellSelectionEnabled(true);
 		ResultTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -1717,12 +1828,24 @@ public class Rounds {
 
 					ResultTable.setRowSelectionInterval(row, row);
 					ResultTable.setColumnSelectionInterval(column, column);
-					
+
 					String xorResult = "<html><font size='5' face='verdana, times, serif' > ";
-					xorResult += "&nbsp;&nbsp;" + String.format("%4s", Integer.toBinaryString(Integer.parseInt(prevXorFTable.getValueAt(row, column).toString(),16))).replace(' ', '0') + "<br>+";
-					xorResult += String.format("%4s", Integer.toBinaryString(Integer.parseInt(SubKeyTable.getValueAt(row, column).toString(),16))).replace(' ', '0') + "<br>";
+					xorResult += "&nbsp;&nbsp;" + String
+							.format("%4s",
+									Integer.toBinaryString(
+											Integer.parseInt(prevXorFTable.getValueAt(row, column).toString(), 16)))
+							.replace(' ', '0') + "<br>+";
+					xorResult += String
+							.format("%4s",
+									Integer.toBinaryString(
+											Integer.parseInt(SubKeyTable.getValueAt(row, column).toString(), 16)))
+							.replace(' ', '0') + "<br>";
 					xorResult += "====<br>";
-					xorResult += "&nbsp;&nbsp;" + String.format("%4s", Integer.toBinaryString(Integer.parseInt(ResultTable.getValueAt(row, column).toString(),16))).replace(' ', '0') + "<br>";
+					xorResult += "&nbsp;&nbsp;" + String
+							.format("%4s",
+									Integer.toBinaryString(
+											Integer.parseInt(ResultTable.getValueAt(row, column).toString(), 16)))
+							.replace(' ', '0') + "<br>";
 					xorResult += "</font></html>";
 					ResultTable.setToolTipText(xorResult);
 
@@ -1778,7 +1901,7 @@ public class Rounds {
 		ResultTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		ResultTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		ResultTable.setBackground(SystemColor.menu);
-		
+
 		MainFrame.tableAlignCenter(ResultTable);
 
 		JButton btnNext = new JButton("Next");
@@ -1822,7 +1945,7 @@ public class Rounds {
 			public void stateChanged(ChangeEvent e) {
 
 				round = slider.getValue();
-				
+
 				btnSbox.setText(((ENCRYPT == true) ? "S-Box: " : "inv S-Box: ") + ((round - 1) % 8 + 1));
 				lblSubkeyround.setText("Sub Key[" + round + "]");
 				btnSbox_1.setText("S-Box: " + ((40 - (round - ((lastSubKeyFlag == true) ? 1 : 0)) - 4) % 8 + 1));
@@ -1923,6 +2046,10 @@ public class Rounds {
 				if (ENCRYPT) {
 
 					if (round++ >= 32) {
+
+						@SuppressWarnings("unused")
+						SBOX sbox = new SBOX(true);
+
 						frmSerpentRounds.setVisible(false);
 						MainFrame.mainFrame.finalPermutationFrame.frmFinalPermutation.setVisible(true);
 						round = 31;
@@ -1931,6 +2058,9 @@ public class Rounds {
 
 				} else {
 					if (--round <= 0) {
+
+						@SuppressWarnings("unused")
+						SBOX sbox = new SBOX(true);
 
 						frmSerpentRounds.setVisible(false);
 						MainFrame.mainFrame.finalPermutationFrame.frmFinalPermutation.setVisible(true);
@@ -1970,52 +2100,53 @@ public class Rounds {
 
 		btnPreviuous.setBounds(520, 303, 99, 25);
 		frmSerpentRounds.getContentPane().add(btnPreviuous);
-		
+
 		JPanel navPanel = new JPanel();
 		navPanel.setBorder(new TitledBorder(null, "Navigation", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		navPanel.setLayout(null);
 		navPanel.setBounds(728, 40, 180, 224);
 		frmSerpentRounds.getContentPane().add(navPanel);
-		
+
 		JButton firstPermutation = new JButton("Inital permutation");
 		firstPermutation.setFont(new Font("Verdana", Font.PLAIN, 13));
 		firstPermutation.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				Rounds.round = (Rounds.ENCRYPT == true) ? 0 : 31;
 				MainFrame.mainFrame.initialPermutationFrame.frmInitialPermutation.setVisible(true);
 				MainFrame.mainFrame.roundFrame.frmSerpentRounds.setVisible(false);
-	
+
 			}
 		});
 		firstPermutation.setBounds(10, 25, 160, 25);
 		navPanel.add(firstPermutation);
-		
+
 		JButton lastPermutation = new JButton("Final Permutation");
 		lastPermutation.setFont(new Font("Verdana", Font.PLAIN, 13));
 		lastPermutation.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				Rounds.round = (Rounds.ENCRYPT == true) ? 31 : 0;
 				MainFrame.mainFrame.finalPermutationFrame.frmFinalPermutation.setVisible(true);
 				MainFrame.mainFrame.roundFrame.frmSerpentRounds.setVisible(false);
 			}
 		});
 		lastPermutation.setBounds(10, 121, 160, 25);
 		navPanel.add(lastPermutation);
-		
+
 		JButton reset = new JButton("Reset");
 		reset.setFont(new Font("Verdana", Font.PLAIN, 13));
 		reset.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				Rounds.round = 0;
 				MainFrame.frmSerpant.setVisible(true);
 				MainFrame.mainFrame.roundFrame.frmSerpentRounds.setVisible(false);
 			}
 		});
 		reset.setBounds(10, 169, 160, 25);
 		navPanel.add(reset);
-		
+
 		JButton button_4 = new JButton("Rounds");
 		button_4.setFont(new Font("Verdana", Font.PLAIN, 13));
 		button_4.setEnabled(false);
