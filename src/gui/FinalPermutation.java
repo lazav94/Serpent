@@ -61,7 +61,7 @@ public class FinalPermutation {
 		firstPermutation.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Rounds.round = (Rounds.ENCRYPT == true) ? 0 : 31;
+				Rounds.round = (Rounds.ENCRYPT == true) ? 1 : 32;
 				MainFrame.mainFrame.finalPermutationFrame.frmFinalPermutation.setVisible(false);
 				MainFrame.mainFrame.initialPermutationFrame.frmInitialPermutation.setVisible(true);
 
@@ -81,7 +81,7 @@ public class FinalPermutation {
 		rounds.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Rounds.round = (Rounds.ENCRYPT == true) ? 31 : 0;
+				Rounds.round = (Rounds.ENCRYPT== true) ? 32 : 1;
 				MainFrame.mainFrame.finalPermutationFrame.frmFinalPermutation.setVisible(false);
 				MainFrame.mainFrame.roundFrame.frmSerpentRounds.setVisible(true);
 			}
@@ -290,6 +290,7 @@ public class FinalPermutation {
 		afterFinalPermutationTable.setBackground(SystemColor.menu);
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				Rounds.round = (Rounds.ENCRYPT== true) ? 32 : 1;
 				frmFinalPermutation.setVisible(false);
 				MainFrame.mainFrame.roundFrame.frmSerpentRounds.setVisible(true);
 

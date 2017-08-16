@@ -1151,6 +1151,7 @@ public class Rounds {
 
 		// Tooltip time = 10s
 		ToolTipManager.sharedInstance().setDismissDelay(10000);
+		ToolTipManager.sharedInstance().setInitialDelay(0);
 
 		XorResultTable.setBounds(519, 69, 160, 64);
 		XOR.add(XorResultTable);
@@ -2112,7 +2113,9 @@ public class Rounds {
 		firstPermutation.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Rounds.round = (Rounds.ENCRYPT == true) ? 0 : 31;
+				Rounds.round = (Rounds.ENCRYPT == true) ? 1 : 32;
+				roundNumber.setText("" + Rounds.round);
+				slider.setValue(round);
 				MainFrame.mainFrame.initialPermutationFrame.frmInitialPermutation.setVisible(true);
 				MainFrame.mainFrame.roundFrame.frmSerpentRounds.setVisible(false);
 
@@ -2126,7 +2129,9 @@ public class Rounds {
 		lastPermutation.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Rounds.round = (Rounds.ENCRYPT == true) ? 31 : 0;
+				Rounds.round = (Rounds.ENCRYPT == true) ? 32 : 1;
+				roundNumber.setText("" + Rounds.round);
+				slider.setValue(round);
 				MainFrame.mainFrame.finalPermutationFrame.frmFinalPermutation.setVisible(true);
 				MainFrame.mainFrame.roundFrame.frmSerpentRounds.setVisible(false);
 			}

@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.ToolTipManager;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,8 +23,7 @@ public class LT {
 
 	public static SerpentData data = SerpentData.getInstance();
 	public JFrame frmLinearTransformation;
-	
-	
+
 	private JTable a1;
 	private JTable b1;
 	private JTable c1;
@@ -60,11 +60,6 @@ public class LT {
 	private JLabel xor2;
 	private JLabel xor3;
 	private JLabel xor4;
-	
-	
-	
-	
-	
 
 	/**
 	 * Launch the application.
@@ -83,13 +78,11 @@ public class LT {
 	}
 
 	private void labelToolTip(JLabel argLabel, int pos, int prev, int next) {
-		
-		
-	
+
 		String toolTipString = "<html> <font size='5' face='verdana' > ";
 		toolTipString += String.format("%32s", Integer.toBinaryString(data.LTdata[Rounds.round - 1][prev])).replace(' ',
 				'0');
-		if(Rounds.ENCRYPT)
+		if (Rounds.ENCRYPT)
 			toolTipString += "<br> &lt&lt&lt " + pos + "<br>";
 		else
 			toolTipString += "<br> &gt&gt&gt " + pos + "<br>";
@@ -127,6 +120,10 @@ public class LT {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+
+		ToolTipManager.sharedInstance().setDismissDelay(10000);
+		ToolTipManager.sharedInstance().setInitialDelay(0);
+
 		frmLinearTransformation = new JFrame();
 		frmLinearTransformation.setTitle("Linear Transformation");
 		frmLinearTransformation.setResizable(false);
@@ -195,7 +192,7 @@ public class LT {
 		a1.setBackground(Color.WHITE);
 		a1.setShowVerticalLines(false);
 		a1.setEnabled(false);
-		a1.setBounds(10, (Rounds.ENCRYPT)?119:142, 112, 14);
+		a1.setBounds(10, (Rounds.ENCRYPT) ? 119 : 142, 112, 14);
 		a1.setModel(new DefaultTableModel(SerpentData.intToObject(new int[] { data.LTdata[Rounds.round - 1][0] }),
 				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
 			/**
@@ -1338,7 +1335,7 @@ public class LT {
 		label13.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				labelToolTip(label13, (Rounds.ENCRYPT == true)?13:5, 0, 4);
+				labelToolTip(label13, (Rounds.ENCRYPT == true) ? 13 : 5, 0, 4);
 
 			}
 		});
@@ -1350,7 +1347,7 @@ public class LT {
 		label.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				labelToolTip(label, (Rounds.ENCRYPT == true)?3:22, 2, 5);
+				labelToolTip(label, (Rounds.ENCRYPT == true) ? 3 : 22, 2, 5);
 			}
 		});
 
@@ -1389,7 +1386,8 @@ public class LT {
 				String toolTipString = "<html> <font size='5' face='verdana' > ";
 				toolTipString += String
 						.format("%32s",
-								Integer.toBinaryString(data.LTdata[Rounds.round - 1][((Rounds.ENCRYPT == true) ? 8 : 1)]))
+								Integer.toBinaryString(
+										data.LTdata[Rounds.round - 1][((Rounds.ENCRYPT == true) ? 8 : 1)]))
 						.replace(' ', '0') + "<br> &lt&lt 7 <br>";
 				toolTipString += String
 						.format("%32s",
@@ -1421,7 +1419,7 @@ public class LT {
 		label_6.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				labelToolTip(label_6, (Rounds.ENCRYPT == true)?22:3, 11, 13);
+				labelToolTip(label_6, (Rounds.ENCRYPT == true) ? 22 : 3, 11, 13);
 			}
 		});
 		label_6.setBounds(289, (Rounds.ENCRYPT == true) ? 458 : 468, 46, 14);
@@ -1448,7 +1446,7 @@ public class LT {
 		label_5.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				labelToolTip(label_5, (Rounds.ENCRYPT == true)?5:13, 10, 12);
+				labelToolTip(label_5, (Rounds.ENCRYPT == true) ? 5 : 13, 10, 12);
 			}
 		});
 		label_5.setBounds(43, (Rounds.ENCRYPT == true) ? 444 : 468, 46, 14);
@@ -1464,67 +1462,62 @@ public class LT {
 		xor1.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				if(Rounds.ENCRYPT)
+				if (Rounds.ENCRYPT)
 					xorToolTip(xor1, 4, 1, 5, 6, 0);
 				else
 					xorToolTip(xor1, 10, 6, 11, 8, 0);
 			}
 		});
-		xor1.setBounds(176, (Rounds.ENCRYPT)?227:393, 22, 20);
+		xor1.setBounds(176, (Rounds.ENCRYPT) ? 227 : 393, 22, 20);
 		panel.add(xor1);
 
 		xor2 = new JLabel(" ");
 		xor2.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				if(Rounds.ENCRYPT)
+				if (Rounds.ENCRYPT)
 					xorToolTip(xor2, 3, 5, 4, 7, 3);
 				else
 					xorToolTip(xor2, 11, 7, 10, 9, 3);
 			}
 		});
 
-		xor2.setBounds(421, 350, 22, 26);
+		xor2.setBounds(421, (Rounds.ENCRYPT) ? 260 : 350, 22, 26);
 		panel.add(xor2);
 
 		xor3 = new JLabel(" ");
 		xor3.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				if(Rounds.ENCRYPT)
+				if (Rounds.ENCRYPT)
 					xorToolTip(xor3, 4, 8, 9, 10, 0);
 				else
 					xorToolTip(xor3, 4, 1, 3, 10, 0);
 			}
 		});
-		xor3.setBounds(57, (Rounds.ENCRYPT)? 357 : 245, 16, 20);
+		xor3.setBounds(57, (Rounds.ENCRYPT) ? 357 : 245, 16, 20);
 		panel.add(xor3);
 
 		xor4 = new JLabel(" ");
 		xor4.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				if(Rounds.ENCRYPT)
+				if (Rounds.ENCRYPT)
 					xorToolTip(xor4, 5, 9, 8, 11, 7);
 				else
 					xorToolTip(xor4, 5, 3, 1, 11, 7);
 			}
 		});
-		xor4.setBounds(305, (Rounds.ENCRYPT)?392:220, 16, 20);
+		xor4.setBounds(305, (Rounds.ENCRYPT) ? 392 : 220, 16, 20);
 		panel.add(xor4);
 
 		ImageLabel = new JLabel("");
 		ImageLabel.setBounds(-3, 5, 509, 633);
-		ImageLabel.setIcon(
-		new ImageIcon( ".\\images\\" + ((Rounds.ENCRYPT)?"LT1.JPG":"invLT.JPG")));
-//		ImageLabel.setIcon(
-//				new ImageIcon(((Rounds.ENCRYPT == true) ? "C:\\Users\\laza\\workspace\\Serpent\\images\\LT1.JPG"
-//						: "C:\\Users\\laza\\workspace\\Serpent\\images\\invLT.JPG")));
+		ImageLabel.setIcon(new ImageIcon(LT.class.getResource((Rounds.ENCRYPT == true) ? "/LT/LT1.JPG" : "/LT/invLT.JPG")));
 		panel.add(ImageLabel);
-		
+
 		MainFrame.tableAlignCenter(a1);
-		
-		
+
 		MainFrame.tableAlignCenter(a1);
 		MainFrame.tableAlignCenter(a2);
 		MainFrame.tableAlignCenter(a3);
@@ -1547,7 +1540,6 @@ public class LT {
 		MainFrame.tableAlignCenter(bf);
 		MainFrame.tableAlignCenter(cf);
 		MainFrame.tableAlignCenter(df);
-
 
 	}
 }

@@ -251,7 +251,7 @@ public class InitialPermutation {
 		lastPermutation.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Rounds.round = (Rounds.ENCRYPT == true) ? 31 : 0;
+				Rounds.round = (Rounds.ENCRYPT == true) ? 32 : 1;
 				frmInitialPermutation.setVisible(false);
 				MainFrame.mainFrame.finalPermutationFrame.frmFinalPermutation.setVisible(true);
 
@@ -265,7 +265,8 @@ public class InitialPermutation {
 		round.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Rounds.round = (Rounds.ENCRYPT == true) ? 0 : 31;
+				Rounds.round = (Rounds.ENCRYPT == true) ? 1 : 32;
+				
 				frmInitialPermutation.setVisible(false);
 				MainFrame.mainFrame.roundFrame.frmSerpentRounds.setVisible(true);
 			}
@@ -291,6 +292,7 @@ public class InitialPermutation {
 		btnNext.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				Rounds.round = (Rounds.ENCRYPT == true) ? 1 : 32;
 				frmInitialPermutation.setVisible(false);
 				MainFrame.mainFrame.roundFrame.frmSerpentRounds.setVisible(true);
 			}
@@ -301,7 +303,7 @@ public class InitialPermutation {
 		reset.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Rounds.round = 0;
+				Rounds.round = 1;
 				MainFrame.frmSerpant.setVisible(true);
 				MainFrame.mainFrame.initialPermutationFrame.frmInitialPermutation.setVisible(false);
 			}
