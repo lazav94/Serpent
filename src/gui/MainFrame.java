@@ -23,6 +23,7 @@ import exceptions.TextException;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Font;
+import javax.swing.JToolBar;
 
 public class MainFrame {
 
@@ -94,17 +95,17 @@ public class MainFrame {
 		frmSerpant.setFont(new Font("Verdana", Font.PLAIN, 13));
 		frmSerpant.setResizable(false);
 		frmSerpant.setTitle("Serpant");
-		frmSerpant.setBounds(100, 100, 540, 249);
+		frmSerpant.setBounds(100, 100, 935, 346);
 		frmSerpant.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSerpant.getContentPane().setLayout(null);
 
 		JLabel lblKey = new JLabel("Key:");
-		lblKey.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblKey.setBounds(38, 52, 39, 25);
+		lblKey.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblKey.setBounds(39, 70, 84, 25);
 		frmSerpant.getContentPane().add(lblKey);
 
 		keyTextField = new JTextField();
-		keyTextField.setFont(new Font("Verdana", Font.PLAIN, 13));
+		keyTextField.setFont(new Font("Verdana", Font.PLAIN, 18));
 		keyTextField.setText("12345678912345678912345678912345");
 		keyTextField.addKeyListener(new KeyAdapter() {
 			@Override
@@ -120,17 +121,17 @@ public class MainFrame {
 
 			}
 		});
-		keyTextField.setBounds(117, 48, 380, 25);
+		keyTextField.setBounds(148, 66, 750, 40);
 		frmSerpant.getContentPane().add(keyTextField);
 		keyTextField.setColumns(10);
 
 		JLabel lblPlainText = new JLabel("Plain text:");
-		lblPlainText.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblPlainText.setBounds(38, 95, 84, 25);
+		lblPlainText.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblPlainText.setBounds(39, 140, 135, 25);
 		frmSerpant.getContentPane().add(lblPlainText);
 
 		plainTextField = new JTextField();
-		plainTextField.setFont(new Font("Verdana", Font.PLAIN, 13));
+		plainTextField.setFont(new Font("Verdana", Font.PLAIN, 18));
 		plainTextField.setText("12345678912345678912345678912345");
 		plainTextField.addKeyListener(new KeyAdapter() {
 			@Override
@@ -145,11 +146,11 @@ public class MainFrame {
 			}
 		});
 		plainTextField.setColumns(10);
-		plainTextField.setBounds(117, 95, 380, 25);
+		plainTextField.setBounds(148, 133, 750, 40);
 		frmSerpant.getContentPane().add(plainTextField);
 
 		JRadioButton rdbtnEncrypt = new JRadioButton("Encrypt");
-		rdbtnEncrypt.setFont(new Font("Verdana", Font.PLAIN, 13));
+		rdbtnEncrypt.setFont(new Font("Verdana", Font.PLAIN, 18));
 		rdbtnEncrypt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -158,11 +159,11 @@ public class MainFrame {
 		});
 		rdbtnEncrypt.setSelected(true);
 		buttonGroup.add(rdbtnEncrypt);
-		rdbtnEncrypt.setBounds(117, 136, 135, 25);
+		rdbtnEncrypt.setBounds(148, 199, 135, 25);
 		frmSerpant.getContentPane().add(rdbtnEncrypt);
 
 		JRadioButton rdbtnDecrypt = new JRadioButton("Decrypt");
-		rdbtnDecrypt.setFont(new Font("Verdana", Font.PLAIN, 13));
+		rdbtnDecrypt.setFont(new Font("Verdana", Font.PLAIN, 18));
 		rdbtnDecrypt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -170,11 +171,11 @@ public class MainFrame {
 			}
 		});
 		buttonGroup.add(rdbtnDecrypt);
-		rdbtnDecrypt.setBounds(117, 162, 135, 25);
+		rdbtnDecrypt.setBounds(148, 237, 135, 25);
 		frmSerpant.getContentPane().add(rdbtnDecrypt);
 
 		JButton start = new JButton("Start");
-		start.setFont(new Font("Verdana", Font.PLAIN, 13));
+		start.setFont(new Font("Verdana", Font.PLAIN, 18));
 		start.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -227,8 +228,17 @@ public class MainFrame {
 
 			}
 		});
-		start.setBounds(362, 162, 135, 25);
+		start.setBounds(763, 232, 135, 35);
 		frmSerpant.getContentPane().add(start);
+		
+		JToolBar toolBar = new JToolBar();
+		toolBar.setRollover(true);
+		toolBar.setFloatable(false);
+		toolBar.setBounds(0, 301, 994, 16);
+		frmSerpant.getContentPane().add(toolBar);
+		JLabel label = new JLabel("Lazar Vasic 2013/0298");
+		label.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		toolBar.add(label);
 
 	}
 

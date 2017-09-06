@@ -136,7 +136,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().setLayout(null);
 
 		df = new JTable();
-		df.setFont(new Font("Verdana", Font.PLAIN, 12));
+		df.setFont(new Font("Verdana", Font.PLAIN, 14));
 		df.setForeground(Color.BLACK);
 		df.setBackground(Color.WHITE);
 		df.setShowVerticalLines(false);
@@ -187,7 +187,7 @@ public class LT {
 		df.getColumnModel().getColumn(7).setMaxWidth(14);
 
 		a1 = new JTable();
-		a1.setFont(new Font("Verdana", Font.PLAIN, 12));
+		a1.setFont(new Font("Verdana", Font.PLAIN, 14));
 		a1.setForeground(Color.BLACK);
 		a1.setBackground(Color.WHITE);
 		a1.setShowVerticalLines(false);
@@ -240,7 +240,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(a1);
 
 		b1 = new JTable();
-		b1.setFont(new Font("Verdana", Font.PLAIN, 12));
+		b1.setFont(new Font("Verdana", Font.PLAIN, 14));
 		b1.setForeground(Color.BLACK);
 		b1.setBackground(Color.WHITE);
 		b1.setShowVerticalLines(false);
@@ -293,7 +293,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(b1);
 
 		c1 = new JTable();
-		c1.setFont(new Font("Verdana", Font.PLAIN, 12));
+		c1.setFont(new Font("Verdana", Font.PLAIN, 14));
 		c1.setForeground(Color.BLACK);
 		c1.setBackground(Color.WHITE);
 		c1.setShowVerticalLines(false);
@@ -346,7 +346,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(c1);
 
 		d1 = new JTable();
-		d1.setFont(new Font("Verdana", Font.PLAIN, 12));
+		d1.setFont(new Font("Verdana", Font.PLAIN, 14));
 		d1.setForeground(Color.BLACK);
 		d1.setBackground(Color.WHITE);
 		d1.setShowVerticalLines(false);
@@ -399,7 +399,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(d1);
 
 		a2 = new JTable();
-		a2.setFont(new Font("Verdana", Font.PLAIN, 12));
+		a2.setFont(new Font("Verdana", Font.PLAIN, 14));
 		a2.setForeground(Color.BLACK);
 		a2.setBackground(Color.WHITE);
 		a2.setShowVerticalLines(false);
@@ -452,7 +452,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(a2);
 
 		c2 = new JTable();
-		c2.setFont(new Font("Verdana", Font.PLAIN, 12));
+		c2.setFont(new Font("Verdana", Font.PLAIN, 14));
 		c2.setForeground(Color.BLACK);
 		c2.setBackground(Color.WHITE);
 		c2.setShowVerticalLines(false);
@@ -505,7 +505,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(c2);
 
 		b2 = new JTable();
-		b2.setFont(new Font("Verdana", Font.PLAIN, 12));
+		b2.setFont(new Font("Verdana", Font.PLAIN, 14));
 		b2.setForeground(Color.BLACK);
 		b2.setBackground(Color.WHITE);
 		b2.setShowVerticalLines(false);
@@ -558,7 +558,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(b2);
 
 		d2 = new JTable();
-		d2.setFont(new Font("Verdana", Font.PLAIN, 12));
+		d2.setFont(new Font("Verdana", Font.PLAIN, 14));
 		d2.setForeground(Color.BLACK);
 		d2.setBackground(Color.WHITE);
 		d2.setShowVerticalLines(false);
@@ -611,7 +611,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(d2);
 
 		b3 = new JTable();
-		b3.setFont(new Font("Verdana", Font.PLAIN, 12));
+		b3.setFont(new Font("Verdana", Font.PLAIN, 14));
 		b3.setForeground(Color.BLACK);
 		b3.setBackground(Color.WHITE);
 		b3.setShowVerticalLines(false);
@@ -664,7 +664,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(b3);
 
 		d3 = new JTable();
-		d3.setFont(new Font("Verdana", Font.PLAIN, 12));
+		d3.setFont(new Font("Verdana", Font.PLAIN, 14));
 		d3.setForeground(Color.BLACK);
 		d3.setBackground(Color.WHITE);
 		d3.setShowVerticalLines(false);
@@ -717,7 +717,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(d3);
 
 		a3 = new JTable();
-		a3.setFont(new Font("Verdana", Font.PLAIN, 12));
+		a3.setFont(new Font("Verdana", Font.PLAIN, 14));
 		a3.setForeground(Color.BLACK);
 		a3.setBackground(Color.WHITE);
 		a3.setShowHorizontalLines(false);
@@ -771,7 +771,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(a3);
 
 		c3 = new JTable();
-		c3.setFont(new Font("Verdana", Font.PLAIN, 12));
+		c3.setFont(new Font("Verdana", Font.PLAIN, 14));
 		c3.setForeground(Color.BLACK);
 		c3.setBackground(Color.WHITE);
 		c3.setShowVerticalLines(false);
@@ -824,7 +824,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(c3);
 
 		a4 = new JTable();
-		a4.setFont(new Font("Verdana", Font.PLAIN, 12));
+		a4.setFont(new Font("Verdana", Font.PLAIN, 14));
 		a4.setForeground(Color.BLACK);
 		a4.setBackground(Color.WHITE);
 		a4.setShowVerticalLines(false);
@@ -877,7 +877,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(a4);
 
 		c4 = new JTable();
-		c4.setFont(new Font("Verdana", Font.PLAIN, 12));
+		c4.setFont(new Font("Verdana", Font.PLAIN, 14));
 		c4.setForeground(Color.BLACK);
 		c4.setBackground(Color.WHITE);
 		c4.setShowVerticalLines(false);
@@ -930,7 +930,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(c4);
 
 		a = new JTable();
-		a.setFont(new Font("Verdana", Font.PLAIN, 12));
+		a.setFont(new Font("Verdana", Font.PLAIN, 14));
 		a.setForeground(Color.BLACK);
 		a.setBackground(Color.WHITE);
 		a.setShowVerticalLines(false);
@@ -984,7 +984,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(a);
 
 		b = new JTable();
-		b.setFont(new Font("Verdana", Font.PLAIN, 12));
+		b.setFont(new Font("Verdana", Font.PLAIN, 14));
 		b.setForeground(Color.BLACK);
 		b.setBackground(Color.WHITE);
 		b.setShowVerticalLines(false);
@@ -1038,7 +1038,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(b);
 
 		c = new JTable();
-		c.setFont(new Font("Verdana", Font.PLAIN, 12));
+		c.setFont(new Font("Verdana", Font.PLAIN, 14));
 		c.setForeground(Color.BLACK);
 		c.setBackground(Color.WHITE);
 		c.setShowVerticalLines(false);
@@ -1092,7 +1092,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(c);
 
 		d = new JTable();
-		d.setFont(new Font("Verdana", Font.PLAIN, 12));
+		d.setFont(new Font("Verdana", Font.PLAIN, 14));
 		d.setForeground(Color.BLACK);
 		d.setBackground(Color.WHITE);
 		d.setShowVerticalLines(false);
@@ -1146,7 +1146,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(d);
 
 		JButton btnInitialPermutation = new JButton("Initial permutation");
-		btnInitialPermutation.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnInitialPermutation.setFont(new Font("Verdana", Font.PLAIN, 15));
 		btnInitialPermutation.setBounds(10, (Rounds.ENCRYPT == true) ? 524 : 530, 478, 23);
 		btnInitialPermutation.addMouseListener(new MouseAdapter() {
 			@Override
@@ -1158,7 +1158,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(btnInitialPermutation);
 
 		JButton btnNewButton = new JButton("Final permutation");
-		btnNewButton.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnNewButton.setFont(new Font("Verdana", Font.PLAIN, 15));
 		btnNewButton.setBounds(10, 70, 478, 23);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -1170,7 +1170,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(btnNewButton);
 
 		af = new JTable();
-		af.setFont(new Font("Verdana", Font.PLAIN, 12));
+		af.setFont(new Font("Verdana", Font.PLAIN, 14));
 		af.setForeground(Color.BLACK);
 		af.setBackground(Color.WHITE);
 		af.setShowVerticalLines(false);
@@ -1223,7 +1223,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(af);
 
 		bf = new JTable();
-		bf.setFont(new Font("Verdana", Font.PLAIN, 12));
+		bf.setFont(new Font("Verdana", Font.PLAIN, 14));
 		bf.setForeground(Color.BLACK);
 		bf.setBackground(Color.WHITE);
 		bf.setShowVerticalLines(false);
@@ -1276,7 +1276,7 @@ public class LT {
 		frmLinearTransformation.getContentPane().add(bf);
 
 		cf = new JTable();
-		cf.setFont(new Font("Verdana", Font.PLAIN, 12));
+		cf.setFont(new Font("Verdana", Font.PLAIN, 14));
 		cf.setForeground(Color.BLACK);
 		cf.setBackground(Color.WHITE);
 		cf.setShowVerticalLines(false);

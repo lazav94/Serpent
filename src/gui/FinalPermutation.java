@@ -45,19 +45,19 @@ public class FinalPermutation {
 		frmFinalPermutation = new JFrame();
 		frmFinalPermutation.setResizable(false);
 		frmFinalPermutation.setTitle("Final Permutation");
-		frmFinalPermutation.setBounds(100, 100, 700, 280);
+		frmFinalPermutation.setBounds(100, 100, 900, 399);
 		frmFinalPermutation.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmFinalPermutation.getContentPane().setLayout(null);
 		frmFinalPermutation.setVisible(false);
 
 		JPanel navPanel = new JPanel();
 		navPanel.setBorder(new TitledBorder(null, "Navigation", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		navPanel.setBounds(504, 11, 180, 220);
+		navPanel.setBounds(652, 11, 230, 310);
 		frmFinalPermutation.getContentPane().add(navPanel);
 		navPanel.setLayout(null);
 
 		JButton firstPermutation = new JButton("Inital permutation");
-		firstPermutation.setFont(new Font("Verdana", Font.PLAIN, 13));
+		firstPermutation.setFont(new Font("Verdana", Font.PLAIN, 18));
 		firstPermutation.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -67,17 +67,17 @@ public class FinalPermutation {
 
 			}
 		});
-		firstPermutation.setBounds(10, 22, 160, 25);
+		firstPermutation.setBounds(10, 34, 212, 35);
 		navPanel.add(firstPermutation);
 
 		JButton lastPermutation = new JButton("Final Permutation");
-		lastPermutation.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lastPermutation.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lastPermutation.setEnabled(false);
-		lastPermutation.setBounds(10, 112, 160, 25);
+		lastPermutation.setBounds(10, 172, 212, 35);
 		navPanel.add(lastPermutation);
 
 		JButton rounds = new JButton("Rounds");
-		rounds.setFont(new Font("Verdana", Font.PLAIN, 13));
+		rounds.setFont(new Font("Verdana", Font.PLAIN, 18));
 		rounds.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -86,11 +86,11 @@ public class FinalPermutation {
 				MainFrame.mainFrame.roundFrame.frmSerpentRounds.setVisible(true);
 			}
 		});
-		rounds.setBounds(10, 67, 160, 25);
+		rounds.setBounds(10, 103, 212, 35);
 		navPanel.add(rounds);
 
 		JButton reset = new JButton("Reset");
-		reset.setFont(new Font("Verdana", Font.PLAIN, 13));
+		reset.setFont(new Font("Verdana", Font.PLAIN, 18));
 		reset.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -99,42 +99,43 @@ public class FinalPermutation {
 				MainFrame.mainFrame.finalPermutationFrame.frmFinalPermutation.setVisible(false);
 			}
 		});
-		reset.setBounds(10, 157, 160, 25);
+		reset.setBounds(10, 241, 212, 35);
 		navPanel.add(reset);
 
 		JPanel panel = new JPanel();
 		panel.setBorder(
 				new TitledBorder(null, "Final permutation", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(20, 11, 474, 220);
+		panel.setBounds(20, 11, 622, 310);
 		frmFinalPermutation.getContentPane().add(panel);
 		panel.setLayout(null);
 
 		JButton btnNext = new JButton("Start over");
-		btnNext.setFont(new Font("Verdana", Font.PLAIN, 13));
-		btnNext.setBounds(339, 172, 120, 25);
+		btnNext.setFont(new Font("Verdana", Font.PLAIN, 18));
+		btnNext.setBounds(455, 241, 135, 35);
 		panel.add(btnNext);
 
 		JButton btnNewButton = new JButton("FP");
-		btnNewButton.setFont(new Font("Verdana", Font.PLAIN, 13));
-		btnNewButton.setBounds(209, 97, 54, 25);
+		btnNewButton.setFont(new Font("Verdana", Font.PLAIN, 18));
+		btnNewButton.setBounds(282, 124, 55, 35);
 		panel.add(btnNewButton);
 
 		JLabel lblPlainText = new JLabel("Result befor final permutation");
-		lblPlainText.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblPlainText.setBounds(17, 53, 207, 14);
+		lblPlainText.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblPlainText.setBounds(21, 42, 298, 35);
 		panel.add(lblPlainText);
 
 		JLabel lblPlainTextAfter = new JLabel(Rounds.ENCRYPT ? "Cipher text" : "Plain text");
-		lblPlainTextAfter.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblPlainTextAfter.setBounds(280, 53, 136, 14);
+		lblPlainTextAfter.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblPlainTextAfter.setBounds(358, 42, 136, 35);
 		panel.add(lblPlainTextAfter);
 
 		JButton btnBack = new JButton("Back");
-		btnBack.setFont(new Font("Verdana", Font.PLAIN, 13));
-		btnBack.setBounds(229, 172, 100, 25);
+		btnBack.setFont(new Font("Verdana", Font.PLAIN, 18));
+		btnBack.setBounds(295, 241, 135, 35);
 		panel.add(btnBack);
 
 		beforFinalPermutationTable = new JTable();
+		beforFinalPermutationTable.setRowHeight(30);
 		beforFinalPermutationTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -143,8 +144,8 @@ public class FinalPermutation {
 			}
 		});
 		beforFinalPermutationTable.setEnabled(false);
-		beforFinalPermutationTable.setFont(new Font("Verdana", Font.PLAIN, 14));
-		beforFinalPermutationTable.setBounds(17, 78, 175, 64);
+		beforFinalPermutationTable.setFont(new Font("Verdana", Font.PLAIN, 18));
+		beforFinalPermutationTable.setBounds(21, 78, 240, 120);
 		panel.add(beforFinalPermutationTable);
 		beforFinalPermutationTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -218,8 +219,8 @@ public class FinalPermutation {
 			}
 		});
 		afterFinalPermutationTable.setEnabled(false);
-		afterFinalPermutationTable.setFont(new Font("Verdana", Font.PLAIN, 14));
-		afterFinalPermutationTable.setBounds(280, 78, 175, 64);
+		afterFinalPermutationTable.setFont(new Font("Verdana", Font.PLAIN, 18));
+		afterFinalPermutationTable.setBounds(358, 78, 240, 120);
 		panel.add(afterFinalPermutationTable);
 
 		afterFinalPermutationTable.addMouseMotionListener(new MouseMotionAdapter() {
@@ -288,6 +289,7 @@ public class FinalPermutation {
 
 		afterFinalPermutationTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		afterFinalPermutationTable.setBackground(SystemColor.menu);
+		afterFinalPermutationTable.setRowHeight(30);
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Rounds.round = (Rounds.ENCRYPT== true) ? 32 : 1;

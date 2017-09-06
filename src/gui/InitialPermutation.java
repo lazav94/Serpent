@@ -46,44 +46,46 @@ public class InitialPermutation {
 		frmInitialPermutation = new JFrame();
 		frmInitialPermutation.setTitle("Initial Permutation");
 		frmInitialPermutation.setResizable(false);
-		frmInitialPermutation.setBounds(100, 100, 700, 280);
+		frmInitialPermutation.setBounds(100, 100, 900, 400);
 		frmInitialPermutation.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmInitialPermutation.getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
 		panel.setBorder(
 				new TitledBorder(null, "Inital permutation", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setFont(new Font("Verdana", Font.PLAIN, 13));
-		panel.setBounds(20, 11, 474, 220);
+		panel.setFont(new Font("Verdana", Font.PLAIN, 18));
+		panel.setBounds(20, 11, 622, 310);
 		frmInitialPermutation.getContentPane().add(panel);
 		panel.setLayout(null);
 
 		JButton btnNext = new JButton("Next");
-		btnNext.setFont(new Font("Verdana", Font.PLAIN, 13));
-		btnNext.setBounds(349, 172, 100, 25);
+		btnNext.setFont(new Font("Verdana", Font.PLAIN, 18));
+		btnNext.setBounds(455, 241, 135, 35);
 		panel.add(btnNext);
 
 		JButton btnNewButton = new JButton("IP");
-		btnNewButton.setFont(new Font("Verdana", Font.PLAIN, 13));
-		btnNewButton.setBounds(209, 97, 55, 25);
+		btnNewButton.setFont(new Font("Verdana", Font.PLAIN, 18));
+		btnNewButton.setBounds(282, 121, 55, 35);
 		panel.add(btnNewButton);
 
 		JLabel lblPlainText = new JLabel((Rounds.ENCRYPT ? "Plain text" : "Cipher text") + " (big endian)");
-		lblPlainText.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblPlainText.setBounds(17, 46, 160, 25);
+		lblPlainText.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblPlainText.setBounds(21, 46, 263, 25);
 		panel.add(lblPlainText);
 
 		JLabel lblPlainTextAfter = new JLabel("After permutation");
-		lblPlainTextAfter.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblPlainTextAfter.setBounds(281, 46, 175, 25);
+		lblPlainTextAfter.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblPlainTextAfter.setBounds(358, 46, 175, 25);
 		panel.add(lblPlainTextAfter);
 
 		JButton btnBack = new JButton("Back");
-		btnBack.setFont(new Font("Verdana", Font.PLAIN, 13));
-		btnBack.setBounds(236, 172, 100, 25);
+		btnBack.setFont(new Font("Verdana", Font.PLAIN, 18));
+		btnBack.setBounds(295, 241, 135, 35);
 		panel.add(btnBack);
 
 		PlainTextTable = new JTable();
+		PlainTextTable.setRowHeight(30);
+		
 		PlainTextTable.setEnabled(false);
 		PlainTextTable.addMouseListener(new MouseAdapter() {
 			@Override
@@ -93,8 +95,8 @@ public class InitialPermutation {
 				
 			}
 		});
-		PlainTextTable.setFont(new Font("Verdana", Font.PLAIN, 14));
-		PlainTextTable.setBounds(17, 78, 175, 64);
+		PlainTextTable.setFont(new Font("Verdana", Font.PLAIN, 18));
+		PlainTextTable.setBounds(21, 78, 240, 120);
 
 		panel.add(PlainTextTable);
 
@@ -160,8 +162,9 @@ public class InitialPermutation {
 		MainFrame.tableAlignCenter(PlainTextTable);
 
 		AfterInitalTable = new JTable();
+		AfterInitalTable.setRowHeight(30);
 		AfterInitalTable.setEnabled(false);
-		AfterInitalTable.setFont(new Font("Verdana", Font.PLAIN, 14));
+		AfterInitalTable.setFont(new Font("Verdana", Font.PLAIN, 18));
 
 		AfterInitalTable.addMouseListener(new MouseAdapter() {
 			@Override
@@ -170,7 +173,7 @@ public class InitialPermutation {
 				AfterInitalTable.clearSelection();
 			}
 		});
-		AfterInitalTable.setBounds(281, 78, 175, 64);
+		AfterInitalTable.setBounds(358, 78, 240, 120);
 		panel.add(AfterInitalTable);
 		AfterInitalTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -236,18 +239,18 @@ public class InitialPermutation {
 		navPanel = new JPanel();
 		navPanel.setFont(new Font("Verdana", Font.PLAIN, 13));
 		navPanel.setBorder(new TitledBorder(null, "Navigation", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		navPanel.setBounds(504, 11, 180, 220);
+		navPanel.setBounds(652, 11, 230, 310);
 		frmInitialPermutation.getContentPane().add(navPanel);
 		navPanel.setLayout(null);
 
 		JButton firstPermutation = new JButton(Rounds.ENCRYPT ? "Inital permutation" : "Final Permutation");
-		firstPermutation.setFont(new Font("Verdana", Font.PLAIN, 13));
+		firstPermutation.setFont(new Font("Verdana", Font.PLAIN, 18));
 		firstPermutation.setEnabled(false);
-		firstPermutation.setBounds(10, 24, 160, 25);
+		firstPermutation.setBounds(10, 34, 212, 35);
 		navPanel.add(firstPermutation);
 
 		JButton lastPermutation = new JButton(Rounds.ENCRYPT ? "Final Permutation" : "Inital permutation");
-		lastPermutation.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lastPermutation.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lastPermutation.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -257,11 +260,11 @@ public class InitialPermutation {
 
 			}
 		});
-		lastPermutation.setBounds(10, 122, 160, 25);
+		lastPermutation.setBounds(10, 172, 212, 35);
 		navPanel.add(lastPermutation);
 
 		JButton round = new JButton("Rounds");
-		round.setFont(new Font("Verdana", Font.PLAIN, 13));
+		round.setFont(new Font("Verdana", Font.PLAIN, 18));
 		round.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -271,7 +274,7 @@ public class InitialPermutation {
 				MainFrame.mainFrame.roundFrame.frmSerpentRounds.setVisible(true);
 			}
 		});
-		round.setBounds(10, 73, 160, 25);
+		round.setBounds(10, 103, 212, 35);
 		navPanel.add(round);
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -299,7 +302,7 @@ public class InitialPermutation {
 		});
 
 		JButton reset = new JButton("Reset");
-		reset.setFont(new Font("Verdana", Font.PLAIN, 13));
+		reset.setFont(new Font("Verdana", Font.PLAIN, 18));
 		reset.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -308,7 +311,7 @@ public class InitialPermutation {
 				MainFrame.mainFrame.initialPermutationFrame.frmInitialPermutation.setVisible(false);
 			}
 		});
-		reset.setBounds(10, 171, 160, 25);
+		reset.setBounds(10, 241, 212, 35);
 		navPanel.add(reset);
 
 	}

@@ -53,6 +53,10 @@ public class Rounds {
 	private JTable w4Table;
 	private JTable SubKeyAfterIPTable;
 
+	private JTable prevXorFTable;
+	private JTable SubKeyTable;
+	private JTable ResultTable;
+
 	private static final int XOR_RESULT = 1;
 	private static final int SUBKEYS = 2;
 	private static final int SBOX_RESULT = 3;
@@ -65,10 +69,6 @@ public class Rounds {
 	private static final int W2 = 9;
 	private static final int W3 = 10;
 	private static final int W4 = 11;
-
-	private JTable prevXorFTable;
-	private JTable SubKeyTable;
-	private JTable ResultTable;
 
 	public void clearAllSelection() {
 		prevXorResultTable.clearSelection();
@@ -157,20 +157,20 @@ public class Rounds {
 		frmSerpentRounds = new JFrame();
 		frmSerpentRounds.setTitle("Serpent rounds");
 		frmSerpentRounds.setResizable(false);
-		frmSerpentRounds.setBounds(100, 100, 919, 380);
+		frmSerpentRounds.setBounds(100, 100, 1250, 520);
 		frmSerpentRounds.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSerpentRounds.getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
 		panel.setBorder(null);
-		panel.setBounds(0, 0, 718, 278);
+		panel.setBounds(0, 0, 994, 391);
 		frmSerpentRounds.getContentPane().add(panel);
 		panel.setLayout(null);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setFont(new Font("Verdana", Font.PLAIN, 13));
+		tabbedPane.setFont(new Font("Verdana", Font.PLAIN, 18));
 		tabbedPane.setBorder(new TitledBorder(null, "Rounds", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		tabbedPane.setBounds(0, 21, 708, 257);
+		tabbedPane.setBounds(0, 21, 984, 374);
 		panel.add(tabbedPane);
 
 		JPanel keyScheduler = new JPanel();
@@ -180,7 +180,7 @@ public class Rounds {
 		keyScheduler.setLayout(null);
 
 		JButton btnNewButton = new JButton("IP");
-		btnNewButton.setFont(new Font("Verdana", Font.PLAIN, 13));
+		btnNewButton.setFont(new Font("Verdana", Font.PLAIN, 18));
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -188,11 +188,11 @@ public class Rounds {
 				ip.frmInitalPermutationPanel.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(182, 79, 50, 64);
+		btnNewButton.setBounds(260, 125, 65, 64);
 		keyScheduler.add(btnNewButton);
 
 		JButton btnSbox_1 = new JButton("S-Box: " + ((40 - (round - ((lastSubKeyFlag == true) ? 1 : 0)) - 4) % 8 + 1));
-		btnSbox_1.setFont(new Font("Verdana", Font.PLAIN, 13));
+		btnSbox_1.setFont(new Font("Verdana", Font.PLAIN, 18));
 		btnSbox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -210,13 +210,13 @@ public class Rounds {
 
 			}
 		});
-		btnSbox_1.setBounds(414, 79, 93, 64);
+		btnSbox_1.setBounds(585, 125, 121, 64);
 		keyScheduler.add(btnSbox_1);
 
 		w1Table = new JTable();
 		w1Table.setEnabled(false);
 		w1Table.setBackground(SystemColor.menu);
-		w1Table.setFont(new Font("Verdana", Font.PLAIN, 14));
+		w1Table.setFont(new Font("Verdana", Font.PLAIN, 18));
 		w1Table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		w1Table.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -251,7 +251,7 @@ public class Rounds {
 			}
 		});
 		w1Table.setColumnSelectionAllowed(true);
-		w1Table.setBounds(11, 33, 160, 16);
+		w1Table.setBounds(12, 44, 240, 30);
 		keyScheduler.add(w1Table);
 		w1Table.setBorder(new LineBorder(new Color(0, 0, 153)));
 		w1Table.addMouseListener(new MouseAdapter() {
@@ -260,6 +260,7 @@ public class Rounds {
 				W w = new W((round - 1) * 4 + 8);
 				w.frmWKeys.setVisible(true);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				clearAllSelection();
@@ -282,42 +283,42 @@ public class Rounds {
 		w1Table.getColumnModel().getColumn(0).setResizable(false);
 		w1Table.getColumnModel().getColumn(0).setPreferredWidth(20);
 		w1Table.getColumnModel().getColumn(0).setMinWidth(20);
-		w1Table.getColumnModel().getColumn(0).setMaxWidth(20);
+		w1Table.getColumnModel().getColumn(0).setMaxWidth(30);
 		w1Table.getColumnModel().getColumn(1).setResizable(false);
 		w1Table.getColumnModel().getColumn(1).setPreferredWidth(20);
 		w1Table.getColumnModel().getColumn(1).setMinWidth(20);
-		w1Table.getColumnModel().getColumn(1).setMaxWidth(20);
+		w1Table.getColumnModel().getColumn(1).setMaxWidth(30);
 		w1Table.getColumnModel().getColumn(2).setResizable(false);
 		w1Table.getColumnModel().getColumn(2).setPreferredWidth(20);
 		w1Table.getColumnModel().getColumn(2).setMinWidth(20);
-		w1Table.getColumnModel().getColumn(2).setMaxWidth(20);
+		w1Table.getColumnModel().getColumn(2).setMaxWidth(30);
 		w1Table.getColumnModel().getColumn(3).setResizable(false);
 		w1Table.getColumnModel().getColumn(3).setPreferredWidth(20);
 		w1Table.getColumnModel().getColumn(3).setMinWidth(20);
-		w1Table.getColumnModel().getColumn(3).setMaxWidth(20);
+		w1Table.getColumnModel().getColumn(3).setMaxWidth(30);
 		w1Table.getColumnModel().getColumn(4).setResizable(false);
 		w1Table.getColumnModel().getColumn(4).setPreferredWidth(20);
 		w1Table.getColumnModel().getColumn(4).setMinWidth(20);
-		w1Table.getColumnModel().getColumn(4).setMaxWidth(20);
+		w1Table.getColumnModel().getColumn(4).setMaxWidth(30);
 		w1Table.getColumnModel().getColumn(5).setResizable(false);
 		w1Table.getColumnModel().getColumn(5).setPreferredWidth(20);
 		w1Table.getColumnModel().getColumn(5).setMinWidth(20);
-		w1Table.getColumnModel().getColumn(5).setMaxWidth(20);
+		w1Table.getColumnModel().getColumn(5).setMaxWidth(30);
 		w1Table.getColumnModel().getColumn(6).setResizable(false);
 		w1Table.getColumnModel().getColumn(6).setPreferredWidth(20);
 		w1Table.getColumnModel().getColumn(6).setMinWidth(20);
-		w1Table.getColumnModel().getColumn(6).setMaxWidth(20);
+		w1Table.getColumnModel().getColumn(6).setMaxWidth(30);
 		w1Table.getColumnModel().getColumn(7).setResizable(false);
 		w1Table.getColumnModel().getColumn(7).setPreferredWidth(20);
 		w1Table.getColumnModel().getColumn(7).setMinWidth(20);
-		w1Table.getColumnModel().getColumn(7).setMaxWidth(20);
+		w1Table.getColumnModel().getColumn(7).setMaxWidth(30);
 
 		MainFrame.tableAlignCenter(w1Table);
 
 		w2Table = new JTable();
 		w2Table.setEnabled(false);
 		w2Table.setBackground(SystemColor.menu);
-		w2Table.setFont(new Font("Verdana", Font.PLAIN, 14));
+		w2Table.setFont(new Font("Verdana", Font.PLAIN, 18));
 		w2Table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		w2Table.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -354,7 +355,7 @@ public class Rounds {
 			}
 		});
 		w2Table.setColumnSelectionAllowed(true);
-		w2Table.setBounds(11, 82, 160, 16);
+		w2Table.setBounds(10, 115, 240, 30);
 		keyScheduler.add(w2Table);
 		w2Table.setBorder(new LineBorder(new Color(0, 0, 153)));
 		w2Table.addMouseListener(new MouseAdapter() {
@@ -363,6 +364,7 @@ public class Rounds {
 				W w = new W((round - 1) * 4 + 9);
 				w.frmWKeys.setVisible(true);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				clearAllSelection();
@@ -387,42 +389,42 @@ public class Rounds {
 		w2Table.getColumnModel().getColumn(0).setResizable(false);
 		w2Table.getColumnModel().getColumn(0).setPreferredWidth(20);
 		w2Table.getColumnModel().getColumn(0).setMinWidth(20);
-		w2Table.getColumnModel().getColumn(0).setMaxWidth(20);
+		w2Table.getColumnModel().getColumn(0).setMaxWidth(30);
 		w2Table.getColumnModel().getColumn(1).setResizable(false);
 		w2Table.getColumnModel().getColumn(1).setPreferredWidth(20);
 		w2Table.getColumnModel().getColumn(1).setMinWidth(20);
-		w2Table.getColumnModel().getColumn(1).setMaxWidth(20);
+		w2Table.getColumnModel().getColumn(1).setMaxWidth(30);
 		w2Table.getColumnModel().getColumn(2).setResizable(false);
 		w2Table.getColumnModel().getColumn(2).setPreferredWidth(20);
 		w2Table.getColumnModel().getColumn(2).setMinWidth(20);
-		w2Table.getColumnModel().getColumn(2).setMaxWidth(20);
+		w2Table.getColumnModel().getColumn(2).setMaxWidth(30);
 		w2Table.getColumnModel().getColumn(3).setResizable(false);
 		w2Table.getColumnModel().getColumn(3).setPreferredWidth(20);
 		w2Table.getColumnModel().getColumn(3).setMinWidth(20);
-		w2Table.getColumnModel().getColumn(3).setMaxWidth(20);
+		w2Table.getColumnModel().getColumn(3).setMaxWidth(30);
 		w2Table.getColumnModel().getColumn(4).setResizable(false);
 		w2Table.getColumnModel().getColumn(4).setPreferredWidth(20);
 		w2Table.getColumnModel().getColumn(4).setMinWidth(20);
-		w2Table.getColumnModel().getColumn(4).setMaxWidth(20);
+		w2Table.getColumnModel().getColumn(4).setMaxWidth(30);
 		w2Table.getColumnModel().getColumn(5).setResizable(false);
 		w2Table.getColumnModel().getColumn(5).setPreferredWidth(20);
 		w2Table.getColumnModel().getColumn(5).setMinWidth(20);
-		w2Table.getColumnModel().getColumn(5).setMaxWidth(20);
+		w2Table.getColumnModel().getColumn(5).setMaxWidth(30);
 		w2Table.getColumnModel().getColumn(6).setResizable(false);
 		w2Table.getColumnModel().getColumn(6).setPreferredWidth(20);
 		w2Table.getColumnModel().getColumn(6).setMinWidth(20);
-		w2Table.getColumnModel().getColumn(6).setMaxWidth(20);
+		w2Table.getColumnModel().getColumn(6).setMaxWidth(30);
 		w2Table.getColumnModel().getColumn(7).setResizable(false);
 		w2Table.getColumnModel().getColumn(7).setPreferredWidth(20);
 		w2Table.getColumnModel().getColumn(7).setMinWidth(20);
-		w2Table.getColumnModel().getColumn(7).setMaxWidth(20);
+		w2Table.getColumnModel().getColumn(7).setMaxWidth(30);
 
 		MainFrame.tableAlignCenter(w2Table);
 
 		w3Table = new JTable();
 		w3Table.setEnabled(false);
 		w3Table.setBackground(SystemColor.menu);
-		w3Table.setFont(new Font("Verdana", Font.PLAIN, 14));
+		w3Table.setFont(new Font("Verdana", Font.PLAIN, 18));
 		w3Table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		w3Table.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -460,7 +462,7 @@ public class Rounds {
 			}
 		});
 		w3Table.setColumnSelectionAllowed(true);
-		w3Table.setBounds(11, 131, 160, 16);
+		w3Table.setBounds(12, 186, 240, 30);
 		keyScheduler.add(w3Table);
 		w3Table.setBorder(new LineBorder(new Color(0, 0, 153)));
 		w3Table.addMouseListener(new MouseAdapter() {
@@ -469,6 +471,7 @@ public class Rounds {
 				W w = new W((round - 1) * 4 + 10);
 				w.frmWKeys.setVisible(true);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				clearAllSelection();
@@ -492,42 +495,42 @@ public class Rounds {
 		w3Table.getColumnModel().getColumn(0).setResizable(false);
 		w3Table.getColumnModel().getColumn(0).setPreferredWidth(20);
 		w3Table.getColumnModel().getColumn(0).setMinWidth(20);
-		w3Table.getColumnModel().getColumn(0).setMaxWidth(20);
+		w3Table.getColumnModel().getColumn(0).setMaxWidth(30);
 		w3Table.getColumnModel().getColumn(1).setResizable(false);
 		w3Table.getColumnModel().getColumn(1).setPreferredWidth(20);
 		w3Table.getColumnModel().getColumn(1).setMinWidth(20);
-		w3Table.getColumnModel().getColumn(1).setMaxWidth(20);
+		w3Table.getColumnModel().getColumn(1).setMaxWidth(30);
 		w3Table.getColumnModel().getColumn(2).setResizable(false);
 		w3Table.getColumnModel().getColumn(2).setPreferredWidth(20);
 		w3Table.getColumnModel().getColumn(2).setMinWidth(20);
-		w3Table.getColumnModel().getColumn(2).setMaxWidth(20);
+		w3Table.getColumnModel().getColumn(2).setMaxWidth(30);
 		w3Table.getColumnModel().getColumn(3).setResizable(false);
 		w3Table.getColumnModel().getColumn(3).setPreferredWidth(20);
 		w3Table.getColumnModel().getColumn(3).setMinWidth(20);
-		w3Table.getColumnModel().getColumn(3).setMaxWidth(20);
+		w3Table.getColumnModel().getColumn(3).setMaxWidth(30);
 		w3Table.getColumnModel().getColumn(4).setResizable(false);
 		w3Table.getColumnModel().getColumn(4).setPreferredWidth(20);
 		w3Table.getColumnModel().getColumn(4).setMinWidth(20);
-		w3Table.getColumnModel().getColumn(4).setMaxWidth(20);
+		w3Table.getColumnModel().getColumn(4).setMaxWidth(30);
 		w3Table.getColumnModel().getColumn(5).setResizable(false);
 		w3Table.getColumnModel().getColumn(5).setPreferredWidth(20);
 		w3Table.getColumnModel().getColumn(5).setMinWidth(20);
-		w3Table.getColumnModel().getColumn(5).setMaxWidth(20);
+		w3Table.getColumnModel().getColumn(5).setMaxWidth(30);
 		w3Table.getColumnModel().getColumn(6).setResizable(false);
 		w3Table.getColumnModel().getColumn(6).setPreferredWidth(20);
 		w3Table.getColumnModel().getColumn(6).setMinWidth(20);
-		w3Table.getColumnModel().getColumn(6).setMaxWidth(20);
+		w3Table.getColumnModel().getColumn(6).setMaxWidth(30);
 		w3Table.getColumnModel().getColumn(7).setResizable(false);
 		w3Table.getColumnModel().getColumn(7).setPreferredWidth(20);
 		w3Table.getColumnModel().getColumn(7).setMinWidth(20);
-		w3Table.getColumnModel().getColumn(7).setMaxWidth(20);
+		w3Table.getColumnModel().getColumn(7).setMaxWidth(30);
 
 		MainFrame.tableAlignCenter(w3Table);
 
 		w4Table = new JTable();
 		w4Table.setEnabled(false);
 		w4Table.setBackground(SystemColor.menu);
-		w4Table.setFont(new Font("Verdana", Font.PLAIN, 14));
+		w4Table.setFont(new Font("Verdana", Font.PLAIN, 18));
 		w4Table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		w4Table.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -565,7 +568,7 @@ public class Rounds {
 			}
 		});
 		w4Table.setColumnSelectionAllowed(true);
-		w4Table.setBounds(11, 180, 160, 16);
+		w4Table.setBounds(10, 254, 240, 30);
 		keyScheduler.add(w4Table);
 		w4Table.setBorder(new LineBorder(new Color(0, 0, 153)));
 		w4Table.addMouseListener(new MouseAdapter() {
@@ -574,6 +577,7 @@ public class Rounds {
 				W w = new W((round - 1) * 4 + 11);
 				w.frmWKeys.setVisible(true);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				clearAllSelection();
@@ -596,34 +600,34 @@ public class Rounds {
 		w4Table.getColumnModel().getColumn(0).setResizable(false);
 		w4Table.getColumnModel().getColumn(0).setPreferredWidth(20);
 		w4Table.getColumnModel().getColumn(0).setMinWidth(20);
-		w4Table.getColumnModel().getColumn(0).setMaxWidth(20);
+		w4Table.getColumnModel().getColumn(0).setMaxWidth(30);
 		w4Table.getColumnModel().getColumn(1).setResizable(false);
 		w4Table.getColumnModel().getColumn(1).setPreferredWidth(20);
 		w4Table.getColumnModel().getColumn(1).setMinWidth(20);
-		w4Table.getColumnModel().getColumn(1).setMaxWidth(20);
+		w4Table.getColumnModel().getColumn(1).setMaxWidth(30);
 		w4Table.getColumnModel().getColumn(2).setResizable(false);
 		w4Table.getColumnModel().getColumn(2).setPreferredWidth(20);
 		w4Table.getColumnModel().getColumn(2).setMinWidth(20);
-		w4Table.getColumnModel().getColumn(2).setMaxWidth(20);
+		w4Table.getColumnModel().getColumn(2).setMaxWidth(30);
 		w4Table.getColumnModel().getColumn(3).setResizable(false);
 		w4Table.getColumnModel().getColumn(3).setPreferredWidth(20);
 		w4Table.getColumnModel().getColumn(3).setMinWidth(20);
-		w4Table.getColumnModel().getColumn(3).setMaxWidth(20);
+		w4Table.getColumnModel().getColumn(3).setMaxWidth(30);
 		w4Table.getColumnModel().getColumn(4).setResizable(false);
 		w4Table.getColumnModel().getColumn(4).setPreferredWidth(20);
 		w4Table.getColumnModel().getColumn(4).setMinWidth(20);
-		w4Table.getColumnModel().getColumn(4).setMaxWidth(20);
+		w4Table.getColumnModel().getColumn(4).setMaxWidth(30);
 		w4Table.getColumnModel().getColumn(5).setResizable(false);
 		w4Table.getColumnModel().getColumn(5).setPreferredWidth(20);
 		w4Table.getColumnModel().getColumn(5).setMinWidth(20);
-		w4Table.getColumnModel().getColumn(5).setMaxWidth(20);
+		w4Table.getColumnModel().getColumn(5).setMaxWidth(30);
 		w4Table.getColumnModel().getColumn(6).setPreferredWidth(20);
 		w4Table.getColumnModel().getColumn(6).setMinWidth(20);
-		w4Table.getColumnModel().getColumn(6).setMaxWidth(20);
+		w4Table.getColumnModel().getColumn(6).setMaxWidth(30);
 		w4Table.getColumnModel().getColumn(7).setResizable(false);
 		w4Table.getColumnModel().getColumn(7).setPreferredWidth(20);
 		w4Table.getColumnModel().getColumn(7).setMinWidth(20);
-		w4Table.getColumnModel().getColumn(7).setMaxWidth(20);
+		w4Table.getColumnModel().getColumn(7).setMaxWidth(30);
 
 		MainFrame.tableAlignCenter(w4Table);
 
@@ -636,7 +640,7 @@ public class Rounds {
 		});
 		subKeyTable_1.setEnabled(false);
 		subKeyTable_1.setBackground(SystemColor.menu);
-		subKeyTable_1.setFont(new Font("Verdana", Font.PLAIN, 14));
+		subKeyTable_1.setFont(new Font("Verdana", Font.PLAIN, 18));
 		subKeyTable_1.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -698,7 +702,7 @@ public class Rounds {
 			}
 		});
 		subKeyTable_1.setColumnSelectionAllowed(true);
-		subKeyTable_1.setBounds(518, 79, 160, 64);
+		subKeyTable_1.setBounds(716, 97, 240, 120);
 		keyScheduler.add(subKeyTable_1);
 		subKeyTable_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		subKeyTable_1.setModel(new DefaultTableModel(SerpentData.intToObject(data.subKeys[Rounds.round - 1]),
@@ -716,35 +720,35 @@ public class Rounds {
 		subKeyTable_1.getColumnModel().getColumn(0).setResizable(false);
 		subKeyTable_1.getColumnModel().getColumn(0).setPreferredWidth(20);
 		subKeyTable_1.getColumnModel().getColumn(0).setMinWidth(20);
-		subKeyTable_1.getColumnModel().getColumn(0).setMaxWidth(20);
+		subKeyTable_1.getColumnModel().getColumn(0).setMaxWidth(30);
 		subKeyTable_1.getColumnModel().getColumn(1).setResizable(false);
 		subKeyTable_1.getColumnModel().getColumn(1).setPreferredWidth(20);
 		subKeyTable_1.getColumnModel().getColumn(1).setMinWidth(20);
-		subKeyTable_1.getColumnModel().getColumn(1).setMaxWidth(20);
+		subKeyTable_1.getColumnModel().getColumn(1).setMaxWidth(30);
 		subKeyTable_1.getColumnModel().getColumn(2).setResizable(false);
 		subKeyTable_1.getColumnModel().getColumn(2).setPreferredWidth(20);
 		subKeyTable_1.getColumnModel().getColumn(2).setMinWidth(20);
-		subKeyTable_1.getColumnModel().getColumn(2).setMaxWidth(20);
+		subKeyTable_1.getColumnModel().getColumn(2).setMaxWidth(30);
 		subKeyTable_1.getColumnModel().getColumn(3).setResizable(false);
 		subKeyTable_1.getColumnModel().getColumn(3).setPreferredWidth(20);
 		subKeyTable_1.getColumnModel().getColumn(3).setMinWidth(20);
-		subKeyTable_1.getColumnModel().getColumn(3).setMaxWidth(20);
+		subKeyTable_1.getColumnModel().getColumn(3).setMaxWidth(30);
 		subKeyTable_1.getColumnModel().getColumn(4).setResizable(false);
 		subKeyTable_1.getColumnModel().getColumn(4).setPreferredWidth(20);
 		subKeyTable_1.getColumnModel().getColumn(4).setMinWidth(20);
-		subKeyTable_1.getColumnModel().getColumn(4).setMaxWidth(20);
+		subKeyTable_1.getColumnModel().getColumn(4).setMaxWidth(30);
 		subKeyTable_1.getColumnModel().getColumn(5).setResizable(false);
 		subKeyTable_1.getColumnModel().getColumn(5).setPreferredWidth(20);
 		subKeyTable_1.getColumnModel().getColumn(5).setMinWidth(20);
-		subKeyTable_1.getColumnModel().getColumn(5).setMaxWidth(20);
+		subKeyTable_1.getColumnModel().getColumn(5).setMaxWidth(30);
 		subKeyTable_1.getColumnModel().getColumn(6).setResizable(false);
 		subKeyTable_1.getColumnModel().getColumn(6).setPreferredWidth(20);
 		subKeyTable_1.getColumnModel().getColumn(6).setMinWidth(20);
-		subKeyTable_1.getColumnModel().getColumn(6).setMaxWidth(20);
+		subKeyTable_1.getColumnModel().getColumn(6).setMaxWidth(30);
 		subKeyTable_1.getColumnModel().getColumn(7).setResizable(false);
 		subKeyTable_1.getColumnModel().getColumn(7).setPreferredWidth(20);
 		subKeyTable_1.getColumnModel().getColumn(7).setMinWidth(20);
-		subKeyTable_1.getColumnModel().getColumn(7).setMaxWidth(20);
+		subKeyTable_1.getColumnModel().getColumn(7).setMaxWidth(30);
 
 		MainFrame.tableAlignCenter(subKeyTable_1);
 
@@ -752,12 +756,12 @@ public class Rounds {
 		SubKeyAfterIPTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseExited(MouseEvent e) {
-					clearAllSelection();
+				clearAllSelection();
 			}
 		});
 		SubKeyAfterIPTable.setEnabled(false);
 		SubKeyAfterIPTable.setBackground(SystemColor.menu);
-		SubKeyAfterIPTable.setFont(new Font("Verdana", Font.PLAIN, 14));
+		SubKeyAfterIPTable.setFont(new Font("Verdana", Font.PLAIN, 18));
 		SubKeyAfterIPTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -817,7 +821,7 @@ public class Rounds {
 			}
 		});
 		SubKeyAfterIPTable.setColumnSelectionAllowed(true);
-		SubKeyAfterIPTable.setBounds(243, 79, 160, 64);
+		SubKeyAfterIPTable.setBounds(335, 97, 240, 120);
 		keyScheduler.add(SubKeyAfterIPTable);
 		SubKeyAfterIPTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		SubKeyAfterIPTable
@@ -837,66 +841,66 @@ public class Rounds {
 		SubKeyAfterIPTable.getColumnModel().getColumn(0).setResizable(false);
 		SubKeyAfterIPTable.getColumnModel().getColumn(0).setPreferredWidth(20);
 		SubKeyAfterIPTable.getColumnModel().getColumn(0).setMinWidth(20);
-		SubKeyAfterIPTable.getColumnModel().getColumn(0).setMaxWidth(20);
+		SubKeyAfterIPTable.getColumnModel().getColumn(0).setMaxWidth(30);
 		SubKeyAfterIPTable.getColumnModel().getColumn(1).setResizable(false);
 		SubKeyAfterIPTable.getColumnModel().getColumn(1).setPreferredWidth(20);
 		SubKeyAfterIPTable.getColumnModel().getColumn(1).setMinWidth(20);
-		SubKeyAfterIPTable.getColumnModel().getColumn(1).setMaxWidth(20);
+		SubKeyAfterIPTable.getColumnModel().getColumn(1).setMaxWidth(30);
 		SubKeyAfterIPTable.getColumnModel().getColumn(2).setResizable(false);
 		SubKeyAfterIPTable.getColumnModel().getColumn(2).setPreferredWidth(20);
 		SubKeyAfterIPTable.getColumnModel().getColumn(2).setMinWidth(20);
-		SubKeyAfterIPTable.getColumnModel().getColumn(2).setMaxWidth(20);
+		SubKeyAfterIPTable.getColumnModel().getColumn(2).setMaxWidth(30);
 		SubKeyAfterIPTable.getColumnModel().getColumn(3).setResizable(false);
 		SubKeyAfterIPTable.getColumnModel().getColumn(3).setPreferredWidth(20);
 		SubKeyAfterIPTable.getColumnModel().getColumn(3).setMinWidth(20);
-		SubKeyAfterIPTable.getColumnModel().getColumn(3).setMaxWidth(20);
+		SubKeyAfterIPTable.getColumnModel().getColumn(3).setMaxWidth(30);
 		SubKeyAfterIPTable.getColumnModel().getColumn(4).setResizable(false);
 		SubKeyAfterIPTable.getColumnModel().getColumn(4).setPreferredWidth(20);
 		SubKeyAfterIPTable.getColumnModel().getColumn(4).setMinWidth(20);
-		SubKeyAfterIPTable.getColumnModel().getColumn(4).setMaxWidth(20);
+		SubKeyAfterIPTable.getColumnModel().getColumn(4).setMaxWidth(30);
 		SubKeyAfterIPTable.getColumnModel().getColumn(5).setResizable(false);
 		SubKeyAfterIPTable.getColumnModel().getColumn(5).setPreferredWidth(20);
 		SubKeyAfterIPTable.getColumnModel().getColumn(5).setMinWidth(20);
-		SubKeyAfterIPTable.getColumnModel().getColumn(5).setMaxWidth(20);
+		SubKeyAfterIPTable.getColumnModel().getColumn(5).setMaxWidth(30);
 		SubKeyAfterIPTable.getColumnModel().getColumn(6).setResizable(false);
 		SubKeyAfterIPTable.getColumnModel().getColumn(6).setPreferredWidth(20);
 		SubKeyAfterIPTable.getColumnModel().getColumn(6).setMinWidth(20);
-		SubKeyAfterIPTable.getColumnModel().getColumn(6).setMaxWidth(20);
+		SubKeyAfterIPTable.getColumnModel().getColumn(6).setMaxWidth(30);
 		SubKeyAfterIPTable.getColumnModel().getColumn(7).setResizable(false);
 		SubKeyAfterIPTable.getColumnModel().getColumn(7).setPreferredWidth(20);
 		SubKeyAfterIPTable.getColumnModel().getColumn(7).setMinWidth(20);
-		SubKeyAfterIPTable.getColumnModel().getColumn(7).setMaxWidth(20);
+		SubKeyAfterIPTable.getColumnModel().getColumn(7).setMaxWidth(30);
 
 		MainFrame.tableAlignCenter(SubKeyAfterIPTable);
 
 		JLabel w1 = new JLabel("W[" + (round - 1) * 4 + 8 + ((lastSubKeyFlag == true) ? 4 : 0) + "]");
-		w1.setFont(new Font("Verdana", Font.PLAIN, 13));
-		w1.setBounds(11, 4, 121, 25);
+		w1.setFont(new Font("Verdana", Font.PLAIN, 18));
+		w1.setBounds(12, 11, 121, 25);
 		keyScheduler.add(w1);
 
 		JLabel w2 = new JLabel("W[" + (round - 1) * 4 + 9 + ((lastSubKeyFlag == true) ? 4 : 0) + "]");
-		w2.setFont(new Font("Verdana", Font.PLAIN, 13));
-		w2.setBounds(11, 53, 121, 25);
+		w2.setFont(new Font("Verdana", Font.PLAIN, 18));
+		w2.setBounds(12, 82, 121, 25);
 		keyScheduler.add(w2);
 
 		JLabel w3 = new JLabel("W[" + (round - 1) * 4 + 10 + ((lastSubKeyFlag == true) ? 4 : 0) + "]");
-		w3.setFont(new Font("Verdana", Font.PLAIN, 13));
-		w3.setBounds(11, 102, 121, 25);
+		w3.setFont(new Font("Verdana", Font.PLAIN, 18));
+		w3.setBounds(12, 153, 121, 25);
 		keyScheduler.add(w3);
 
 		JLabel w4 = new JLabel("W[" + (round - 1) * 4 + 11 + ((lastSubKeyFlag == true) ? 4 : 0) + "]");
-		w4.setFont(new Font("Verdana", Font.PLAIN, 13));
-		w4.setBounds(11, 151, 121, 25);
+		w4.setFont(new Font("Verdana", Font.PLAIN, 18));
+		w4.setBounds(11, 221, 121, 25);
 		keyScheduler.add(w4);
 
 		JLabel lblSubKeyBefore = new JLabel("Sub Key after IP");
-		lblSubKeyBefore.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblSubKeyBefore.setBounds(249, 56, 131, 25);
+		lblSubKeyBefore.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblSubKeyBefore.setBounds(335, 57, 192, 40);
 		keyScheduler.add(lblSubKeyBefore);
 
-		JLabel lblSubKey = new JLabel("Sub Key[ " + (round + ((lastSubKeyFlag == true) ? 1 : 0)) + "]");
-		lblSubKey.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblSubKey.setBounds(528, 54, 120, 25);
+		JLabel lblSubKey = new JLabel("Sub Key[" + (round + ((lastSubKeyFlag == true) ? 1 : 0)) + "]");
+		lblSubKey.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblSubKey.setBounds(716, 57, 120, 40);
 		keyScheduler.add(lblSubKey);
 
 		JPanel XOR = new JPanel();
@@ -906,28 +910,28 @@ public class Rounds {
 		XOR.setLayout(null);
 
 		JLabel lblXor = new JLabel("XOR");
-		lblXor.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblXor.setBounds(217, 89, 46, 25);
+		lblXor.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblXor.setBounds(296, 144, 46, 25);
 		XOR.add(lblXor);
 
 		JLabel label = new JLabel("=");
-		label.setFont(new Font("Verdana", Font.PLAIN, 13));
-		label.setBounds(473, 89, 33, 25);
+		label.setFont(new Font("Verdana", Font.PLAIN, 18));
+		label.setBounds(638, 144, 33, 25);
 		XOR.add(label);
 
 		JLabel lblSubkeyround = new JLabel("Sub key [" + round + "]");
-		lblSubkeyround.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblSubkeyround.setBounds(278, 42, 110, 25);
+		lblSubkeyround.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblSubkeyround.setBounds(370, 59, 132, 25);
 		XOR.add(lblSubkeyround);
 
 		JLabel lblPrivi = new JLabel("Previously result");
-		lblPrivi.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblPrivi.setBounds(24, 42, 118, 25);
+		lblPrivi.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblPrivi.setBounds(28, 59, 240, 25);
 		XOR.add(lblPrivi);
 
 		JLabel lblResult = new JLabel("Result");
-		lblResult.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblResult.setBounds(518, 42, 52, 25);
+		lblResult.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblResult.setBounds(699, 59, 132, 25);
 		XOR.add(lblResult);
 
 		prevXorResultTable = new JTable();
@@ -938,7 +942,7 @@ public class Rounds {
 			}
 		});
 		prevXorResultTable.setEnabled(false);
-		prevXorResultTable.setFont(new Font("Verdana", Font.PLAIN, 14));
+		prevXorResultTable.setFont(new Font("Verdana", Font.PLAIN, 18));
 		prevXorResultTable.setColumnSelectionAllowed(true);
 		prevXorResultTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -965,7 +969,7 @@ public class Rounds {
 
 			}
 		});
-		prevXorResultTable.setBounds(24, 69, 160, 64);
+		prevXorResultTable.setBounds(28, 97, 240, 120);
 		XOR.add(prevXorResultTable);
 		prevXorResultTable.setModel(new DefaultTableModel(
 				(ENCRYPT == true)
@@ -1013,7 +1017,7 @@ public class Rounds {
 
 		subKeyTable = new JTable();
 		subKeyTable.setEnabled(false);
-		subKeyTable.setFont(new Font("Verdana", Font.PLAIN, 14));
+		subKeyTable.setFont(new Font("Verdana", Font.PLAIN, 18));
 		subKeyTable.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		subKeyTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -1039,13 +1043,14 @@ public class Rounds {
 			}
 		});
 		subKeyTable.setColumnSelectionAllowed(true);
-		subKeyTable.setBounds(278, 69, 160, 64);
+		subKeyTable.setBounds(370, 97, 240, 120);
 		XOR.add(subKeyTable);
 		subKeyTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				tabbedPane.setSelectedIndex(0);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				clearAllSelection();
@@ -1101,7 +1106,7 @@ public class Rounds {
 			}
 		});
 		XorResultTable.setEnabled(false);
-		XorResultTable.setFont(new Font("Verdana", Font.PLAIN, 14));
+		XorResultTable.setFont(new Font("Verdana", Font.PLAIN, 18));
 		XorResultTable.setToolTipText("  ");
 		XorResultTable.setColumnSelectionAllowed(true);
 		XorResultTable.addMouseMotionListener(new MouseMotionAdapter() {
@@ -1153,7 +1158,7 @@ public class Rounds {
 		ToolTipManager.sharedInstance().setDismissDelay(10000);
 		ToolTipManager.sharedInstance().setInitialDelay(0);
 
-		XorResultTable.setBounds(519, 69, 160, 64);
+		XorResultTable.setBounds(699, 97, 240, 120);
 		XOR.add(XorResultTable);
 		XorResultTable.setModel(new DefaultTableModel(SerpentData.intToObject(data.afterXOR[round]),
 				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
@@ -1203,21 +1208,17 @@ public class Rounds {
 		SBOX.setLayout(null);
 
 		JLabel label_7 = new JLabel("Previously result");
-		label_7.setFont(new Font("Verdana", Font.PLAIN, 13));
-		label_7.setBounds(62, 46, 118, 25);
+		label_7.setFont(new Font("Verdana", Font.PLAIN, 18));
+		label_7.setBounds(88, 61, 228, 25);
 		SBOX.add(label_7);
 
 		JLabel label_8 = new JLabel("Result");
-		label_8.setFont(new Font("Verdana", Font.PLAIN, 13));
-		label_8.setBounds(481, 46, 46, 25);
+		label_8.setFont(new Font("Verdana", Font.PLAIN, 18));
+		label_8.setBounds(639, 61, 223, 25);
 		SBOX.add(label_8);
 
-		JButton button_2 = new JButton("Next");
-		button_2.setBounds(541, 230, 89, 23);
-		SBOX.add(button_2);
-
 		JButton btnSbox = new JButton((ENCRYPT == true) ? "S-Box: " : "inv S-Box: " + round % 8);
-		btnSbox.setFont(new Font("Verdana", Font.PLAIN, 13));
+		btnSbox.setFont(new Font("Verdana", Font.PLAIN, 18));
 		btnSbox.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -1229,7 +1230,7 @@ public class Rounds {
 
 			}
 		});
-		btnSbox.setBounds(284, 65, 135, 72);
+		btnSbox.setBounds(402, 121, 160, 72);
 		SBOX.add(btnSbox);
 
 		prevSBoxResultTable = new JTable();
@@ -1240,7 +1241,7 @@ public class Rounds {
 			}
 		});
 		prevSBoxResultTable.setEnabled(false);
-		prevSBoxResultTable.setFont(new Font("Verdana", Font.PLAIN, 14));
+		prevSBoxResultTable.setFont(new Font("Verdana", Font.PLAIN, 18));
 		prevSBoxResultTable.setColumnSelectionAllowed(true);
 		prevSBoxResultTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -1263,7 +1264,7 @@ public class Rounds {
 
 			}
 		});
-		prevSBoxResultTable.setBounds(62, 69, 160, 64);
+		prevSBoxResultTable.setBounds(81, 97, 240, 120);
 		SBOX.add(prevSBoxResultTable);
 		prevSBoxResultTable
 				.setModel(
@@ -1321,7 +1322,7 @@ public class Rounds {
 			}
 		});
 		SBoxResultTable.setEnabled(false);
-		SBoxResultTable.setFont(new Font("Verdana", Font.PLAIN, 14));
+		SBoxResultTable.setFont(new Font("Verdana", Font.PLAIN, 18));
 		SBoxResultTable.setColumnSelectionAllowed(true);
 		SBoxResultTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -1344,7 +1345,7 @@ public class Rounds {
 
 			}
 		});
-		SBoxResultTable.setBounds(481, 69, 160, 64);
+		SBoxResultTable.setBounds(643, 97, 240, 120);
 		SBOX.add(SBoxResultTable);
 		SBoxResultTable.setModel(
 				new DefaultTableModel(SerpentData.intToObject(data.afterSBOX[ENCRYPT ? round - 1 : round - 2]),
@@ -1388,10 +1389,6 @@ public class Rounds {
 
 		MainFrame.tableAlignCenter(SBoxResultTable);
 
-		JButton btnPreviousRound = new JButton("Previous round");
-		btnPreviousRound.setBounds(381, 230, 125, 23);
-		SBOX.add(btnPreviousRound);
-
 		JPanel LT = new JPanel();
 		LT.setBorder(null);
 		tabbedPane.addTab("Linear transforamtion", null, LT, null);
@@ -1399,13 +1396,13 @@ public class Rounds {
 		LT.setLayout(null);
 
 		JLabel label_6 = new JLabel("Previously result");
-		label_6.setFont(new Font("Verdana", Font.PLAIN, 13));
-		label_6.setBounds(45, 58, 118, 25);
+		label_6.setFont(new Font("Verdana", Font.PLAIN, 18));
+		label_6.setBounds(61, 58, 201, 25);
 		LT.add(label_6);
 
 		JLabel label_10 = new JLabel("Result");
-		label_10.setFont(new Font("Verdana", Font.PLAIN, 13));
-		label_10.setBounds(483, 58, 46, 25);
+		label_10.setFont(new Font("Verdana", Font.PLAIN, 18));
+		label_10.setBounds(663, 58, 100, 25);
 		LT.add(label_10);
 
 		prevLTResultTable = new JTable();
@@ -1416,7 +1413,7 @@ public class Rounds {
 			}
 		});
 		prevLTResultTable.setEnabled(false);
-		prevLTResultTable.setFont(new Font("Verdana", Font.PLAIN, 14));
+		prevLTResultTable.setFont(new Font("Verdana", Font.PLAIN, 18));
 		prevLTResultTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -1437,7 +1434,7 @@ public class Rounds {
 			}
 		});
 		prevLTResultTable.setColumnSelectionAllowed(true);
-		prevLTResultTable.setBounds(45, 81, 160, 64);
+		prevLTResultTable.setBounds(61, 96, 240, 121);
 		LT.add(prevLTResultTable);
 		prevLTResultTable
 				.setModel(new DefaultTableModel(
@@ -1494,7 +1491,7 @@ public class Rounds {
 			}
 		});
 		resultLTTable.setEnabled(false);
-		resultLTTable.setFont(new Font("Verdana", Font.PLAIN, 14));
+		resultLTTable.setFont(new Font("Verdana", Font.PLAIN, 18));
 		resultLTTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -1516,7 +1513,7 @@ public class Rounds {
 
 		});
 		resultLTTable.setColumnSelectionAllowed(true);
-		resultLTTable.setBounds(483, 81, 160, 64);
+		resultLTTable.setBounds(663, 96, 240, 121);
 		LT.add(resultLTTable);
 		resultLTTable
 				.setModel(new DefaultTableModel(SerpentData.intToObject(data.afterLT[ENCRYPT ? round - 1 : round - 1]),
@@ -1561,7 +1558,7 @@ public class Rounds {
 		MainFrame.tableAlignCenter(resultLTTable);
 
 		JButton btnLinearTransformation = new JButton("Linear Transformation");
-		btnLinearTransformation.setFont(new Font("Verdana", Font.PLAIN, 13));
+		btnLinearTransformation.setFont(new Font("Verdana", Font.PLAIN, 18));
 		btnLinearTransformation.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -1570,7 +1567,7 @@ public class Rounds {
 			}
 		});
 		btnLinearTransformation.setHorizontalAlignment(SwingConstants.LEADING);
-		btnLinearTransformation.setBounds(250, 81, 188, 70);
+		btnLinearTransformation.setBounds(362, 122, 240, 70);
 		LT.add(btnLinearTransformation);
 
 		JPanel XORFinal = new JPanel();
@@ -1582,33 +1579,33 @@ public class Rounds {
 		tabbedPane.setEnabledAt(4, false);
 
 		JLabel label_1 = new JLabel("XOR");
-		label_1.setFont(new Font("Verdana", Font.PLAIN, 13));
+		label_1.setFont(new Font("Verdana", Font.PLAIN, 18));
 		label_1.setBackground(SystemColor.menu);
-		label_1.setBounds(216, 106, 46, 25);
+		label_1.setBounds(296, 144, 46, 25);
 		XORFinal.add(label_1);
 
 		JLabel label_2 = new JLabel("=");
-		label_2.setFont(new Font("Verdana", Font.PLAIN, 13));
+		label_2.setFont(new Font("Verdana", Font.PLAIN, 18));
 		label_2.setBackground(SystemColor.menu);
-		label_2.setBounds(461, 106, 33, 25);
+		label_2.setBounds(638, 144, 33, 25);
 		XORFinal.add(label_2);
 
 		JLabel label_3 = new JLabel("SubKey[33]");
-		label_3.setFont(new Font("Verdana", Font.PLAIN, 13));
+		label_3.setFont(new Font("Verdana", Font.PLAIN, 18));
 		label_3.setBackground(SystemColor.menu);
-		label_3.setBounds(272, 50, 110, 25);
+		label_3.setBounds(370, 61, 142, 25);
 		XORFinal.add(label_3);
 
 		JLabel label_4 = new JLabel("Previously result");
-		label_4.setFont(new Font("Verdana", Font.PLAIN, 13));
+		label_4.setFont(new Font("Verdana", Font.PLAIN, 18));
 		label_4.setBackground(SystemColor.menu);
-		label_4.setBounds(23, 50, 118, 25);
+		label_4.setBounds(28, 61, 189, 25);
 		XORFinal.add(label_4);
 
 		JLabel label_5 = new JLabel("Result");
-		label_5.setFont(new Font("Verdana", Font.PLAIN, 13));
+		label_5.setFont(new Font("Verdana", Font.PLAIN, 18));
 		label_5.setBackground(SystemColor.menu);
-		label_5.setBounds(509, 50, 52, 25);
+		label_5.setBounds(699, 61, 118, 25);
 		XORFinal.add(label_5);
 
 		prevXorFTable = new JTable();
@@ -1619,7 +1616,7 @@ public class Rounds {
 			}
 		});
 		prevXorFTable.setEnabled(false);
-		prevXorFTable.setFont(new Font("Verdana", Font.PLAIN, 14));
+		prevXorFTable.setFont(new Font("Verdana", Font.PLAIN, 18));
 		prevXorFTable.setColumnSelectionAllowed(true);
 		prevXorFTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -1646,7 +1643,7 @@ public class Rounds {
 
 			}
 		});
-		prevXorFTable.setBounds(22, 81, 160, 64);
+		prevXorFTable.setBounds(28, 97, 240, 120);
 		XORFinal.add(prevXorFTable);
 		prevXorFTable.setModel(new DefaultTableModel(SerpentData.intToObject(data.afterSBOX[31]),
 				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
@@ -1662,28 +1659,28 @@ public class Rounds {
 		});
 		prevXorFTable.getColumnModel().getColumn(0).setPreferredWidth(20);
 		prevXorFTable.getColumnModel().getColumn(0).setMinWidth(20);
-		prevXorFTable.getColumnModel().getColumn(0).setMaxWidth(20);
+		prevXorFTable.getColumnModel().getColumn(0).setMaxWidth(30);
 		prevXorFTable.getColumnModel().getColumn(1).setPreferredWidth(20);
 		prevXorFTable.getColumnModel().getColumn(1).setMinWidth(20);
-		prevXorFTable.getColumnModel().getColumn(1).setMaxWidth(20);
+		prevXorFTable.getColumnModel().getColumn(1).setMaxWidth(30);
 		prevXorFTable.getColumnModel().getColumn(2).setPreferredWidth(20);
 		prevXorFTable.getColumnModel().getColumn(2).setMinWidth(20);
-		prevXorFTable.getColumnModel().getColumn(2).setMaxWidth(20);
+		prevXorFTable.getColumnModel().getColumn(2).setMaxWidth(30);
 		prevXorFTable.getColumnModel().getColumn(3).setPreferredWidth(20);
 		prevXorFTable.getColumnModel().getColumn(3).setMinWidth(20);
-		prevXorFTable.getColumnModel().getColumn(3).setMaxWidth(20);
+		prevXorFTable.getColumnModel().getColumn(3).setMaxWidth(30);
 		prevXorFTable.getColumnModel().getColumn(4).setPreferredWidth(20);
 		prevXorFTable.getColumnModel().getColumn(4).setMinWidth(20);
-		prevXorFTable.getColumnModel().getColumn(4).setMaxWidth(20);
+		prevXorFTable.getColumnModel().getColumn(4).setMaxWidth(30);
 		prevXorFTable.getColumnModel().getColumn(5).setPreferredWidth(20);
 		prevXorFTable.getColumnModel().getColumn(5).setMinWidth(20);
-		prevXorFTable.getColumnModel().getColumn(5).setMaxWidth(20);
+		prevXorFTable.getColumnModel().getColumn(5).setMaxWidth(30);
 		prevXorFTable.getColumnModel().getColumn(6).setPreferredWidth(20);
 		prevXorFTable.getColumnModel().getColumn(6).setMinWidth(20);
-		prevXorFTable.getColumnModel().getColumn(6).setMaxWidth(20);
+		prevXorFTable.getColumnModel().getColumn(6).setMaxWidth(30);
 		prevXorFTable.getColumnModel().getColumn(7).setPreferredWidth(20);
 		prevXorFTable.getColumnModel().getColumn(7).setMinWidth(20);
-		prevXorFTable.getColumnModel().getColumn(7).setMaxWidth(20);
+		prevXorFTable.getColumnModel().getColumn(7).setMaxWidth(30);
 		prevXorFTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		prevXorFTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		prevXorFTable.setBackground(SystemColor.menu);
@@ -1692,7 +1689,7 @@ public class Rounds {
 
 		SubKeyTable = new JTable();
 		SubKeyTable.setEnabled(false);
-		SubKeyTable.setFont(new Font("Verdana", Font.PLAIN, 14));
+		SubKeyTable.setFont(new Font("Verdana", Font.PLAIN, 18));
 		SubKeyTable.setColumnSelectionAllowed(true);
 		SubKeyTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -1718,7 +1715,7 @@ public class Rounds {
 				}
 			}
 		});
-		SubKeyTable.setBounds(272, 81, 160, 64);
+		SubKeyTable.setBounds(370, 97, 240, 120);
 		XORFinal.add(SubKeyTable);
 		SubKeyTable.addMouseListener(new MouseAdapter() {
 			@Override
@@ -1730,7 +1727,7 @@ public class Rounds {
 				refreshTable(w3Table, W3, 32);
 				refreshTable(w4Table, W4, 32);
 
-				lblSubKey.setText("Sub Key[ " + (round + ((lastSubKeyFlag == true) ? 1 : 0)) + "]");
+				lblSubKey.setText("Sub Key[" + (round + ((lastSubKeyFlag == true) ? 1 : 0)) + "]");
 
 				btnSbox_1.setText("S-Box: " + ((40 - (round - ((lastSubKeyFlag == true) ? 1 : 0)) - 4) % 8 + 1));
 
@@ -1765,35 +1762,35 @@ public class Rounds {
 		SubKeyTable.getColumnModel().getColumn(0).setResizable(false);
 		SubKeyTable.getColumnModel().getColumn(0).setPreferredWidth(20);
 		SubKeyTable.getColumnModel().getColumn(0).setMinWidth(20);
-		SubKeyTable.getColumnModel().getColumn(0).setMaxWidth(20);
+		SubKeyTable.getColumnModel().getColumn(0).setMaxWidth(30);
 		SubKeyTable.getColumnModel().getColumn(1).setResizable(false);
 		SubKeyTable.getColumnModel().getColumn(1).setPreferredWidth(20);
 		SubKeyTable.getColumnModel().getColumn(1).setMinWidth(20);
-		SubKeyTable.getColumnModel().getColumn(1).setMaxWidth(20);
+		SubKeyTable.getColumnModel().getColumn(1).setMaxWidth(30);
 		SubKeyTable.getColumnModel().getColumn(2).setResizable(false);
 		SubKeyTable.getColumnModel().getColumn(2).setPreferredWidth(20);
 		SubKeyTable.getColumnModel().getColumn(2).setMinWidth(20);
-		SubKeyTable.getColumnModel().getColumn(2).setMaxWidth(20);
+		SubKeyTable.getColumnModel().getColumn(2).setMaxWidth(30);
 		SubKeyTable.getColumnModel().getColumn(3).setResizable(false);
 		SubKeyTable.getColumnModel().getColumn(3).setPreferredWidth(20);
 		SubKeyTable.getColumnModel().getColumn(3).setMinWidth(20);
-		SubKeyTable.getColumnModel().getColumn(3).setMaxWidth(20);
+		SubKeyTable.getColumnModel().getColumn(3).setMaxWidth(30);
 		SubKeyTable.getColumnModel().getColumn(4).setResizable(false);
 		SubKeyTable.getColumnModel().getColumn(4).setPreferredWidth(20);
 		SubKeyTable.getColumnModel().getColumn(4).setMinWidth(20);
-		SubKeyTable.getColumnModel().getColumn(4).setMaxWidth(20);
+		SubKeyTable.getColumnModel().getColumn(4).setMaxWidth(30);
 		SubKeyTable.getColumnModel().getColumn(5).setResizable(false);
 		SubKeyTable.getColumnModel().getColumn(5).setPreferredWidth(20);
 		SubKeyTable.getColumnModel().getColumn(5).setMinWidth(20);
-		SubKeyTable.getColumnModel().getColumn(5).setMaxWidth(20);
+		SubKeyTable.getColumnModel().getColumn(5).setMaxWidth(30);
 		SubKeyTable.getColumnModel().getColumn(6).setResizable(false);
 		SubKeyTable.getColumnModel().getColumn(6).setPreferredWidth(20);
 		SubKeyTable.getColumnModel().getColumn(6).setMinWidth(20);
-		SubKeyTable.getColumnModel().getColumn(6).setMaxWidth(20);
+		SubKeyTable.getColumnModel().getColumn(6).setMaxWidth(30);
 		SubKeyTable.getColumnModel().getColumn(7).setResizable(false);
 		SubKeyTable.getColumnModel().getColumn(7).setPreferredWidth(20);
 		SubKeyTable.getColumnModel().getColumn(7).setMinWidth(20);
-		SubKeyTable.getColumnModel().getColumn(7).setMaxWidth(20);
+		SubKeyTable.getColumnModel().getColumn(7).setMaxWidth(30);
 		SubKeyTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		SubKeyTable.setBorder(new LineBorder(new Color(0, 0, 204)));
 		SubKeyTable.setBackground(SystemColor.menu);
@@ -1808,7 +1805,7 @@ public class Rounds {
 			}
 		});
 		ResultTable.setEnabled(false);
-		ResultTable.setFont(new Font("Verdana", Font.PLAIN, 14));
+		ResultTable.setFont(new Font("Verdana", Font.PLAIN, 18));
 		ResultTable.setColumnSelectionAllowed(true);
 		ResultTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -1853,7 +1850,7 @@ public class Rounds {
 				}
 			}
 		});
-		ResultTable.setBounds(509, 81, 160, 64);
+		ResultTable.setBounds(699, 97, 240, 120);
 		XORFinal.add(ResultTable);
 		ResultTable.setModel(new DefaultTableModel(SerpentData.intToObject(data.afterXOR[32]),
 				new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }) {
@@ -1870,35 +1867,35 @@ public class Rounds {
 		ResultTable.getColumnModel().getColumn(0).setResizable(false);
 		ResultTable.getColumnModel().getColumn(0).setPreferredWidth(20);
 		ResultTable.getColumnModel().getColumn(0).setMinWidth(20);
-		ResultTable.getColumnModel().getColumn(0).setMaxWidth(20);
+		ResultTable.getColumnModel().getColumn(0).setMaxWidth(30);
 		ResultTable.getColumnModel().getColumn(1).setResizable(false);
 		ResultTable.getColumnModel().getColumn(1).setPreferredWidth(20);
 		ResultTable.getColumnModel().getColumn(1).setMinWidth(20);
-		ResultTable.getColumnModel().getColumn(1).setMaxWidth(20);
+		ResultTable.getColumnModel().getColumn(1).setMaxWidth(30);
 		ResultTable.getColumnModel().getColumn(2).setResizable(false);
 		ResultTable.getColumnModel().getColumn(2).setPreferredWidth(20);
 		ResultTable.getColumnModel().getColumn(2).setMinWidth(20);
-		ResultTable.getColumnModel().getColumn(2).setMaxWidth(20);
+		ResultTable.getColumnModel().getColumn(2).setMaxWidth(30);
 		ResultTable.getColumnModel().getColumn(3).setResizable(false);
 		ResultTable.getColumnModel().getColumn(3).setPreferredWidth(20);
 		ResultTable.getColumnModel().getColumn(3).setMinWidth(20);
-		ResultTable.getColumnModel().getColumn(3).setMaxWidth(20);
+		ResultTable.getColumnModel().getColumn(3).setMaxWidth(30);
 		ResultTable.getColumnModel().getColumn(4).setResizable(false);
 		ResultTable.getColumnModel().getColumn(4).setPreferredWidth(20);
 		ResultTable.getColumnModel().getColumn(4).setMinWidth(20);
-		ResultTable.getColumnModel().getColumn(4).setMaxWidth(20);
+		ResultTable.getColumnModel().getColumn(4).setMaxWidth(30);
 		ResultTable.getColumnModel().getColumn(5).setResizable(false);
 		ResultTable.getColumnModel().getColumn(5).setPreferredWidth(20);
 		ResultTable.getColumnModel().getColumn(5).setMinWidth(20);
-		ResultTable.getColumnModel().getColumn(5).setMaxWidth(20);
+		ResultTable.getColumnModel().getColumn(5).setMaxWidth(30);
 		ResultTable.getColumnModel().getColumn(6).setResizable(false);
 		ResultTable.getColumnModel().getColumn(6).setPreferredWidth(20);
 		ResultTable.getColumnModel().getColumn(6).setMinWidth(20);
-		ResultTable.getColumnModel().getColumn(6).setMaxWidth(20);
+		ResultTable.getColumnModel().getColumn(6).setMaxWidth(30);
 		ResultTable.getColumnModel().getColumn(7).setResizable(false);
 		ResultTable.getColumnModel().getColumn(7).setPreferredWidth(20);
 		ResultTable.getColumnModel().getColumn(7).setMinWidth(20);
-		ResultTable.getColumnModel().getColumn(7).setMaxWidth(20);
+		ResultTable.getColumnModel().getColumn(7).setMaxWidth(30);
 		ResultTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		ResultTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		ResultTable.setBackground(SystemColor.menu);
@@ -1906,18 +1903,18 @@ public class Rounds {
 		MainFrame.tableAlignCenter(ResultTable);
 
 		JButton btnNext = new JButton("Next");
-		btnNext.setFont(new Font("Verdana", Font.PLAIN, 13));
-		btnNext.setBounds(629, 303, 89, 25);
+		btnNext.setFont(new Font("Verdana", Font.PLAIN, 18));
+		btnNext.setBounds(813, 412, 131, 35);
 		frmSerpentRounds.getContentPane().add(btnNext);
 
 		JLabel lblRound = new JLabel("Round: ");
-		lblRound.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblRound.setBounds(16, 303, 67, 25);
+		lblRound.setFont(new Font("Verdana", Font.PLAIN, 18));
+		lblRound.setBounds(10, 417, 71, 25);
 		frmSerpentRounds.getContentPane().add(lblRound);
 
 		JLabel roundNumber = new JLabel(Integer.toString(round + 1));
-		roundNumber.setFont(new Font("Verdana", Font.PLAIN, 13));
-		roundNumber.setBounds(93, 303, 46, 25);
+		roundNumber.setFont(new Font("Verdana", Font.PLAIN, 18));
+		roundNumber.setBounds(87, 417, 46, 25);
 		frmSerpentRounds.getContentPane().add(roundNumber);
 
 		if (ENCRYPT == true) {
@@ -1950,7 +1947,7 @@ public class Rounds {
 				btnSbox.setText(((ENCRYPT == true) ? "S-Box: " : "inv S-Box: ") + ((round - 1) % 8 + 1));
 				lblSubkeyround.setText("Sub Key[" + round + "]");
 				btnSbox_1.setText("S-Box: " + ((40 - (round - ((lastSubKeyFlag == true) ? 1 : 0)) - 4) % 8 + 1));
-				lblSubKey.setText("Sub Key[ " + (round + ((lastSubKeyFlag == true) ? 1 : 0)) + "]");
+				lblSubKey.setText("Sub Key[" + (round + ((lastSubKeyFlag == true) ? 1 : 0)) + "]");
 				roundNumber.setText("" + round);
 
 				w1.setText("W[" + ((round - 1) * 4 + 8 + ((lastSubKeyFlag == true) ? 4 : 0)) + "]");
@@ -2037,7 +2034,7 @@ public class Rounds {
 		slider.setValue(round);
 		slider.setMinimum(1);
 		slider.setMaximum(32);
-		slider.setBounds(149, 303, 200, 25);
+		slider.setBounds(143, 417, 200, 25);
 		frmSerpentRounds.getContentPane().add(slider);
 
 		btnNext.addMouseListener(new MouseAdapter() {
@@ -2075,7 +2072,7 @@ public class Rounds {
 		});
 
 		JButton btnPreviuous = new JButton("Previous");
-		btnPreviuous.setFont(new Font("Verdana", Font.PLAIN, 13));
+		btnPreviuous.setFont(new Font("Verdana", Font.PLAIN, 18));
 		btnPreviuous.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -2099,17 +2096,17 @@ public class Rounds {
 			}
 		});
 
-		btnPreviuous.setBounds(520, 303, 99, 25);
+		btnPreviuous.setBounds(672, 412, 131, 35);
 		frmSerpentRounds.getContentPane().add(btnPreviuous);
 
 		JPanel navPanel = new JPanel();
 		navPanel.setBorder(new TitledBorder(null, "Navigation", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		navPanel.setLayout(null);
-		navPanel.setBounds(728, 40, 180, 224);
+		navPanel.setBounds(1004, 47, 230, 344);
 		frmSerpentRounds.getContentPane().add(navPanel);
 
 		JButton firstPermutation = new JButton("Inital permutation");
-		firstPermutation.setFont(new Font("Verdana", Font.PLAIN, 13));
+		firstPermutation.setFont(new Font("Verdana", Font.PLAIN, 18));
 		firstPermutation.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -2121,11 +2118,11 @@ public class Rounds {
 
 			}
 		});
-		firstPermutation.setBounds(10, 25, 160, 25);
+		firstPermutation.setBounds(10, 40, 220, 35);
 		navPanel.add(firstPermutation);
 
 		JButton lastPermutation = new JButton("Final Permutation");
-		lastPermutation.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lastPermutation.setFont(new Font("Verdana", Font.PLAIN, 18));
 		lastPermutation.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -2136,11 +2133,11 @@ public class Rounds {
 				MainFrame.mainFrame.roundFrame.frmSerpentRounds.setVisible(false);
 			}
 		});
-		lastPermutation.setBounds(10, 121, 160, 25);
+		lastPermutation.setBounds(10, 190, 220, 35);
 		navPanel.add(lastPermutation);
 
 		JButton reset = new JButton("Reset");
-		reset.setFont(new Font("Verdana", Font.PLAIN, 13));
+		reset.setFont(new Font("Verdana", Font.PLAIN, 18));
 		reset.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -2149,14 +2146,33 @@ public class Rounds {
 				MainFrame.mainFrame.roundFrame.frmSerpentRounds.setVisible(false);
 			}
 		});
-		reset.setBounds(10, 169, 160, 25);
+		reset.setBounds(10, 265, 220, 35);
 		navPanel.add(reset);
 
 		JButton button_4 = new JButton("Rounds");
-		button_4.setFont(new Font("Verdana", Font.PLAIN, 13));
+		button_4.setFont(new Font("Verdana", Font.PLAIN, 18));
 		button_4.setEnabled(false);
-		button_4.setBounds(10, 73, 160, 25);
+		button_4.setBounds(10, 115, 220, 35);
 		navPanel.add(button_4);
+
+		prevXorResultTable.setRowHeight(30);
+		subKeyTable.setRowHeight(30);
+		subKeyTable_1.setRowHeight(30);
+		XorResultTable.setRowHeight(30);
+		prevSBoxResultTable.setRowHeight(30);
+		SBoxResultTable.setRowHeight(30);
+		prevLTResultTable.setRowHeight(30);
+		resultLTTable.setRowHeight(30);
+
+		w2Table.setRowHeight(30);
+		w1Table.setRowHeight(30);
+		w3Table.setRowHeight(30);
+		w4Table.setRowHeight(30);
+		SubKeyAfterIPTable.setRowHeight(30);
+
+		prevXorFTable.setRowHeight(30);
+		SubKeyTable.setRowHeight(30);
+		ResultTable.setRowHeight(30);
 
 	}
 }

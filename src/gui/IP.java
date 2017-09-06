@@ -67,11 +67,12 @@ public class IP {
 		frmInitalPermutationPanel.setResizable(false);
 		frmInitalPermutationPanel.setTitle("Inital permutation table");
 		frmInitalPermutationPanel.setType(Type.POPUP);
-		frmInitalPermutationPanel.setBounds(100, 100, 920, 465);
+		frmInitalPermutationPanel.setBounds(100, 100, 1000, 700);
 		frmInitalPermutationPanel.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmInitalPermutationPanel.getContentPane().setLayout(null);
 
 		PlainTextTable = new JTable();
+		PlainTextTable.setRowHeight(30);
 		PlainTextTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -83,7 +84,7 @@ public class IP {
 			}
 		});
 		PlainTextTable.setEnabled(false);
-		PlainTextTable.setFont(new Font("Verdana", Font.PLAIN, 14));
+		PlainTextTable.setFont(new Font("Verdana", Font.PLAIN, 18));
 		PlainTextTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -128,7 +129,7 @@ public class IP {
 			}
 		});
 		PlainTextTable.setColumnSelectionAllowed(true);
-		PlainTextTable.setBounds(369, 19, 175, 64);
+		PlainTextTable.setBounds(377, 11, 240, 120);
 		frmInitalPermutationPanel.getContentPane().add(PlainTextTable);
 		PlainTextTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
@@ -177,6 +178,7 @@ public class IP {
 		MainFrame.tableAlignCenter(PlainTextTable);
 
 		AfterInitalTable = new JTable();
+		AfterInitalTable.setRowHeight(30);
 		AfterInitalTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -188,7 +190,7 @@ public class IP {
 			}
 		});
 		AfterInitalTable.setEnabled(false);
-		AfterInitalTable.setFont(new Font("Verdana", Font.PLAIN, 14));
+		AfterInitalTable.setFont(new Font("Verdana", Font.PLAIN, 18));
 		AfterInitalTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -225,7 +227,7 @@ public class IP {
 			}
 		});
 		AfterInitalTable.setColumnSelectionAllowed(true);
-		AfterInitalTable.setBounds(369, 351, 175, 64);
+		AfterInitalTable.setBounds(377, 535, 240, 120);
 		frmInitalPermutationPanel.getContentPane().add(AfterInitalTable);
 		AfterInitalTable.setModel(new DefaultTableModel(
 				(type == INITAL_PERMUTATION) ? (SerpentData.intToObject(data.afterInitalPermutation))
@@ -274,8 +276,9 @@ public class IP {
 		MainFrame.tableAlignCenter(AfterInitalTable);
 
 		table = new JTable();
+		table.setRowHeight(30);
 		table.setEnabled(false);
-		table.setFont(new Font("Verdana", Font.PLAIN, 11));
+		table.setFont(new Font("Verdana", Font.PLAIN, 14));
 		table.setToolTipText("   ");
 		table.setColumnSelectionAllowed(true);
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -431,10 +434,11 @@ public class IP {
 
 		MainFrame.tableAlignCenter(table);
 
-		table.setBounds(5, 185, 903, 64);
+		table.setBounds(16, 273, 960, 120);
 		frmInitalPermutationPanel.getContentPane().add(table);
 
 		plainTextTable = new JTable();
+		plainTextTable.setRowHeight(30);
 		plainTextTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -446,7 +450,7 @@ public class IP {
 			}
 		});
 		plainTextTable.setEnabled(false);
-		plainTextTable.setFont(new Font("Verdana", Font.PLAIN, 14));
+		plainTextTable.setFont(new Font("Verdana", Font.PLAIN, 18));
 		plainTextTable.setColumnSelectionAllowed(true);
 		plainTextTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -623,12 +627,13 @@ public class IP {
 		plainTextTable.getColumnModel().getColumn(31).setMinWidth(25);
 		plainTextTable.getColumnModel().getColumn(31).setMaxWidth(30);
 
-		plainTextTable.setBounds(5, 102, 903, 64);
+		plainTextTable.setBounds(16, 142, 960, 120);
 		MainFrame.tableAlignCenter(plainTextTable);
 
 		frmInitalPermutationPanel.getContentPane().add(plainTextTable);
 
 		AfterIPTable = new JTable();
+		AfterIPTable.setRowHeight(30);
 		AfterIPTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -640,7 +645,7 @@ public class IP {
 			}
 		});
 		AfterIPTable.setEnabled(false);
-		AfterIPTable.setFont(new Font("Verdana", Font.PLAIN, 14));
+		AfterIPTable.setFont(new Font("Verdana", Font.PLAIN, 18));
 		AfterIPTable.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -819,7 +824,7 @@ public class IP {
 		AfterIPTable.getColumnModel().getColumn(31).setMaxWidth(30);
 		MainFrame.tableAlignCenter(AfterIPTable);
 
-		AfterIPTable.setBounds(5, 268, 903, 64);
+		AfterIPTable.setBounds(16, 404, 960, 120);
 		frmInitalPermutationPanel.getContentPane().add(AfterIPTable);
 
 	}
